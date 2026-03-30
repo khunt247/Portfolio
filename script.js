@@ -1001,6 +1001,14 @@ const themeToggle = document.getElementById('themeToggle');
 const bodyEl = document.body;
 let isDark = true;
 
+function setThemeToggleAria(isDarkMode) {
+    if (!themeToggle) return;
+    themeToggle.setAttribute(
+        'aria-label',
+        isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'
+    );
+}
+
 // Respect saved preference, otherwise default to dark mode
 const savedTheme = localStorage.getItem('theme');
 isDark = savedTheme ? savedTheme === 'dark' : true;
@@ -1008,20 +1016,19 @@ isDark = savedTheme ? savedTheme === 'dark' : true;
 // Apply initial theme
 bodyEl.setAttribute('data-theme', isDark ? 'dark' : 'light');
 document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-themeToggle.querySelector('.theme-icon').textContent = isDark ? '🌙' : '☀️';
+setThemeToggleAria(isDark);
 
-themeToggle.addEventListener('click', () => {
-    isDark = !isDark;
-    bodyEl.setAttribute('data-theme', isDark ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-    themeToggle.querySelector('.theme-icon').textContent = isDark ? '🌙' : '☀️';
-    
-    // Save preference
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    
-    // Add ripple effect
-    const ripple = document.createElement('div');
-    ripple.style.cssText = `
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        isDark = !isDark;
+        bodyEl.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        setThemeToggleAria(isDark);
+
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+        const ripple = document.createElement('div');
+        ripple.style.cssText = `
         position: absolute;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.3);
@@ -1035,12 +1042,20 @@ themeToggle.addEventListener('click', () => {
         margin-left: -10px;
         margin-top: -10px;
     `;
-    
-    themeToggle.style.position = 'relative';
-    themeToggle.appendChild(ripple);
-    
-    setTimeout(() => ripple.remove(), 600);
-});
+
+        themeToggle.style.position = 'relative';
+        themeToggle.appendChild(ripple);
+
+        setTimeout(() => ripple.remove(), 600);
+    });
+
+    themeToggle.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            themeToggle.click();
+        }
+    });
+}
 
 // Add ripple animation
 const rippleStyle = document.createElement('style');

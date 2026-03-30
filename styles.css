@@ -918,8 +918,15 @@ canvas#particleCanvas {
 }
 
 .theme-icon {
-    font-size: var(--font-size-xl);
     display: block;
+    width: var(--font-size-xl);
+    height: var(--font-size-xl);
+    flex-shrink: 0;
+}
+
+html[data-theme="dark"] .theme-toggle .theme-icon--sun,
+html[data-theme="light"] .theme-toggle .theme-icon--moon {
+    display: none;
 }
 
 /* Performance Monitor */
@@ -4555,7 +4562,8 @@ footer {
     }
     
     .theme-icon {
-        font-size: var(--font-size-lg);
+        width: var(--font-size-lg);
+        height: var(--font-size-lg);
     }
 
     .hero {
@@ -4713,7 +4721,8 @@ footer {
     }
 
     .theme-icon {
-        font-size: 1.1rem;
+        width: 1.1rem;
+        height: 1.1rem;
     }
 }
 

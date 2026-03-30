@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Trading Playbook — Case Study | Katie Hunt</title>
+    <link rel="icon" href="../images/HPE pyramid.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/HPE pyramid.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="./case-studies.css">
+    <style>
+        /* ── Case Study Layout ── */
+        .cs-page {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+
+        .cs-container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+
+        .cs-container--wide {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+
+        /* ── Hero ── */
+        .cs-hero {
+            padding: var(--space-16) 0 var(--space-12);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-back {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-8);
+            transition: opacity var(--transition-fast);
+        }
+
+        .cs-back:hover { opacity: 0.75; }
+
+        .cs-tag {
+            display: inline-block;
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            margin-bottom: var(--space-4);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-title {
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            font-weight: var(--font-weight-extrabold);
+            color: var(--text-primary);
+            line-height: var(--line-height-tight);
+            margin-bottom: var(--space-6);
+        }
+
+        .cs-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+            padding-top: var(--space-6);
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-meta-item { display: flex; flex-direction: column; gap: 2px; }
+
+        .cs-meta-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .cs-meta-value {
+            font-size: var(--font-size-sm);
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* ── Sections ── */
+        .cs-section {
+            padding: var(--space-16) 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-section:last-of-type { border-bottom: none; }
+
+        .cs-section--full {
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+
+        .cs-h2 {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-8);
+        }
+
+        .cs-h3 {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+        }
+
+        .cs-h4 {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--accent-primary);
+            margin-bottom: var(--space-3);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.04em;
+        }
+
+        .cs-p {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-relaxed);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-5);
+        }
+
+        .cs-p:last-child { margin-bottom: 0; }
+
+        .cs-p strong { color: var(--text-primary); font-weight: var(--font-weight-semibold); }
+
+        /* ── Deliverables row ── */
+        .cs-deliverables {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+
+        .cs-deliverable-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+            transition: border-color var(--transition-normal);
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        .cs-deliverable-card:hover { border-color: var(--accent-primary); }
+        .cs-deliverable-card .cs-h4 {
+            margin-bottom: var(--space-3);
+            font-size: var(--font-size-lg);
+        }
+
+        .cs-deliverable-desc {
+            font-size: var(--font-size-base);
+            color: var(--text-secondary);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ── Process row ── */
+        .cs-process {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: var(--space-5);
+            margin-top: var(--space-8);
+        }
+
+        .cs-process-step {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            padding: var(--space-6);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border-left: 3px solid var(--accent-primary);
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        .cs-step-num {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.1em;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-step-label {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+        }
+
+        .cs-step-desc {
+            font-size: var(--font-size-sm);
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ── Images ── */
+        .cs-img {
+            width: 100%;
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(255,255,255,0.08);
+            display: block;
+            background: var(--bg-secondary);
+        }
+
+        .cs-img-caption {
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: var(--space-3);
+            font-style: italic;
+        }
+
+        .cs-img-wrap { margin: var(--space-10) 0; }
+
+        /* ── Two-col comparison ── */
+        .cs-compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-5);
+            margin: var(--space-8) 0;
+        }
+
+        @media (max-width: 600px) {
+            .cs-compare { grid-template-columns: 1fr; }
+        }
+
+        .cs-compare-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+        }
+
+        .cs-compare-card img { width: 100%; display: block; }
+
+        .cs-compare-card-body { padding: var(--space-5); }
+
+        .cs-compare-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: var(--space-2);
+        }
+
+        .cs-compare-chosen { border-color: var(--accent-primary); }
+        .cs-compare-chosen .cs-compare-label { color: var(--accent-primary); }
+
+        /* ── Bullet lists ── */
+        .cs-problem-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            margin: var(--space-5) 0;
+        }
+
+        .cs-problem-list li {
+            display: flex;
+            gap: var(--space-3);
+            align-items: flex-start;
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            line-height: var(--line-height-relaxed);
+        }
+
+        .cs-problem-list li::before {
+            content: '→';
+            color: var(--accent-tertiary);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: var(--font-weight-bold);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .cs-finding-list li::before { color: var(--accent-primary); }
+
+        /* ── Table ── */
+        .cs-table-wrap {
+            overflow-x: auto;
+            margin: var(--space-6) 0;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .cs-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: var(--font-size-sm);
+        }
+
+        .cs-table th {
+            text-align: left;
+            padding: var(--space-3) var(--space-5);
+            background: var(--bg-secondary);
+            color: var(--text-muted);
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-xs);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-table td {
+            padding: var(--space-3) var(--space-5);
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .cs-table tr:last-child td { border-bottom: none; }
+        .cs-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .cs-table td:first-child { color: var(--text-primary); font-weight: var(--font-weight-medium); }
+
+        /* ── Gallery ── */
+        .cs-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-5);
+            margin-top: var(--space-8);
+        }
+
+        .cs-gallery-item {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: border-color var(--transition-normal), transform var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .cs-gallery-item:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .cs-gallery-item img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 16/10;
+        }
+
+        .cs-gallery-caption {
+            padding: var(--space-3) var(--space-4);
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ── Design system tiers ── */
+        .cs-system-tiers {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            margin: var(--space-8) 0;
+        }
+
+        .cs-tier {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-5);
+            padding: var(--space-5);
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-tier-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+            min-width: 110px;
+            margin-top: 2px;
+        }
+
+        .cs-tier-examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+        }
+
+        .cs-tier-tag {
+            font-size: var(--font-size-xs);
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            background: var(--bg-glass);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* ── Details / collapsible ── */
+        .cs-details {
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-top: var(--space-8);
+        }
+
+        .cs-details summary {
+            padding: var(--space-5) var(--space-6);
+            cursor: pointer;
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            user-select: none;
+        }
+
+        .cs-details summary::before {
+            content: '▶';
+            font-size: 0.6em;
+            color: var(--accent-primary);
+            transition: transform var(--transition-fast);
+        }
+
+        .cs-details[open] summary::before { transform: rotate(90deg); }
+
+        .cs-details-body {
+            padding: var(--space-6);
+            background: var(--bg-primary);
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-details-body .cs-p { font-size: var(--font-size-sm); }
+
+        /* ── Outcome links ── */
+        .cs-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+            margin-top: var(--space-8);
+        }
+
+        .cs-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            text-decoration: none;
+            transition: all var(--transition-normal);
+        }
+
+        .cs-link-btn--primary {
+            background: var(--accent-primary);
+            color: var(--text-inverse);
+        }
+
+        .cs-link-btn--primary:hover {
+            background: var(--accent-primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .cs-link-btn--secondary {
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--text-secondary);
+            background: var(--bg-glass);
+        }
+
+        .cs-link-btn--secondary:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        /* ── Overline ── */
+        .cs-overline {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: var(--space-3);
+        }
+
+        /* ── Dual-mode callout ── */
+        .cs-mode-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-5);
+            margin: var(--space-8) 0;
+        }
+
+        @media (max-width: 600px) {
+            .cs-mode-grid { grid-template-columns: 1fr; }
+        }
+
+        .cs-mode-card {
+            padding: var(--space-6);
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-xl);
+        }
+
+        .cs-mode-card--active { border-color: var(--accent-secondary); }
+
+        .cs-mode-tag {
+            display: inline-block;
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 2px 10px;
+            border-radius: var(--radius-full);
+            margin-bottom: var(--space-3);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-mode-tag--desk {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent-primary);
+        }
+
+        .cs-mode-tag--deck {
+            background: rgba(123, 47, 247, 0.15);
+            color: var(--accent-secondary);
+        }
+
+        /* ── Lightbox ── */
+        .cs-lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 9000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-6);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-normal);
+        }
+
+        .cs-lightbox.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .cs-lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: var(--radius-xl);
+            object-fit: contain;
+        }
+
+        .cs-lightbox-close {
+            position: absolute;
+            top: var(--space-6);
+            right: var(--space-6);
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background var(--transition-fast);
+        }
+
+        .cs-lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .cs-meta { gap: var(--space-4); }
+            .cs-gallery { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <nav id="navbar">
+        <div class="nav-left">
+            <div class="logo" onclick="window.location.href='../index.html'">
+                <img src="../images/HPE pyramid.png" alt="HPE Logo" class="logo-image">
+                <div class="logo-text">
+                    <span class="logo-letter">K</span><span class="logo-letter">a</span><span class="logo-letter">t</span><span class="logo-letter">i</span><span class="logo-letter">e</span><span class="logo-space"> </span><span class="logo-letter">H</span><span class="logo-letter">u</span><span class="logo-letter">n</span><span class="logo-letter">t</span>
+                </div>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html" class="about-btn">Portfolio</a></li>
+            <li><a href="../index.html#skills">Skills</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="theme-toggle" id="themeToggle" role="button" tabindex="0" aria-label="Switch to light mode">
+                <svg class="theme-icon theme-icon--moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/></svg>
+                <svg class="theme-icon theme-icon--sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="cs-page">
+
+        <!-- ── HERO ── -->
+        <section class="cs-hero">
+            <div class="cs-container">
+                <a href="../index.html#projects" class="cs-back">← Back to Projects</a>
+
+                <div class="cs-tag">Case Study</div>
+                <h1 class="cs-title">Digital Trading Playbook</h1>
+
+                <p class="cs-p">
+                    I designed and built <strong>Digital Trading Playbook</strong>, a local-first application for discretionary traders who need a single, structured library for their strategy "plays" — rules, context, risk notes, and tags — without handing that data to a third-party SaaS. The product covers every surface from lock screen to play editor, from indicators to notes with file attachments, with two deliberate visual modes: a <strong>classic desk interface</strong> for daily workflow and a <strong>futuristic immersive dashboard</strong> for demos and brand presence.
+                </p>
+
+                <div class="cs-meta">
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Role</span>
+                        <span class="cs-meta-value">Lead Product Designer &amp; Front-End Engineer</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Scope</span>
+                        <span class="cs-meta-value">12+ surfaces · React SPA · Electron desktop</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Stack</span>
+                        <span class="cs-meta-value">React 18 · IndexedDB · react-window · Electron · Recharts · Lucide</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Output</span>
+                        <span class="cs-meta-value">Shipped · Web + Windows desktop build</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── HERO IMAGE ── -->
+        <div class="cs-container--wide" style="padding-top: var(--space-12); padding-bottom: var(--space-8);">
+            <img
+                src="../images/Project 8/2 dashboard.png"
+                alt="Digital Trading Playbook — Dashboard, the central strategy library"
+                class="cs-img"
+                style="border-radius: var(--radius-2xl);"
+            >
+            <p class="cs-img-caption">Dashboard — the primary daily surface: stats bar, search, filters, and the strategy play library.</p>
+        </div>
+
+        <!-- ── DELIVERABLES ── -->
+        <section class="cs-section">
+            <div class="cs-container--wide">
+                <div class="cs-overline">What was shipped</div>
+                <h2 class="cs-h2">Deliverables</h2>
+
+                <div class="cs-deliverables">
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Product UI</div>
+                        <p class="cs-deliverable-desc">End-to-end flows for discovering, filtering, viewing, creating, editing, duplicating, and deleting plays. Auxiliary workflows for notes, indicators, todos, favorites, and settings — with confirmations, toasts, breadcrumbs, and keyboard shortcuts.</p>
+                    </div>
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Visual &amp; Interaction System</div>
+                        <p class="cs-deliverable-desc">Multi-theme experience (Dark, Light, Neon accent modes). Two UI styles — classic desk mode and futuristic immersive mode. CSS-first animation, responsive breakpoints from desktop to stacked mobile layouts, and grid/list view toggles with persistent state.</p>
+                    </div>
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Engineering</div>
+                        <p class="cs-deliverable-desc">Modular React 18 codebase. Context for app, theme, UI style, typography, and layout. Service layer for persistence (debounced saves), PIN/auto-lock, tags, search, and domain modules. Lazy-loaded heavy routes. react-window virtualization for large libraries.</p>
+                    </div>
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Desktop Parity</div>
+                        <p class="cs-deliverable-desc">Electron desktop build (Windows) using electron-packager — chosen for reliable output on environments where electron-builder hits symlink/code-sign archive issues. Same React UI runs in both web and desktop contexts.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── DESIGN PROCESS ── -->
+        <section class="cs-section cs-section--full">
+                <div class="cs-overline">How I worked</div>
+                <h2 class="cs-h2">Design Process</h2>
+
+                <div class="cs-process">
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">01</span>
+                        <span class="cs-step-label">Frame</span>
+                        <span class="cs-step-desc">Defined problem space (personal knowledge management for traders), constraints (no backend, offline-friendly, private), and success criteria (fast retrieval, trustworthy saves, credible visual craft).</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">02</span>
+                        <span class="cs-step-label">Structure</span>
+                        <span class="cs-step-desc">Mapped IA: plays as the core entity; notes, indicators, and todos as supporting workspaces; lock and settings as system shells.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">03</span>
+                        <span class="cs-step-label">Explore</span>
+                        <span class="cs-step-desc">Iterated layout density, filter field grouping, and a second "mode" (futuristic) to stress-test brand and motion without disrupting the primary workflow.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">04</span>
+                        <span class="cs-step-label">Prototype in code</span>
+                        <span class="cs-step-desc">Built hi-fi in React early to validate performance, persistence, and real interaction cost — not only static screens.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">05</span>
+                        <span class="cs-step-label">Validate</span>
+                        <span class="cs-step-desc">Heuristic review and high-frequency dogfooding during development on the hardest flow: finding a play fast under a large library.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">06</span>
+                        <span class="cs-step-label">Ship</span>
+                        <span class="cs-step-desc">Hardened IndexedDB storage, error boundaries, logging hooks, Electron packaging, and the production build pipeline.</span>
+                    </div>
+                </div>
+        </section>
+
+        <!-- ── FOUNDATION ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Starting point</div>
+                <h2 class="cs-h2">Foundation &amp; Constraints</h2>
+
+                <p class="cs-p">
+                    The brief was personal: replace scattered notes and spreadsheets with a single, credible, offline-first system for managing trading strategies — the kind of "institutional-grade" interface that makes the work feel as serious as the market discipline it supports.
+                </p>
+                <p class="cs-p">
+                    <strong>Non-negotiable constraints:</strong> Data stays on device. PIN is experience-level gating, not bank-grade authentication. The Electron Windows build had to avoid toolchains that fail on symlink/code-sign archive extraction — which meant choosing <strong>electron-packager</strong> over electron-builder for reliable output on this machine.
+                </p>
+                <p class="cs-p">
+                    <strong>Early structural priorities:</strong> One scannable library (search + sort + filters + grid/list), a single deep editor for the play record, and clear save feedback — because silent failure is unacceptable when you're documenting live trading rules.
+                </p>
+
+                <div class="cs-img-wrap">
+                    <img
+                        src="../images/Project 8/1 lock screen.png"
+                        alt="Digital Trading Playbook — Lock screen, PIN entry"
+                        class="cs-img"
+                    >
+                    <p class="cs-img-caption">Lock screen — PIN entry with auto-lock; sets the "serious tool" tone from the first interaction.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── LOOK & FEEL ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Visual direction</div>
+                <h2 class="cs-h2">Establishing Look &amp; Feel: Dual Fidelity</h2>
+
+                <p class="cs-p">
+                    <strong>Brand intent:</strong> Credible and institutional when traders are working — high contrast, predictable controls, badge-based metadata. But capable of a second read that feels futuristic and demo-ready, without replacing the CRM-like clarity of the primary library.
+                </p>
+
+                <div class="cs-mode-grid">
+                    <div class="cs-mode-card">
+                        <span class="cs-mode-tag cs-mode-tag--desk">Desk Mode — Classic</span>
+                        <h3 class="cs-h3" style="margin-bottom: var(--space-2);">Daily workflow surface</h3>
+                        <p class="cs-deliverable-desc">Density, legibility, stat chips in navigation, minimal distraction. Optimized for <strong>repeat use and long sessions</strong> — where traders spend hours reviewing and editing plays. Controls are predictable; nothing competes with content.</p>
+                    </div>
+                    <div class="cs-mode-card cs-mode-card--active">
+                        <span class="cs-mode-tag cs-mode-tag--deck">Deck Mode — Futuristic</span>
+                        <h3 class="cs-h3" style="margin-bottom: var(--space-2);">Demo &amp; brand surface</h3>
+                        <p class="cs-deliverable-desc">Atmospheric shell and ambient motion. Optimized for <strong>onboarding, screenshots, and presentations</strong> — while routing users back into the same underlying components. Same data, elevated staging.</p>
+                    </div>
+                </div>
+
+                <p class="cs-p">
+                    The two modes share every data store, routing logic, and business component — the only fork is the shell wrapper and its CSS animation layer. This ensures mode switching never causes a data inconsistency and the futuristic experience never needs its own maintenance path.
+                </p>
+
+                <div class="cs-compare">
+                    <div class="cs-compare-card">
+                        <img src="../images/Project 8/2 dashboard.png" alt="Classic dashboard — stats, filters, play grid">
+                        <div class="cs-compare-card-body">
+                            <div class="cs-compare-label">Desk Mode (Classic)</div>
+                            <p class="cs-deliverable-desc">Stats bar + filter band + play grid. Information-dense, optimized for scanning and daily use. Controls stay in the same place every session.</p>
+                        </div>
+                    </div>
+                    <div class="cs-compare-card cs-compare-chosen">
+                        <img src="../images/Project 8/1 lock screen.png" alt="Futuristic immersive mode — ambient motion, atmospheric shell">
+                        <div class="cs-compare-card-body">
+                            <div class="cs-compare-label">Deck Mode (Futuristic)</div>
+                            <p class="cs-deliverable-desc">Atmospheric background, ambient motion, ticker. Demo-ready and brand-forward — same underlying play data and components, different visual shell.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── MINI CASE STUDY ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Feature drilled end-to-end</div>
+                <h2 class="cs-h2">Mini Case Study: Finding the Right Play Fast</h2>
+
+                <p class="cs-p">
+                    The hardest daily task for a trader with a large library isn't creating a play — it's <strong>finding the right one quickly</strong> before or during a trade. This is the feature where friction has real cost.
+                </p>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Requirements</h3>
+                <ul class="cs-problem-list cs-finding-list">
+                    <li>Narrow hundreds of plays to a shortlist <strong>without hunting</strong> — from one control surface.</li>
+                    <li>Filtering must <strong>compose</strong>: text search + asset type + strategy type + sort (modified date, created date, name, win rate) all active simultaneously.</li>
+                    <li>Switching <strong>grid vs list</strong> must preserve the current query — no disorienting reset.</li>
+                </ul>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">First Exploration — What Broke</h3>
+                <ul class="cs-problem-list">
+                    <li><strong>Too many equal-weight controls:</strong> Search, filters, and view toggles competed for attention; first-time users hesitated on order of operations.</li>
+                    <li><strong>Filter discoverability:</strong> Advanced constraints were easy to miss when collapsed or visually grouped near sort controls.</li>
+                    <li><strong>Scan cost in list mode:</strong> Without consistent metadata columns, list view didn't beat grid for comparison — so it felt like a worse grid, not a different tool.</li>
+                </ul>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Iteration — What Changed</h3>
+                <ul class="cs-problem-list cs-finding-list">
+                    <li><strong>Stabilized a single control band:</strong> Search + filter + sort as one horizontal system — visual hierarchy established left-to-right by use frequency.</li>
+                    <li><strong>Badges on cards:</strong> Asset, timeframe, strategy, and tags surfaced before opening — reduces unnecessary plays being opened just to check metadata.</li>
+                    <li><strong>Virtualized rendering:</strong> react-window for large libraries reduces paint cost when hundreds of cards exist; scroll stays smooth.</li>
+                    <li><strong>Debounced persistence for preferences:</strong> Sort/filter/view state is saved so the dashboard doesn't reset between sessions — eliminating "why did my filters disappear?" friction.</li>
+                    <li><strong>Keyboard shortcut access:</strong> Power users can trigger search, sort, and view mode without reaching for the mouse.</li>
+                </ul>
+
+                <div class="cs-img-wrap">
+                    <img
+                        src="../images/Project 8/keyboard shortcuts.png"
+                        alt="Keyboard shortcuts overlay — fast access to all primary actions"
+                        class="cs-img"
+                    >
+                    <p class="cs-img-caption">Keyboard shortcuts overlay — every primary action accessible without the mouse; discoverable but non-intrusive.</p>
+                </div>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Heuristic Evaluation (Find &amp; Filter Flow)</h3>
+                <p class="cs-p">
+                    I evaluated the flow against three primary tasks using heuristic analysis and extended self-testing across a realistic play library. Each finding drove a direct design or implementation change.
+                </p>
+
+                <div class="cs-table-wrap">
+                    <table class="cs-table">
+                        <thead>
+                            <tr>
+                                <th>Issue</th>
+                                <th>Severity</th>
+                                <th>Evidence</th>
+                                <th>Fix applied</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Filter controls competed with search for first attention</td>
+                                <td>High</td>
+                                <td>Eyes tracked to filters before search on first visit</td>
+                                <td>Search anchored to far-left; filters follow in priority order</td>
+                            </tr>
+                            <tr>
+                                <td>Strategy filter label unclear — "type" vs "strategy"</td>
+                                <td>Medium</td>
+                                <td>Hesitation on dropdown; mismatched mental model</td>
+                                <td>Label updated; tooltip added on hover</td>
+                            </tr>
+                            <tr>
+                                <td>Sort default ("newest") not obvious from label alone</td>
+                                <td>Medium</td>
+                                <td>Users sorted manually to verify default</td>
+                                <td>Added active sort indicator chip; default labeled explicitly</td>
+                            </tr>
+                            <tr>
+                                <td>List view felt redundant, not useful</td>
+                                <td>Medium</td>
+                                <td>Grid switched back to immediately in most sessions</td>
+                                <td>List view redesigned with consistent metadata columns for side-by-side comparison</td>
+                            </tr>
+                            <tr>
+                                <td>View mode reset on navigation back to dashboard</td>
+                                <td>High</td>
+                                <td>Repeated frustration when returning from play detail</td>
+                                <td>View/sort/filter state persisted in context and saved to localStorage</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Creating a New Play</h3>
+                <p class="cs-p">
+                    The play editor needed to be structured enough to enforce consistency across entries, but flexible enough for different strategy types. The form is grouped into logical blocks: identity (name, asset, strategy), rules and logic, risk parameters, notes, and tags. Destructive actions (delete, archive) are gated behind confirmation dialogs.
+                </p>
+
+                <div class="cs-gallery" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); margin-top: var(--space-6);">
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 8/3 + New Play 1.png', 'New Play — Step 1: identity and strategy fields')">
+                        <img src="../images/Project 8/3 + New Play 1.png" alt="New Play form step 1">
+                        <div class="cs-gallery-caption">Create Play — identity &amp; type</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 8/3 + New Play 2.png', 'New Play — Step 2: rules and logic blocks')">
+                        <img src="../images/Project 8/3 + New Play 2.png" alt="New Play form step 2">
+                        <div class="cs-gallery-caption">Create Play — rules &amp; logic</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 8/3 + New Play 3.png', 'New Play — Step 3: risk, tags, and save')">
+                        <img src="../images/Project 8/3 + New Play 3.png" alt="New Play form step 3">
+                        <div class="cs-gallery-caption">Create Play — risk &amp; save</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── HI-FI GALLERY ── -->
+        <section class="cs-section">
+            <div class="cs-container--wide">
+                <div class="cs-container" style="padding: 0;">
+                    <div class="cs-overline">All screens</div>
+                    <h2 class="cs-h2">High-Fidelity Gallery</h2>
+                    <p class="cs-p">All screens use synthetic / representative data only. Dark mode is default; Light and Neon themes available via Settings.</p>
+                </div>
+
+                <div class="cs-gallery">
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 8/1 lock screen.png', 'Lock Screen — PIN entry, auto-lock, sets serious-tool tone')">
+                        <img src="../images/Project 8/1 lock screen.png" alt="Lock Screen">
+                        <div class="cs-gallery-caption">Lock Screen — PIN entry &amp; auto-lock</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 8/2 dashboard.png', 'Dashboard — stats, filter band, play grid library')">
+                        <img src="../images/Project 8/2 dashboard.png" alt="Dashboard">
+                        <div class="cs-gallery-caption">Dashboard — library &amp; filter band</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 8/3 + New Play 1.png', 'Create Play — identity and strategy fields')">
+                        <img src="../images/Project 8/3 + New Play 1.png" alt="Create Play - Step 1">
+                        <div class="cs-gallery-caption">Create Play — identity &amp; type</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 8/3 + New Play 2.png', 'Create Play — rules and logic blocks')">
+                        <img src="../images/Project 8/3 + New Play 2.png" alt="Create Play - Step 2">
+                        <div class="cs-gallery-caption">Create Play — rules &amp; logic</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 8/3 + New Play 3.png', 'Create Play — risk parameters, tags, save action')">
+                        <img src="../images/Project 8/3 + New Play 3.png" alt="Create Play - Step 3">
+                        <div class="cs-gallery-caption">Create Play — risk &amp; save</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 8/keyboard shortcuts.png', 'Keyboard shortcuts overlay — fast access without mouse')">
+                        <img src="../images/Project 8/keyboard shortcuts.png" alt="Keyboard Shortcuts">
+                        <div class="cs-gallery-caption">Keyboard Shortcuts overlay</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 8/4 settings 1.png', 'Settings — theme, UI style, and general preferences')">
+                        <img src="../images/Project 8/4 settings 1.png" alt="Settings 1">
+                        <div class="cs-gallery-caption">Settings — theme &amp; preferences</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 8/4 settings 2.png', 'Settings — security, PIN, and export options')">
+                        <img src="../images/Project 8/4 settings 2.png" alt="Settings 2">
+                        <div class="cs-gallery-caption">Settings — security &amp; export</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 8/Pin RESET.png', 'PIN Reset flow — step-by-step, confirmation gated')">
+                        <img src="../images/Project 8/Pin RESET.png" alt="PIN Reset">
+                        <div class="cs-gallery-caption">PIN Reset — confirmation gated</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── DESIGN SYSTEM ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Component library</div>
+                <h2 class="cs-h2">Design System</h2>
+
+                <p class="cs-p">
+                    The implementation maps visual intent to theme variables and shared CSS, composed with Tailwind utilities. React context propagates theme, UI style (classic vs futuristic), and typography globally — so changing mode never requires a page reload or re-initialization.
+                </p>
+
+                <div class="cs-system-tiers">
+                    <div class="cs-tier">
+                        <span class="cs-tier-label">Tokens / Themes</span>
+                        <div class="cs-tier-examples">
+                            <span class="cs-tier-tag">Dark mode</span>
+                            <span class="cs-tier-tag">Light mode</span>
+                            <span class="cs-tier-tag">Neon accent</span>
+                            <span class="cs-tier-tag">CSS variables</span>
+                            <span class="cs-tier-tag">Typography scale</span>
+                        </div>
+                    </div>
+                    <div class="cs-tier">
+                        <span class="cs-tier-label">Components</span>
+                        <div class="cs-tier-examples">
+                            <span class="cs-tier-tag">Play card (grid + list)</span>
+                            <span class="cs-tier-tag">Filter band</span>
+                            <span class="cs-tier-tag">Stat chips</span>
+                            <span class="cs-tier-tag">Modal / confirm</span>
+                            <span class="cs-tier-tag">Toast system</span>
+                            <span class="cs-tier-tag">Skeleton loaders</span>
+                            <span class="cs-tier-tag">Lucide icons</span>
+                            <span class="cs-tier-tag">Masked fields</span>
+                        </div>
+                    </div>
+                    <div class="cs-tier">
+                        <span class="cs-tier-label">Templates</span>
+                        <div class="cs-tier-examples">
+                            <span class="cs-tier-tag">Dashboard (classic + futuristic)</span>
+                            <span class="cs-tier-tag">Play editor</span>
+                            <span class="cs-tier-tag">Notes + file viewer</span>
+                            <span class="cs-tier-tag">Indicators</span>
+                            <span class="cs-tier-tag">Settings page</span>
+                            <span class="cs-tier-tag">Lock screen</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── OUTCOME ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Result</div>
+                <h2 class="cs-h2">Outcome</h2>
+
+                <p class="cs-p">
+                    Digital Trading Playbook shipped as a <strong>complete, interactive system</strong> — not a mock — with persistent storage (localStorage plus IndexedDB for larger datasets and file metadata), virtualized lists for scale, and a deliberate split between information-dense trading workflows and a show-floor visual mode for demos and brand presence.
+                </p>
+
+                <p class="cs-p">
+                    The project demonstrates the design-to-delivery arc that defines my work: product thinking (what belongs in a personal knowledge management system for traders), UX decisions (filter architecture, session lifecycle, dual-mode design), visual craft (institutional density vs immersive brand), and front-end engineering (React context, IndexedDB, virtualization, Electron packaging).
+                </p>
+
+                <details class="cs-details">
+                    <summary>Reflection — What I'd do next</summary>
+                    <div class="cs-details-body">
+                        <p class="cs-p"><strong>Next priorities:</strong></p>
+                        <ul class="cs-problem-list cs-finding-list">
+                            <li>Optional encrypted backup with device-keyed encryption (beyond PIN-level gating).</li>
+                            <li>Formal analytics on strategy performance — win rate, expectancy, drawdown — linked to play records.</li>
+                            <li>Expanded export formats (PDF report, CSV, structured JSON) for trading journal integration.</li>
+                            <li>Automated tests for storage migration logic — currently manual verification only.</li>
+                            <li>Cross-device sync consideration if the use case evolves beyond single-device operation.</li>
+                        </ul>
+                        <p class="cs-p" style="margin-top: var(--space-5);"><strong>What I learned:</strong></p>
+                        <ul class="cs-problem-list cs-finding-list">
+                            <li>Designing two visual modes without forking business logic requires discipline in the component boundary — the shell and the data layer must be genuinely independent.</li>
+                            <li>Offline-first storage (IndexedDB at scale) requires explicit error boundaries and migration hooks from the start — retrofitting them is painful.</li>
+                            <li>Density vs delight is context-dependent: the same user wants institutional clarity during work and brand energy during a demo. Both are correct, just not simultaneously.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <div class="cs-links">
+                    <a href="../index.html#projects" class="cs-link-btn cs-link-btn--secondary">← All Projects</a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Lightbox -->
+    <div class="cs-lightbox" id="csLightbox" onclick="closeLightbox()">
+        <button class="cs-lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img src="" alt="" id="csLightboxImg">
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-text">© 2026 Katie Hunt | All Rights Reserved</div>
+        </div>
+    </footer>
+
+    <script src="../script.js" defer></script>
+    <script src="./case-studies.js" defer></script>
+    <script>
+        function openLightbox(src, alt) {
+            const lb = document.getElementById('csLightbox');
+            const img = document.getElementById('csLightboxImg');
+            img.src = src;
+            img.alt = alt || '';
+            lb.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('csLightbox').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+</html>

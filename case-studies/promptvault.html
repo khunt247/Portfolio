@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptVault — Case Study | Katie Hunt</title>
+    <link rel="icon" href="../images/HPE pyramid.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/HPE pyramid.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="./case-studies.css">
+    <style>
+        /* ── Case Study Layout ── */
+        .cs-page {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+
+        .cs-container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+
+        .cs-container--wide {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+
+        /* ── Hero ── */
+        .cs-hero {
+            padding: var(--space-16) 0 var(--space-12);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-back {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-8);
+            transition: opacity var(--transition-fast);
+        }
+
+        .cs-back:hover { opacity: 0.75; }
+
+        .cs-tag {
+            display: inline-block;
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            margin-bottom: var(--space-4);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-title {
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            font-weight: var(--font-weight-extrabold);
+            color: var(--text-primary);
+            line-height: var(--line-height-tight);
+            margin-bottom: var(--space-6);
+        }
+
+        .cs-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+            padding-top: var(--space-6);
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-meta-item { display: flex; flex-direction: column; gap: 2px; }
+
+        .cs-meta-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .cs-meta-value {
+            font-size: var(--font-size-sm);
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* ── Sections ── */
+        .cs-section {
+            padding: var(--space-16) 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-section:last-of-type { border-bottom: none; }
+
+        .cs-section--full {
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+
+        .cs-h2 {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-8);
+        }
+
+        .cs-h3 {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+        }
+
+        .cs-h4 {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--accent-primary);
+            margin-bottom: var(--space-3);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.04em;
+        }
+
+        .cs-p {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-relaxed);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-5);
+        }
+
+        .cs-p:last-child { margin-bottom: 0; }
+        .cs-p strong { color: var(--text-primary); font-weight: var(--font-weight-semibold); }
+
+        /* ── Deliverables row ── */
+        .cs-deliverables {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+
+        .cs-deliverable-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+            transition: border-color var(--transition-normal);
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        .cs-deliverable-card:hover { border-color: var(--accent-primary); }
+        .cs-deliverable-card .cs-h4 {
+            margin-bottom: var(--space-3);
+            font-size: var(--font-size-lg);
+        }
+
+        .cs-deliverable-desc {
+            font-size: var(--font-size-base);
+            color: var(--text-secondary);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ── Process row ── */
+        .cs-process {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: var(--space-5);
+            margin-top: var(--space-8);
+        }
+
+        .cs-process-step {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            padding: var(--space-6);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border-left: 3px solid var(--accent-primary);
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        .cs-step-num {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.1em;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-step-label {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+        }
+
+        .cs-step-desc {
+            font-size: var(--font-size-sm);
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ── Images ── */
+        .cs-img {
+            width: 100%;
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(255,255,255,0.08);
+            display: block;
+            background: var(--bg-secondary);
+        }
+
+        .cs-img-caption {
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: var(--space-3);
+            font-style: italic;
+        }
+
+        .cs-img-wrap { margin: var(--space-10) 0; }
+
+        /* ── Two-col comparison ── */
+        .cs-compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-5);
+            margin: var(--space-8) 0;
+        }
+
+        @media (max-width: 600px) {
+            .cs-compare { grid-template-columns: 1fr; }
+        }
+
+        .cs-compare-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+        }
+
+        .cs-compare-card img { width: 100%; display: block; }
+        .cs-compare-card-body { padding: var(--space-5); }
+
+        .cs-compare-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: var(--space-2);
+        }
+
+        .cs-compare-chosen { border-color: var(--accent-primary); }
+        .cs-compare-chosen .cs-compare-label { color: var(--accent-primary); }
+
+        /* ── Bullet lists ── */
+        .cs-problem-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            margin: var(--space-5) 0;
+        }
+
+        .cs-problem-list li {
+            display: flex;
+            gap: var(--space-3);
+            align-items: flex-start;
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            line-height: var(--line-height-relaxed);
+        }
+
+        .cs-problem-list li::before {
+            content: '→';
+            color: var(--accent-tertiary);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: var(--font-weight-bold);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .cs-finding-list li::before { color: var(--accent-primary); }
+
+        /* ── Table ── */
+        .cs-table-wrap {
+            overflow-x: auto;
+            margin: var(--space-6) 0;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .cs-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: var(--font-size-sm);
+        }
+
+        .cs-table th {
+            text-align: left;
+            padding: var(--space-3) var(--space-5);
+            background: var(--bg-secondary);
+            color: var(--text-muted);
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-xs);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-table td {
+            padding: var(--space-3) var(--space-5);
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            vertical-align: top;
+        }
+
+        .cs-table tr:last-child td { border-bottom: none; }
+        .cs-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .cs-table td:first-child { color: var(--text-primary); font-weight: var(--font-weight-medium); }
+
+        /* ── Gallery ── */
+        .cs-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-5);
+            margin-top: var(--space-8);
+        }
+
+        .cs-gallery-item {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: border-color var(--transition-normal), transform var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .cs-gallery-item:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .cs-gallery-item img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 16/10;
+        }
+
+        .cs-gallery-caption {
+            padding: var(--space-3) var(--space-4);
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ── Design system tiers ── */
+        .cs-system-tiers {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            margin: var(--space-8) 0;
+        }
+
+        .cs-tier {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-5);
+            padding: var(--space-5);
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-tier-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+            min-width: 110px;
+            margin-top: 2px;
+        }
+
+        .cs-tier-examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+        }
+
+        .cs-tier-tag {
+            font-size: var(--font-size-xs);
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            background: var(--bg-glass);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* ── Heuristic callout box ── */
+        .cs-heuristic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-4);
+            margin: var(--space-6) 0;
+        }
+
+        .cs-heuristic-card {
+            padding: var(--space-5);
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: var(--radius-lg);
+            border-left: 3px solid var(--accent-secondary);
+        }
+
+        .cs-heuristic-num {
+            font-size: var(--font-size-xs);
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-secondary);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-2);
+        }
+
+        .cs-heuristic-label {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+
+        .cs-heuristic-desc {
+            font-size: var(--font-size-xs);
+            color: var(--text-secondary);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ── Details / collapsible ── */
+        .cs-details {
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-top: var(--space-8);
+        }
+
+        .cs-details summary {
+            padding: var(--space-5) var(--space-6);
+            cursor: pointer;
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            user-select: none;
+        }
+
+        .cs-details summary::before {
+            content: '▶';
+            font-size: 0.6em;
+            color: var(--accent-primary);
+            transition: transform var(--transition-fast);
+        }
+
+        .cs-details[open] summary::before { transform: rotate(90deg); }
+
+        .cs-details-body {
+            padding: var(--space-6);
+            background: var(--bg-primary);
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-details-body .cs-p { font-size: var(--font-size-sm); }
+
+        /* ── Outcome links ── */
+        .cs-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+            margin-top: var(--space-8);
+        }
+
+        .cs-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            text-decoration: none;
+            transition: all var(--transition-normal);
+        }
+
+        .cs-link-btn--primary {
+            background: var(--accent-primary);
+            color: var(--text-inverse);
+        }
+
+        .cs-link-btn--primary:hover {
+            background: var(--accent-primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .cs-link-btn--secondary {
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--text-secondary);
+            background: var(--bg-glass);
+        }
+
+        .cs-link-btn--secondary:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        /* ── Overline ── */
+        .cs-overline {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: var(--space-3);
+        }
+
+        /* ── Lightbox ── */
+        .cs-lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 9000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-6);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-normal);
+        }
+
+        .cs-lightbox.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .cs-lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: var(--radius-xl);
+            object-fit: contain;
+        }
+
+        .cs-lightbox-close {
+            position: absolute;
+            top: var(--space-6);
+            right: var(--space-6);
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background var(--transition-fast);
+        }
+
+        .cs-lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .cs-meta { gap: var(--space-4); }
+            .cs-gallery { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <nav id="navbar">
+        <div class="nav-left">
+            <div class="logo" onclick="window.location.href='../index.html'">
+                <img src="../images/HPE pyramid.png" alt="HPE Logo" class="logo-image">
+                <div class="logo-text">
+                    <span class="logo-letter">K</span><span class="logo-letter">a</span><span class="logo-letter">t</span><span class="logo-letter">i</span><span class="logo-letter">e</span><span class="logo-space"> </span><span class="logo-letter">H</span><span class="logo-letter">u</span><span class="logo-letter">n</span><span class="logo-letter">t</span>
+                </div>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html" class="about-btn">Portfolio</a></li>
+            <li><a href="../index.html#skills">Skills</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="theme-toggle" id="themeToggle" role="button" tabindex="0" aria-label="Switch to light mode">
+                <svg class="theme-icon theme-icon--moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/></svg>
+                <svg class="theme-icon theme-icon--sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="cs-page">
+
+        <!-- ── HERO ── -->
+        <section class="cs-hero">
+            <div class="cs-container">
+                <a href="../index.html#projects" class="cs-back">← Back to Projects</a>
+
+                <div class="cs-tag">Case Study</div>
+                <h1 class="cs-title">PromptVault — AI Prompt Library Manager</h1>
+
+                <p class="cs-p">
+                    I led end-to-end design and front-end implementation of <strong>PromptVault</strong>, a browser-based prompt library for saving, organizing, and reusing AI prompts without leaving a dedicated workspace. The product spans four primary areas — <strong>Library, Favorites, AI Insights, and Settings</strong> — built as a static, framework-free experience with <code>localStorage</code> persistence, so users get immediate interaction with no accounts and no backend.
+                </p>
+                <p class="cs-p">
+                    The practical outcome: a single place to curate prompts with tags and categories, retain context across sessions, and understand usage through lightweight local analytics — appropriate for individual AI practitioners and professional portfolio demonstration.
+                </p>
+
+                <div class="cs-meta">
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Role</span>
+                        <span class="cs-meta-value">Product Designer &amp; Front-End Developer</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Scope</span>
+                        <span class="cs-meta-value">4 primary areas · 6 surface types · Static SPA</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Stack</span>
+                        <span class="cs-meta-value">HTML5 · CSS3 · Vanilla JS · localStorage API</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Output</span>
+                        <span class="cs-meta-value">Shipped · Static deployable site</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── HERO IMAGE ── -->
+        <div class="cs-container--wide" style="padding-top: var(--space-12); padding-bottom: var(--space-8);">
+            <img
+                src="../images/Project 7/1.png"
+                alt="PromptVault — Library grid with KPI bar and category filters"
+                class="cs-img"
+                style="border-radius: var(--radius-2xl);"
+            >
+            <p class="cs-img-caption">Library — the primary browsing surface: KPI summary bar, category filter chips, and the prompt card grid.</p>
+        </div>
+
+        <!-- ── DELIVERABLES ── -->
+        <section class="cs-section">
+            <div class="cs-container--wide">
+                <div class="cs-overline">What was shipped</div>
+                <h2 class="cs-h2">Deliverables</h2>
+
+                <div class="cs-deliverables">
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Product IA &amp; Interface</div>
+                        <p class="cs-deliverable-desc">Responsive web layout with persistent sidebar navigation, multi-page routing inside one document, and primary workflow surfaces for browsing, organizing, and maintaining a prompt collection. Four top-level destinations, modal-based create/detail paths.</p>
+                    </div>
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Interaction &amp; State Model</div>
+                        <p class="cs-deliverable-desc">CRUD behaviors for prompts (view, edit, copy, delete with confirmation), favorites toggling, dynamic category creation, and import/export of JSON — plus notifications and modal patterns that keep destructive actions gated.</p>
+                    </div>
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Visual System &amp; Motion</div>
+                        <p class="cs-deliverable-desc">Dark "structured glass" UI with blur, translucency, cyan–violet accent gradients, animated environmental background (grid + particles), and hover-revealed secondary actions on cards — consistent with the wider portfolio visual language.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── DESIGN PROCESS ── -->
+        <section class="cs-section cs-section--full">
+                <div class="cs-overline">How I worked</div>
+                <h2 class="cs-h2">Design Process</h2>
+
+                <div class="cs-process">
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">01</span>
+                        <span class="cs-step-label">Frame requirements</span>
+                        <span class="cs-step-desc">Define jobs-to-be-done: save prompts, recall them quickly, group by theme, flag favorites, and avoid losing data when closing the browser.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">02</span>
+                        <span class="cs-step-label">Map IA &amp; flows</span>
+                        <span class="cs-step-desc">Lock four top-level destinations (Library / Favorites / Insights / Settings) and modal-based create/detail paths so the mental model stays shallow.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">03</span>
+                        <span class="cs-step-label">Explore look &amp; feel</span>
+                        <span class="cs-step-desc">Directional studies on density, chrome vs. immersive background, and how much "sci-fi" aesthetic supports focus rather than distraction.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">04</span>
+                        <span class="cs-step-label">Prototype in code</span>
+                        <span class="cs-step-desc">Implement layout, tokens, and components directly in CSS for pixel-true iteration — no separate screen-design handoff step.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">05</span>
+                        <span class="cs-step-label">Validate behavior</span>
+                        <span class="cs-step-desc">Run targeted tasks on core loops (create → find → copy; favorite → recover; export as backup) and adjust affordances based on findings.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">06</span>
+                        <span class="cs-step-label">Ship &amp; document</span>
+                        <span class="cs-step-desc">Freeze v1 scope with honest labeling of roadmap features, publish static build, capture screens and reel for case study.</span>
+                    </div>
+                </div>
+        </section>
+
+        <!-- ── FOUNDATION ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Starting point</div>
+                <h2 class="cs-h2">Foundation &amp; Constraints</h2>
+
+                <p class="cs-p">
+                    PromptVault was built intentionally without a server: <strong>no accounts, no hosted database, and offline-friendly persistence</strong> via the browser. That constraint drove the IA toward <strong>export/import as the real backup story</strong> and toward honest labeling of features that are stored as preferences vs. fully-implemented services — sync and encryption treated as roadmap items unless backed by infrastructure.
+                </p>
+                <p class="cs-p">
+                    <strong>Fixed:</strong> Single-page architecture and <code>localStorage</code> as the source of truth. <strong>Flexible:</strong> Category taxonomy, card density, which metrics appear in the KPI bar, and how aggressively "AI Insights" language matches actual model-backed behavior in v1.
+                </p>
+                <p class="cs-p">
+                    Early structure prioritized <strong>one-handed navigation</strong> (sidebar) and modal-based depth so the grid stays the hero surface — the place users spend most of their time.
+                </p>
+
+                <div class="cs-img-wrap">
+                    <img
+                        src="../images/Project 7/2.png"
+                        alt="PromptVault — Library with category filter active"
+                        class="cs-img"
+                    >
+                    <p class="cs-img-caption">Library with active category filter — non-matching prompts hidden; scan path stays focused on matching results.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── LOOK & FEEL ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Visual direction</div>
+                <h2 class="cs-h2">Look &amp; Feel: Structured Glass</h2>
+
+                <p class="cs-p">
+                    <strong>Brand intent:</strong> PromptVault should feel like a <strong>precision instrument</strong> — calm, legible, and slightly futuristic, evoking "workspace for serious prompting" without cartoonish AI tropes. High contrast for text, restrained glow, and glass panels that separate content from the animated field behind them.
+                </p>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-8);">Named direction: "Structured Glass"</h3>
+                <p class="cs-p">
+                    Glassmorphism provides hierarchy (panels float; background moves slowly). Structure comes from <strong>strict grids, uppercase micro-labels, and consistent radii</strong> so the effect reads as product UI, not decoration. The chosen route trades maximal depth illusion for <strong>readability at 12–15 prompts per view</strong>.
+                </p>
+
+                <div class="cs-compare">
+                    <div class="cs-compare-card">
+                        <img src="../images/Project 7/3.png" alt="PromptVault — Create prompt modal">
+                        <div class="cs-compare-card-body">
+                            <div class="cs-compare-label">Direction explored</div>
+                            <p class="cs-deliverable-desc">Heavier neumorphism with softer blobs and busier background. <strong>Rejected:</strong> reduced scan speed on dense prompt cards; depth cues fought with tag chips and metadata.</p>
+                        </div>
+                    </div>
+                    <div class="cs-compare-card cs-compare-chosen">
+                        <img src="../images/Project 7/4.png" alt="PromptVault — Detail view modal">
+                        <div class="cs-compare-card-body">
+                            <div class="cs-compare-label">Chosen: Structured Glass</div>
+                            <p class="cs-deliverable-desc">Sharper panel edges, cooler palette, disciplined spacing. <strong>Selected:</strong> better card scannability; clearer separation between metadata and body preview at library scale.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── MINI CASE STUDY ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Feature drilled end-to-end</div>
+                <h2 class="cs-h2">Mini Case Study: Save, Locate, and Reuse a Prompt</h2>
+
+                <p class="cs-p">
+                    The core loop — create a prompt, find it again, and put it to use — is where PromptVault earns its place. Getting friction out of this path was the highest-priority design problem.
+                </p>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Requirements</h3>
+                <ul class="cs-problem-list cs-finding-list">
+                    <li>Users must <strong>create</strong> a prompt with title, category, body, and optional tags.</li>
+                    <li>Users must <strong>find it again</strong> via category filtering and browsing (search as enhancement).</li>
+                    <li>Users must <strong>reuse it efficiently</strong> via full-text view and <strong>one-click copy</strong> to clipboard.</li>
+                    <li>Destructive actions require <strong>explicit confirmation</strong> — no accidental deletions.</li>
+                </ul>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">First Exploration — Problems Identified</h3>
+                <ul class="cs-problem-list">
+                    <li><strong>Discoverability of secondary actions</strong> when the card is dense with tags and metadata — the edit/delete controls competed with content.</li>
+                    <li><strong>Trust in "saved" state</strong> with no server — users need confirmation the write happened, plus a recovery path (export).</li>
+                    <li><strong>Category growth</strong> without breaking filters — horizontal tabs overflow silently past a small number of categories.</li>
+                    <li><strong>Honest expectations for Insights</strong> — without a live LLM, the section risks feeling like empty marketing if not clearly framed as local analytics.</li>
+                </ul>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Iteration — What Changed</h3>
+                <ul class="cs-problem-list cs-finding-list">
+                    <li><strong>Hover-revealed vertical action stack</strong> on cards to declutter the default scan path — actions present only when you need them.</li>
+                    <li><strong>Separate view vs. edit modes</strong> in the detail modal — read-only by default reduces accidental overwrites.</li>
+                    <li><strong>Delete confirmation modal</strong> with a preview of the content being removed — so the cost of the action is visible before committing.</li>
+                    <li><strong>JSON export/import</strong> under Settings — addresses backup anxiety in a local-only architecture with a concrete, trustworthy story.</li>
+                    <li><strong>Insights refresh affordance</strong> — analytics feel user-controlled, not magic. Explicit trigger communicates local computation, not remote inference.</li>
+                </ul>
+
+                <div class="cs-img-wrap">
+                    <img
+                        src="../images/Project 7/5.png"
+                        alt="PromptVault — AI Insights dashboard"
+                        class="cs-img"
+                    >
+                    <p class="cs-img-caption">AI Insights — usage-derived summaries with an explicit Refresh control; honest about local-only computation.</p>
+                </div>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Heuristic Evaluation — Core Loop</h3>
+                <p class="cs-p">
+                    I evaluated the save → locate → copy loop against Nielsen's core heuristics, mapping each to a concrete design decision in the shipped product.
+                </p>
+
+                <div class="cs-heuristic-grid">
+                    <div class="cs-heuristic-card">
+                        <div class="cs-heuristic-num">Nielsen #1</div>
+                        <div class="cs-heuristic-label">Visibility of system status</div>
+                        <p class="cs-heuristic-desc">Save feedback via toast; explicit delete confirmation; copy action shows success/error immediately via Clipboard API response.</p>
+                    </div>
+                    <div class="cs-heuristic-card">
+                        <div class="cs-heuristic-num">Nielsen #3</div>
+                        <div class="cs-heuristic-label">User control &amp; freedom</div>
+                        <p class="cs-heuristic-desc">Export/import provide undo paths outside delete. View mode separation means opening a prompt never risks accidental edits.</p>
+                    </div>
+                    <div class="cs-heuristic-card">
+                        <div class="cs-heuristic-num">Nielsen #5</div>
+                        <div class="cs-heuristic-label">Error prevention</div>
+                        <p class="cs-heuristic-desc">Delete requires a confirmation modal with content preview. Category creation is additive-only from the same modal — no accidental overwrites during add.</p>
+                    </div>
+                    <div class="cs-heuristic-card">
+                        <div class="cs-heuristic-num">Nielsen #6</div>
+                        <div class="cs-heuristic-label">Recognition over recall</div>
+                        <p class="cs-heuristic-desc">Categories and tags visible on every card; body preview in card reduces need to open a prompt just to confirm what it contains.</p>
+                    </div>
+                </div>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Design Decisions Table</h3>
+                <div class="cs-table-wrap">
+                    <table class="cs-table">
+                        <thead>
+                            <tr>
+                                <th>Flow step</th>
+                                <th>Problem found</th>
+                                <th>Fix applied</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Library scan</td>
+                                <td>Edit/delete buttons competed with tag chips on dense cards</td>
+                                <td>Actions hidden by default; revealed on hover as a vertical stack</td>
+                            </tr>
+                            <tr>
+                                <td>Category filter</td>
+                                <td>Tab overflow silent past ~6 categories</td>
+                                <td>Scrollable filter row with clear overflow signal; "All" default emphasized</td>
+                            </tr>
+                            <tr>
+                                <td>Open prompt</td>
+                                <td>Opening a prompt immediately exposed edit fields — accidental edit risk</td>
+                                <td>View mode is default; Edit requires explicit mode switch inside modal</td>
+                            </tr>
+                            <tr>
+                                <td>Copy to clipboard</td>
+                                <td>Copy affordance not noticed — toolbar blended with modal chrome</td>
+                                <td>Copy button elevated with accent color; post-copy toast confirms action</td>
+                            </tr>
+                            <tr>
+                                <td>Delete</td>
+                                <td>No preview of what would be lost before confirming</td>
+                                <td>Confirmation modal shows prompt title and truncated body before commit</td>
+                            </tr>
+                            <tr>
+                                <td>Data backup</td>
+                                <td>No recovery path for localStorage data; silent risk</td>
+                                <td>JSON export/import in Settings with plain-language explainer above button</td>
+                            </tr>
+                            <tr>
+                                <td>Insights</td>
+                                <td>Auto-loading analytics implied live AI — mismatched expectation</td>
+                                <td>Explicit Refresh button; section labeled as local usage analytics, not inference</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── HI-FI GALLERY ── -->
+        <section class="cs-section">
+            <div class="cs-container--wide">
+                <div class="cs-container" style="padding: 0;">
+                    <div class="cs-overline">All screens</div>
+                    <h2 class="cs-h2">High-Fidelity Gallery</h2>
+                    <p class="cs-p">All screens use representative data only. Dark mode is the default; Settings exposes theme preferences.</p>
+                </div>
+
+                <div class="cs-gallery">
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 7/1.png', 'Library — primary browsing surface, KPI bar, category chips, prompt grid')">
+                        <img src="../images/Project 7/1.png" alt="Library — default grid view">
+                        <div class="cs-gallery-caption">Library — default grid</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 7/2.png', 'Library — category filter active, non-matching prompts hidden')">
+                        <img src="../images/Project 7/2.png" alt="Library — category filter active">
+                        <div class="cs-gallery-caption">Library — filter active</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 7/3.png', 'Create prompt modal — title, category, body, tags')">
+                        <img src="../images/Project 7/3.png" alt="Create prompt modal">
+                        <div class="cs-gallery-caption">Create Prompt modal</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 7/4.png', 'Detail modal — view mode with copy action highlighted')">
+                        <img src="../images/Project 7/4.png" alt="Detail modal — view mode">
+                        <div class="cs-gallery-caption">Detail modal — view mode</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 7/5.png', 'AI Insights — local usage analytics, explicit refresh control')">
+                        <img src="../images/Project 7/5.png" alt="AI Insights">
+                        <div class="cs-gallery-caption">AI Insights</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 7/6.png', 'Settings — export/import JSON, theme, and preferences')">
+                        <img src="../images/Project 7/6.png" alt="Settings">
+                        <div class="cs-gallery-caption">Settings — data &amp; preferences</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── DESIGN SYSTEM ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Component library</div>
+                <h2 class="cs-h2">Design System</h2>
+
+                <p class="cs-p">
+                    Built directly in CSS without a framework, the system is organized from atoms up through templates. Radii cluster around 12–16px; separation uses 1px hairlines with low-opacity cyan; elevation is communicated with blur and shadow rather than heavy borders — keeping the "structured glass" direction legible at every level.
+                </p>
+
+                <div class="cs-system-tiers">
+                    <div class="cs-tier">
+                        <span class="cs-tier-label">Atoms</span>
+                        <div class="cs-tier-examples">
+                            <span class="cs-tier-tag">Gradient text</span>
+                            <span class="cs-tier-tag">Pill tags</span>
+                            <span class="cs-tier-tag">Icon buttons</span>
+                            <span class="cs-tier-tag">Toggles</span>
+                            <span class="cs-tier-tag">Inputs</span>
+                            <span class="cs-tier-tag">Focus rings</span>
+                            <span class="cs-tier-tag">Toast notifications</span>
+                        </div>
+                    </div>
+                    <div class="cs-tier">
+                        <span class="cs-tier-label">Molecules</span>
+                        <div class="cs-tier-examples">
+                            <span class="cs-tier-tag">Stat / KPI card</span>
+                            <span class="cs-tier-tag">Search field + suggestions</span>
+                            <span class="cs-tier-tag">Category filter chip</span>
+                            <span class="cs-tier-tag">Insight list row</span>
+                            <span class="cs-tier-tag">Empty state block</span>
+                        </div>
+                    </div>
+                    <div class="cs-tier">
+                        <span class="cs-tier-label">Organisms / Templates</span>
+                        <div class="cs-tier-examples">
+                            <span class="cs-tier-tag">Sidebar shell</span>
+                            <span class="cs-tier-tag">Prompt card (hover actions)</span>
+                            <span class="cs-tier-tag">Modal frame (view / edit / confirm)</span>
+                            <span class="cs-tier-tag">Settings row</span>
+                            <span class="cs-tier-tag">Library grid template</span>
+                            <span class="cs-tier-tag">Insights dashboard template</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── OUTCOME ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Result</div>
+                <h2 class="cs-h2">Outcome</h2>
+
+                <p class="cs-p">
+                    v1 delivers a <strong>coherent local-first prompt library</strong> with credible backup/export behavior and a scalable card/grid pattern for future features. Real full-text search, cloud sync, or model-backed assist can each slot into the same IA without renaming the product story — the architecture is honest about what it is today and extensible toward what it could become.
+                </p>
+                <p class="cs-p">
+                    The project demonstrates how production-quality product thinking and visual craft can be achieved in a <strong>zero-dependency, framework-free</strong> implementation: the performance, persistence, and interaction model all work without a build step, making it immediately inspectable and deployable.
+                </p>
+
+                <details class="cs-details">
+                    <summary>What I'd do next</summary>
+                    <div class="cs-details-body">
+                        <ul class="cs-problem-list cs-finding-list">
+                            <li><strong>Full-text search</strong> across prompt body and tags — the most-requested feature once the library grows past ~50 prompts.</li>
+                            <li><strong>Real model-backed Insights</strong> — swap local analytics for actual LLM-assisted summaries (with an honest toggle when no API key is configured).</li>
+                            <li><strong>Cloud sync option</strong> — opt-in, privacy-preserving, with the local-only mode remaining the default.</li>
+                            <li><strong>Prompt templates / variables</strong> — parameterized prompts with <code>{{variable}}</code> placeholders that populate on copy.</li>
+                            <li><strong>Automated tests for localStorage migrations</strong> — currently manual verification only.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <div class="cs-links">
+                    <a href="../index.html#projects" class="cs-link-btn cs-link-btn--secondary">← All Projects</a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Lightbox -->
+    <div class="cs-lightbox" id="csLightbox" onclick="closeLightbox()">
+        <button class="cs-lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img src="" alt="" id="csLightboxImg">
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-text">© 2026 Katie Hunt | All Rights Reserved</div>
+        </div>
+    </footer>
+
+    <script src="../script.js" defer></script>
+    <script src="./case-studies.js" defer></script>
+    <script>
+        function openLightbox(src, alt) {
+            const lb = document.getElementById('csLightbox');
+            const img = document.getElementById('csLightboxImg');
+            img.src = src;
+            img.alt = alt || '';
+            lb.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('csLightbox').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+</html>

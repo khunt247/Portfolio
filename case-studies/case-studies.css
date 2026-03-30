@@ -1,0 +1,892 @@
+/* ═══════════════════════════════════════════════════════════════
+   Case Studies — Shared Animation & Enhancement Layer
+   Requires: ../styles.css (design tokens already loaded)
+═══════════════════════════════════════════════════════════════ */
+
+/* ── Reduced-motion guard ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .cs-hero-scan::after { display: none; }
+}
+
+/* ── Hero entrance animations ────────────────────────────────── */
+
+/* Tag — slides down from slight top offset with glow pop */
+.cs-tag {
+    animation: csTagEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+@keyframes csTagEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+        letter-spacing: 0.25em;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: 0.1em;
+    }
+}
+
+/* Title — split reveal with gradient sweep */
+.cs-title {
+    animation: csTitleReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+    background: linear-gradient(
+        120deg,
+        #ffffff 0%,
+        #ffffff 40%,
+        var(--accent-primary) 50%,
+        #ffffff 60%,
+        #ffffff 100%
+    );
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: csTitleReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both,
+               csTitleShimmer 4s linear 1.2s infinite;
+}
+
+@keyframes csTitleReveal {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+        filter: blur(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes csTitleShimmer {
+    0%   { background-position: 200% center; }
+    100% { background-position: -200% center; }
+}
+
+/* Back link entrance */
+.cs-back {
+    animation: csFadeSlideDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0s both;
+}
+
+@keyframes csFadeSlideDown {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero intro paragraph */
+.cs-hero > .cs-container > .cs-p {
+    animation: csFadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+}
+
+@keyframes csFadeSlideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Meta row assembles */
+.cs-meta {
+    animation: csFadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+}
+
+.cs-meta-item {
+    animation: csFadeSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.cs-meta-item:nth-child(1) { animation-delay: 0.65s; }
+.cs-meta-item:nth-child(2) { animation-delay: 0.75s; }
+.cs-meta-item:nth-child(3) { animation-delay: 0.85s; }
+.cs-meta-item:nth-child(4) { animation-delay: 0.95s; }
+.cs-meta-item:nth-child(5) { animation-delay: 1.05s; }
+
+/* ── Hero scan-line accent (bottom edge of hero section) ─────── */
+.cs-hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.cs-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse 80% 60% at 50% 0%,
+        rgba(0, 212, 255, 0.04) 0%,
+        transparent 70%
+    );
+    pointer-events: none;
+}
+
+.cs-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        var(--accent-primary) 40%,
+        rgba(123, 47, 247, 0.8) 60%,
+        transparent 100%
+    );
+    animation: csScanline 3s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both;
+}
+
+@keyframes csScanline {
+    from { left: -100%; opacity: 0; }
+    20%  { opacity: 1; }
+    80%  { opacity: 1; }
+    to   { left: 100%; opacity: 0; }
+}
+
+/* ── Scroll-reveal system ────────────────────────────────────── */
+/* Applied by JS when IntersectionObserver fires */
+/* Base state (only when JS is active — body.cs-js class) */
+
+body.cs-js .cs-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+        opacity  0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        filter   0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    filter: blur(2px);
+}
+
+body.cs-js .cs-reveal.cs-visible {
+    opacity: 1;
+    transform: none;
+    filter: none;
+}
+
+/* Stagger children via CSS custom property */
+body.cs-js .cs-stagger > .cs-reveal:nth-child(1) { transition-delay: 0ms;   }
+body.cs-js .cs-stagger > .cs-reveal:nth-child(2) { transition-delay: 80ms;  }
+body.cs-js .cs-stagger > .cs-reveal:nth-child(3) { transition-delay: 160ms; }
+body.cs-js .cs-stagger > .cs-reveal:nth-child(4) { transition-delay: 240ms; }
+body.cs-js .cs-stagger > .cs-reveal:nth-child(5) { transition-delay: 320ms; }
+body.cs-js .cs-stagger > .cs-reveal:nth-child(6) { transition-delay: 400ms; }
+body.cs-js .cs-stagger > .cs-reveal:nth-child(7) { transition-delay: 480ms; }
+body.cs-js .cs-stagger > .cs-reveal:nth-child(8) { transition-delay: 560ms; }
+
+/* Horizontal variant for process steps */
+body.cs-js .cs-reveal--left {
+    transform: translateX(-20px);
+}
+
+body.cs-js .cs-reveal--left.cs-visible {
+    transform: none;
+}
+
+/* ── Section heading (overline + h2 combo) ────────────────────── */
+.cs-overline {
+    position: relative;
+    display: inline-block;
+}
+
+.cs-overline::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent-primary);
+    transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cs-visible .cs-overline::after,
+.cs-overline.cs-visible::after {
+    width: 100%;
+}
+
+/* ── Card glow + depth on hover ──────────────────────────────── */
+.cs-deliverable-card {
+    transition:
+        border-color var(--transition-normal),
+        transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, box-shadow;
+}
+
+.cs-deliverable-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-4px);
+    box-shadow:
+        0 16px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(0, 212, 255, 0.15),
+        0 0 30px rgba(0, 212, 255, 0.08);
+}
+
+/* Animated accent line on left edge of deliverable card */
+.cs-deliverable-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 0;
+    background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+    transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cs-deliverable-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.cs-deliverable-card:hover::before {
+    height: 100%;
+}
+
+/* ── Process steps — enhanced ────────────────────────────────── */
+.cs-process-step {
+    transition:
+        border-color 0.3s ease,
+        transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.3s ease;
+}
+
+.cs-process-step:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 212, 255, 0.12);
+}
+
+/* Animated step number on hover */
+.cs-step-num {
+    transition: letter-spacing 0.3s ease, color 0.2s ease;
+}
+
+.cs-process-step:hover .cs-step-num {
+    letter-spacing: 0.18em;
+}
+
+/* ── Gallery items — enhanced ────────────────────────────────── */
+.cs-gallery-item {
+    transition:
+        border-color var(--transition-normal),
+        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.35s ease;
+}
+
+.cs-gallery-item:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-4px) scale(1.01);
+    box-shadow:
+        0 20px 48px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(0, 212, 255, 0.2);
+}
+
+/* Image shimmer on load */
+.cs-img {
+    animation: csImgReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+@keyframes csImgReveal {
+    from {
+        opacity: 0;
+        transform: scale(0.985);
+        filter: blur(4px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+        filter: none;
+    }
+}
+
+/* ── Tier rows — enhanced ────────────────────────────────────── */
+.cs-tier {
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cs-tier:hover {
+    background: rgba(0, 212, 255, 0.03);
+    border-color: rgba(0, 212, 255, 0.18);
+    transform: translateX(4px);
+}
+
+/* Tech tags — subtle pulse on hover */
+.cs-tier-tag,
+.tech-tag {
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.cs-tier:hover .cs-tier-tag {
+    border-color: rgba(0, 212, 255, 0.2);
+    background: rgba(0, 212, 255, 0.05);
+}
+
+/* ── Table rows ──────────────────────────────────────────────── */
+.cs-table tr {
+    transition: background 0.2s ease;
+}
+
+/* ── Section transition line ─────────────────────────────────── */
+.cs-section {
+    position: relative;
+}
+
+/* ── Link button — futuristic hover ─────────────────────────── */
+.cs-link-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.cs-link-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.06),
+        transparent
+    );
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+.cs-link-btn:hover::after {
+    transform: translateX(100%);
+}
+
+/* ── Compare card hover ──────────────────────────────────────── */
+.cs-compare-card {
+    transition:
+        border-color 0.25s ease,
+        transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.3s ease;
+}
+
+.cs-compare-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* ── Futuristic grid overlay on hero image ──────────────────── */
+.cs-hero-img-wrap {
+    position: relative;
+}
+
+.cs-hero-img-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+/* ── Mini Case Study section — accent glow ───────────────────── */
+.cs-mini-section {
+    position: relative;
+}
+
+.cs-mini-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(180deg, var(--accent-primary), transparent);
+    opacity: 0.4;
+}
+
+/* ── Keyframes: floating particle orbits on section headings ─── */
+@keyframes csOrbit {
+    from { transform: rotate(0deg) translateX(3px) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(3px) rotate(-360deg); }
+}
+
+/* ── Scrollbar accent matching main site ────────────────────── */
+.cs-page {
+    scroll-behavior: smooth;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BOLD LAYER — One-of-a-kind creative animations
+═══════════════════════════════════════════════════════════════ */
+
+/* ── 1. Cursor-following design spotlight ────────────────────── */
+#cs-spotlight {
+    position: fixed;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    background: radial-gradient(
+        circle,
+        rgba(0, 212, 255, 0.045) 0%,
+        rgba(123, 47, 247, 0.02) 40%,
+        transparent 70%
+    );
+    transform: translate(-50%, -50%);
+    transition: opacity 0.4s ease;
+    mix-blend-mode: screen;
+    will-change: left, top;
+}
+
+/* ── 2. Terminal-style chapter breaks ────────────────────────── */
+.cs-chapter-break {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-3) 0;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    margin-bottom: var(--space-2);
+}
+
+.cs-chapter-break.cs-visible {
+    opacity: 1;
+}
+
+.cs-chapter-break::before,
+.cs-chapter-break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 212, 255, 0.2),
+        transparent
+    );
+}
+
+.cs-chapter-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(4px);
+    animation: none;
+}
+
+.cs-chapter-break.cs-visible .cs-chapter-label {
+    animation: csChapterType 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+@keyframes csChapterType {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+        letter-spacing: 0.3em;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: 0.15em;
+    }
+}
+
+.cs-chapter-status {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--accent-success);
+    margin-left: var(--space-2);
+    opacity: 0;
+}
+
+.cs-chapter-break.cs-visible .cs-chapter-status {
+    animation: csStatusBlink 0.3s ease 1s both;
+}
+
+@keyframes csStatusBlink {
+    0%   { opacity: 0; }
+    50%  { opacity: 1; }
+    70%  { opacity: 0.4; }
+    100% { opacity: 1; }
+}
+
+/* ── 3. Magnetic CTA hover ───────────────────────────────────── */
+.cs-magnetic {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+}
+
+/* ── 4. Hero image diagonal reveal mask ──────────────────────── */
+.cs-img-masked {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    animation: csImageWipe 1.1s cubic-bezier(0.77, 0, 0.175, 1) 0.6s both;
+}
+
+@keyframes csImageWipe {
+    0%   { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
+    100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+}
+
+/* Inner overlay that wipes in first for contrast */
+.cs-img-mask-overlay {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-2xl);
+}
+
+.cs-img-mask-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        120deg,
+        rgba(0, 212, 255, 0.08) 0%,
+        transparent 50%,
+        rgba(123, 47, 247, 0.06) 100%
+    );
+    opacity: 0;
+    animation: csOverlayFlash 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+@keyframes csOverlayFlash {
+    0%   { opacity: 0.8; }
+    100% { opacity: 0; }
+}
+
+/* ── 5. Hero title word-split stagger ────────────────────────── */
+.cs-title .cs-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(18px) rotateX(40deg);
+    filter: blur(4px);
+    animation: csWordReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    transform-origin: center bottom;
+}
+
+@keyframes csWordReveal {
+    to {
+        opacity: 1;
+        transform: none;
+        filter: blur(0);
+    }
+}
+
+/* ── 6. Ambient grid drift behind hero ───────────────────────── */
+.cs-hero-grid {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.cs-hero-grid::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background:
+        linear-gradient(rgba(0, 212, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.018) 1px, transparent 1px);
+    background-size: 48px 48px;
+    animation: csGridDrift 30s linear infinite;
+    transform: perspective(400px) rotateX(45deg);
+    mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 10%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 10%, transparent 70%);
+}
+
+@keyframes csGridDrift {
+    from { transform: perspective(400px) rotateX(45deg) translateY(0); }
+    to   { transform: perspective(400px) rotateX(45deg) translateY(48px); }
+}
+
+/* Hero container must sit above the grid */
+.cs-hero > .cs-container {
+    position: relative;
+    z-index: 2;
+}
+
+/* ── 7. Scroll-linked accent hue shift (CSS variable driven) ── */
+.cs-page {
+    --cs-hue-shift: 0deg;
+}
+
+.cs-overline,
+.cs-tag,
+.cs-h4 {
+    filter: hue-rotate(var(--cs-hue-shift));
+}
+
+#cs-progress-bar {
+    filter: hue-rotate(var(--cs-hue-shift));
+}
+
+/* ── 8. Section border glow pulse ────────────────────────────── */
+.cs-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 212, 255, 0.12),
+        rgba(123, 47, 247, 0.08),
+        transparent
+    );
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.cs-section.cs-visible::after {
+    opacity: 1;
+}
+
+.cs-section:last-of-type::after {
+    display: none;
+}
+
+/* ── 9. Enhanced details/accordion — flip chevron + glow ─────── */
+.cs-details summary {
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+.cs-details summary:hover {
+    background: rgba(0, 212, 255, 0.04);
+}
+
+.cs-details[open] summary {
+    background: rgba(0, 212, 255, 0.06);
+    color: var(--accent-primary);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SIGNATURE LAYER — The details nobody else ships
+═══════════════════════════════════════════════════════════════ */
+
+/* ── 10. Typed hero subtitle ─────────────────────────────────── */
+.cs-typed-line {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-5);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    opacity: 0;
+    animation: csFadeSlideUp 0.4s ease 1.3s both;
+}
+
+.cs-typed-prompt {
+    color: var(--accent-primary);
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.cs-typed-text {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--accent-primary);
+    width: 0;
+    animation:
+        csTypeText 2.2s steps(44, end) 1.8s forwards,
+        csBlinkCaret 0.6s step-end 1.8s 6;
+}
+
+@keyframes csTypeText {
+    to { width: 100%; }
+}
+
+@keyframes csBlinkCaret {
+    50% { border-color: transparent; }
+}
+
+.cs-typed-text.cs-typed-done {
+    border-color: transparent;
+}
+
+/* ── 11. Film grain / noise overlay ──────────────────────────── */
+.cs-noise {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+}
+
+.cs-noise canvas {
+    width: 100%;
+    height: 100%;
+}
+
+/* ── 12. Section scroll-counter ──────────────────────────────── */
+#cs-scroll-counter {
+    position: fixed;
+    bottom: var(--space-8);
+    right: var(--space-8);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+}
+
+#cs-scroll-counter.cs-counter-visible {
+    opacity: 1;
+}
+
+#cs-scroll-counter .cs-counter-current {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    transition: opacity 0.15s ease;
+    min-width: 1.2em;
+    text-align: right;
+    display: inline-block;
+}
+
+#cs-scroll-counter .cs-counter-sep {
+    color: rgba(255, 255, 255, 0.15);
+    margin: 0 2px;
+}
+
+#cs-scroll-counter .cs-counter-total {
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+/* ── 13. Magnetic gallery cursor (VIEW) ──────────────────────── */
+#cs-gallery-cursor {
+    position: fixed;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(0, 212, 255, 0.12);
+    border: 1px solid rgba(0, 212, 255, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 9000;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+    transition:
+        opacity 0.25s ease,
+        transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+#cs-gallery-cursor span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+}
+
+#cs-gallery-cursor.cs-cursor-active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.cs-gallery-item.cs-cursor-hide {
+    cursor: none;
+}
+
+/* ── 14. Time-to-read indicator ──────────────────────────────── */
+.cs-read-time {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    background: var(--bg-glass);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    animation: csFadeSlideUp 0.5s ease 1.1s both;
+    white-space: nowrap;
+}
+
+.cs-read-time-icon {
+    width: 12px;
+    height: 12px;
+    border: 1.5px solid var(--accent-primary);
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.cs-read-time-icon::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    width: 1.5px;
+    height: 4px;
+    background: var(--accent-primary);
+    transform-origin: bottom center;
+    transform: translateX(-50%) rotate(0deg);
+    animation: csClockTick 3s linear infinite;
+}
+
+@keyframes csClockTick {
+    to { transform: translateX(-50%) rotate(360deg); }
+}
+
+/* ── Reduced-motion overrides for all layers ─────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    #cs-spotlight { display: none; }
+    .cs-hero-grid::before { animation: none; }
+    .cs-img-masked { clip-path: none; }
+    .cs-title .cs-word {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        animation: none;
+    }
+    .cs-typed-text {
+        width: 100%;
+        animation: none;
+        border-color: transparent;
+    }
+    .cs-noise { display: none; }
+    #cs-gallery-cursor { display: none; }
+    .cs-read-time-icon::after { animation: none; }
+}

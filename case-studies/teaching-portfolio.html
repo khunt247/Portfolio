@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teaching Portfolio — Case Study | Katie Hunt</title>
+    <link rel="icon" href="../images/HPE pyramid.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/HPE pyramid.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="./case-studies.css">
+    <style>
+        /* ── Case Study Layout ── */
+        .cs-page {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+
+        .cs-container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+
+        .cs-container--wide {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+
+        /* ── Hero ── */
+        .cs-hero {
+            padding: var(--space-16) 0 var(--space-12);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-back {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-8);
+            transition: opacity var(--transition-fast);
+        }
+
+        .cs-back:hover { opacity: 0.75; }
+
+        .cs-tag {
+            display: inline-block;
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            margin-bottom: var(--space-4);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-title {
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            font-weight: var(--font-weight-extrabold);
+            color: var(--text-primary);
+            line-height: var(--line-height-tight);
+            margin-bottom: var(--space-6);
+        }
+
+        .cs-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+            padding-top: var(--space-6);
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-meta-item { display: flex; flex-direction: column; gap: 2px; }
+
+        .cs-meta-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .cs-meta-value {
+            font-size: var(--font-size-sm);
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* ── Sections ── */
+        .cs-section {
+            padding: var(--space-16) 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-section:last-of-type { border-bottom: none; }
+
+        .cs-section--full {
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+
+        .cs-h2 {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-8);
+        }
+
+        .cs-h3 {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+        }
+
+        .cs-h4 {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--accent-primary);
+            margin-bottom: var(--space-3);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.04em;
+        }
+
+        .cs-p {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-relaxed);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-5);
+        }
+
+        .cs-p:last-child { margin-bottom: 0; }
+        .cs-p strong { color: var(--text-primary); font-weight: var(--font-weight-semibold); }
+
+        /* ── Deliverables row ── */
+        .cs-deliverables {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+
+        .cs-deliverable-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+            transition: border-color var(--transition-normal);
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        .cs-deliverable-card:hover { border-color: var(--accent-primary); }
+        .cs-deliverable-card .cs-h4 {
+            margin-bottom: var(--space-3);
+            font-size: var(--font-size-lg);
+        }
+
+        .cs-deliverable-desc {
+            font-size: var(--font-size-base);
+            color: var(--text-secondary);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ── Process row ── */
+        .cs-process {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: var(--space-5);
+            margin-top: var(--space-8);
+        }
+
+        .cs-process-step {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            padding: var(--space-6);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border-left: 3px solid var(--accent-primary);
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        .cs-step-num {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.1em;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-step-label {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+        }
+
+        .cs-step-desc {
+            font-size: var(--font-size-sm);
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ── Images ── */
+        .cs-img {
+            width: 100%;
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(255,255,255,0.08);
+            display: block;
+            background: var(--bg-secondary);
+        }
+
+        .cs-img-caption {
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: var(--space-3);
+            font-style: italic;
+        }
+
+        .cs-img-wrap { margin: var(--space-10) 0; }
+
+        /* ── Two-col comparison ── */
+        .cs-compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-5);
+            margin: var(--space-8) 0;
+        }
+
+        @media (max-width: 600px) {
+            .cs-compare { grid-template-columns: 1fr; }
+        }
+
+        .cs-compare-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+        }
+
+        .cs-compare-card img { width: 100%; display: block; }
+        .cs-compare-card-body { padding: var(--space-5); }
+
+        .cs-compare-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: var(--space-2);
+        }
+
+        .cs-compare-chosen { border-color: var(--accent-primary); }
+        .cs-compare-chosen .cs-compare-label { color: var(--accent-primary); }
+
+        /* ── Bullet lists ── */
+        .cs-problem-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            margin: var(--space-5) 0;
+        }
+
+        .cs-problem-list li {
+            display: flex;
+            gap: var(--space-3);
+            align-items: flex-start;
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            line-height: var(--line-height-relaxed);
+        }
+
+        .cs-problem-list li::before {
+            content: '→';
+            color: var(--accent-tertiary);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: var(--font-weight-bold);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .cs-finding-list li::before { color: var(--accent-primary); }
+
+        /* ── Table ── */
+        .cs-table-wrap {
+            overflow-x: auto;
+            margin: var(--space-6) 0;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .cs-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: var(--font-size-sm);
+        }
+
+        .cs-table th {
+            text-align: left;
+            padding: var(--space-3) var(--space-5);
+            background: var(--bg-secondary);
+            color: var(--text-muted);
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-xs);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-table td {
+            padding: var(--space-3) var(--space-5);
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            vertical-align: top;
+        }
+
+        .cs-table tr:last-child td { border-bottom: none; }
+        .cs-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .cs-table td:first-child { color: var(--text-primary); font-weight: var(--font-weight-medium); }
+
+        /* ── Gallery ── */
+        .cs-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-5);
+            margin-top: var(--space-8);
+        }
+
+        .cs-gallery-item {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: border-color var(--transition-normal), transform var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .cs-gallery-item:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .cs-gallery-item img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 16/10;
+        }
+
+        .cs-gallery-caption {
+            padding: var(--space-3) var(--space-4);
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ── Format badge grid ── */
+        .cs-format-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: var(--space-4);
+            margin: var(--space-8) 0;
+        }
+
+        .cs-format-card {
+            padding: var(--space-5);
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+
+        .cs-format-icon {
+            font-size: 1.75rem;
+            margin-bottom: var(--space-3);
+            display: block;
+        }
+
+        .cs-format-name {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+
+        .cs-format-note {
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ── Design system tiers ── */
+        .cs-system-tiers {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            margin: var(--space-8) 0;
+        }
+
+        .cs-tier {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-5);
+            padding: var(--space-5);
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-tier-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+            min-width: 110px;
+            margin-top: 2px;
+        }
+
+        .cs-tier-examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+        }
+
+        .cs-tier-tag {
+            font-size: var(--font-size-xs);
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            background: var(--bg-glass);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* ── Details / collapsible ── */
+        .cs-details {
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-top: var(--space-8);
+        }
+
+        .cs-details summary {
+            padding: var(--space-5) var(--space-6);
+            cursor: pointer;
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            user-select: none;
+        }
+
+        .cs-details summary::before {
+            content: '▶';
+            font-size: 0.6em;
+            color: var(--accent-primary);
+            transition: transform var(--transition-fast);
+        }
+
+        .cs-details[open] summary::before { transform: rotate(90deg); }
+
+        .cs-details-body {
+            padding: var(--space-6);
+            background: var(--bg-primary);
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-details-body .cs-p { font-size: var(--font-size-sm); }
+
+        /* ── Outcome links ── */
+        .cs-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+            margin-top: var(--space-8);
+        }
+
+        .cs-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            text-decoration: none;
+            transition: all var(--transition-normal);
+        }
+
+        .cs-link-btn--primary {
+            background: var(--accent-primary);
+            color: var(--text-inverse);
+        }
+
+        .cs-link-btn--primary:hover {
+            background: var(--accent-primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .cs-link-btn--secondary {
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--text-secondary);
+            background: var(--bg-glass);
+        }
+
+        .cs-link-btn--secondary:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        /* ── Overline ── */
+        .cs-overline {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: var(--space-3);
+        }
+
+        /* ── A11y callout ── */
+        .cs-a11y-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+            margin: var(--space-8) 0;
+            padding: var(--space-6);
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-xl);
+            border-left: 4px solid var(--accent-success);
+        }
+
+        .cs-a11y-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .cs-a11y-icon {
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .cs-a11y-text { display: flex; flex-direction: column; gap: 2px; }
+
+        .cs-a11y-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+            color: var(--accent-success);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-a11y-desc {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ── Lightbox ── */
+        .cs-lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 9000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-6);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-normal);
+        }
+
+        .cs-lightbox.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .cs-lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: var(--radius-xl);
+            object-fit: contain;
+        }
+
+        .cs-lightbox-close {
+            position: absolute;
+            top: var(--space-6);
+            right: var(--space-6);
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background var(--transition-fast);
+        }
+
+        .cs-lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .cs-meta { gap: var(--space-4); }
+            .cs-gallery { grid-template-columns: 1fr; }
+            .cs-format-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .cs-format-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <nav id="navbar">
+        <div class="nav-left">
+            <div class="logo" onclick="window.location.href='../index.html'">
+                <img src="../images/HPE pyramid.png" alt="HPE Logo" class="logo-image">
+                <div class="logo-text">
+                    <span class="logo-letter">K</span><span class="logo-letter">a</span><span class="logo-letter">t</span><span class="logo-letter">i</span><span class="logo-letter">e</span><span class="logo-space"> </span><span class="logo-letter">H</span><span class="logo-letter">u</span><span class="logo-letter">n</span><span class="logo-letter">t</span>
+                </div>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html" class="about-btn">Portfolio</a></li>
+            <li><a href="../index.html#skills">Skills</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="theme-toggle" id="themeToggle" role="button" tabindex="0" aria-label="Switch to light mode">
+                <svg class="theme-icon theme-icon--moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/></svg>
+                <svg class="theme-icon theme-icon--sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="cs-page">
+
+        <!-- ── HERO ── -->
+        <section class="cs-hero">
+            <div class="cs-container">
+                <a href="../index.html#projects" class="cs-back">← Back to Projects</a>
+
+                <div class="cs-tag">Case Study</div>
+                <h1 class="cs-title">Teaching Portfolio — Multi-Format Artifact Viewer</h1>
+
+                <p class="cs-p">
+                    I designed and built a <strong>public-facing teaching portfolio</strong> that showcases Jupyter notebooks, PowerPoint presentations, PDFs, and curriculum documents in a single, unified, browser-based interface — no downloads, no app switching, no account required. The core design challenge was presenting four fundamentally different file formats under one coherent reading experience, accessible to any visitor regardless of device or installed software.
+                </p>
+                <p class="cs-p">
+                    The site is live at <a href="https://khunt247.github.io/Teaching-Portfolio/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary);">khunt247.github.io/Teaching-Portfolio</a> and demonstrates both my <strong>teaching depth</strong> (Python, data science, physical education, professional development) and my <strong>front-end capability</strong> (GSAP animations, multi-format rendering, WCAG accessibility, and responsive layout — all in vanilla HTML/CSS/JS).
+                </p>
+
+                <div class="cs-meta">
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Role</span>
+                        <span class="cs-meta-value">Designer, Developer &amp; Content Author</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Audience</span>
+                        <span class="cs-meta-value">Hiring teams, administrators, collaborators</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Stack</span>
+                        <span class="cs-meta-value">HTML5 · CSS3 · Vanilla JS · GSAP · pptxjs</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Output</span>
+                        <span class="cs-meta-value">Live · GitHub Pages · WCAG-compliant</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── HERO IMAGE ── -->
+        <div class="cs-container--wide" style="padding-top: var(--space-12); padding-bottom: var(--space-8);">
+            <img
+                src="../images/Project 6/1.png"
+                alt="Teaching Portfolio — Hero section with mission statement and role tags"
+                class="cs-img"
+                style="border-radius: var(--radius-2xl);"
+            >
+            <p class="cs-img-caption">Homepage hero — mission statement, role tags, and entry point to the artifact collection.</p>
+        </div>
+
+        <!-- ── DELIVERABLES ── -->
+        <section class="cs-section">
+            <div class="cs-container--wide">
+                <div class="cs-overline">What was shipped</div>
+                <h2 class="cs-h2">Deliverables</h2>
+
+                <div class="cs-deliverables">
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Multi-Format Viewer</div>
+                        <p class="cs-deliverable-desc">Browser-native rendering for four artifact types — Jupyter notebooks (via nbviewer integration), PowerPoint files (via pptxjs), PDFs (native embed), and HTML/curriculum documents — eliminating the need for any download or external app.</p>
+                    </div>
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Filterable Portfolio Section</div>
+                        <p class="cs-deliverable-desc">Interactive category filters (Python, Data Science, Physical Education, Learning Methodology, Professional Development) with animated project grid — letting visitors zero in on the subject area relevant to them.</p>
+                    </div>
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Accessibility Layer</div>
+                        <p class="cs-deliverable-desc">WCAG-compliant implementation: semantic HTML structure, ARIA labels, keyboard-navigable interactions, focus management in modals, and color contrast ratios validated across the full page.</p>
+                    </div>
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Motion &amp; Interaction</div>
+                        <p class="cs-deliverable-desc">GSAP scroll-triggered entrance animations for section reveals; email modal with one-click copy; hover states and focus rings consistent with WCAG 2.4.11; responsive layout from full desktop to stacked single-column mobile.</p>
+                    </div>
+                </div>
+
+                <!-- Format support visual -->
+                <div class="cs-format-grid" style="margin-top: var(--space-10);">
+                    <div class="cs-format-card">
+                        <span class="cs-format-icon">📓</span>
+                        <div class="cs-format-name">Jupyter Notebooks</div>
+                        <div class="cs-format-note">Rendered via nbviewer — code, outputs, markdown preserved</div>
+                    </div>
+                    <div class="cs-format-card">
+                        <span class="cs-format-icon">📊</span>
+                        <div class="cs-format-name">PowerPoint</div>
+                        <div class="cs-format-note">Parsed and displayed via pptxjs — no Office required</div>
+                    </div>
+                    <div class="cs-format-card">
+                        <span class="cs-format-icon">📄</span>
+                        <div class="cs-format-name">PDF</div>
+                        <div class="cs-format-note">Native browser embed — scrollable, zoomable</div>
+                    </div>
+                    <div class="cs-format-card">
+                        <span class="cs-format-icon">📋</span>
+                        <div class="cs-format-name">Curriculum Docs</div>
+                        <div class="cs-format-note">HTML/structured documents rendered inline</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── DESIGN PROCESS ── -->
+        <section class="cs-section cs-section--full">
+                <div class="cs-overline">How I worked</div>
+                <h2 class="cs-h2">Design Process</h2>
+
+                <div class="cs-process">
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">01</span>
+                        <span class="cs-step-label">Define requirements</span>
+                        <span class="cs-step-desc">Identify what a reviewer needs: scan subject areas fast, open any artifact without friction, verify credentials, and contact easily.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">02</span>
+                        <span class="cs-step-label">Map IA</span>
+                        <span class="cs-step-desc">Hero → About → Portfolio (filterable) → Skills → Contact. Five sections, one scroll — no routing complexity.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">03</span>
+                        <span class="cs-step-label">Solve format rendering</span>
+                        <span class="cs-step-desc">Research and prototype rendering solutions for each format: nbviewer for notebooks, pptxjs for slides, PDF embed for documents.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">04</span>
+                        <span class="cs-step-label">Build &amp; style</span>
+                        <span class="cs-step-desc">Implement layout, GSAP animation, filter logic, and modal interactions in vanilla HTML/CSS/JS — no build step required.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">05</span>
+                        <span class="cs-step-label">Accessibility pass</span>
+                        <span class="cs-step-desc">WCAG audit: semantic structure, ARIA labels, keyboard navigation, focus trapping in modals, contrast ratio checks.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">06</span>
+                        <span class="cs-step-label">Deploy &amp; validate</span>
+                        <span class="cs-step-desc">GitHub Pages deployment; cross-browser and mobile validation; check all artifact formats render correctly in production.</span>
+                    </div>
+                </div>
+        </section>
+
+        <!-- ── FOUNDATION ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Starting point</div>
+                <h2 class="cs-h2">Foundation &amp; Constraints</h2>
+
+                <p class="cs-p">
+                    The brief was practical: <strong>a single URL that shows the full range of teaching work</strong> — from Python data science notebooks to physical education curriculum — without forcing any reviewer to download files or have specific software installed. The audience is often non-technical (administrators, hiring committees) opening the link on whatever device they have.
+                </p>
+                <p class="cs-p">
+                    <strong>Fixed constraints:</strong> Static hosting only (GitHub Pages — no server-side rendering). No accounts, no backend, no build pipeline — the entire site must run as pure HTML/CSS/JS. Accessibility non-negotiable.
+                </p>
+                <p class="cs-p">
+                    <strong>Variable:</strong> Which artifacts to feature, how deep the category structure should go, and how much motion to include before it harms accessibility on <code>prefers-reduced-motion</code> contexts.
+                </p>
+
+                <div class="cs-img-wrap">
+                    <img
+                        src="../images/Project 6/4.png"
+                        alt="Portfolio section — teaching artifacts with category filters"
+                        class="cs-img"
+                    >
+                    <p class="cs-img-caption">Portfolio section with category filter active — the core browsing experience for reviewers.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── LOOK & FEEL ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Visual direction</div>
+                <h2 class="cs-h2">Look &amp; Feel: Calm &amp; Credible</h2>
+
+                <p class="cs-p">
+                    <strong>Brand intent:</strong> The site should feel <strong>professional and unhurried</strong> — a reviewer opening this should immediately feel they're looking at a serious practitioner's work, not a student project. That means clean typography, generous whitespace, and motion that enhances rather than competes with the content.
+                </p>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-8);">Chosen direction: "Scaffolded clarity"</h3>
+                <p class="cs-p">
+                    A warm, neutral base palette with a single accent color. GSAP scroll animations reveal sections progressively — framing each area as a separate reading beat. Cards use consistent structure (category badge, title, description, format tag) so the eye learns the pattern once and reads the rest instantly.
+                </p>
+
+                <div class="cs-compare">
+                    <div class="cs-compare-card">
+                        <img src="../images/Project 6/2.png" alt="About section — brief intro with quote card">
+                        <div class="cs-compare-card-body">
+                            <div class="cs-compare-label">About section</div>
+                            <p class="cs-deliverable-desc">Brief, human introduction with a quote card — establishes teaching philosophy before the artifacts. Keeps tone personal and direct, not a résumé recitation.</p>
+                        </div>
+                    </div>
+                    <div class="cs-compare-card cs-compare-chosen">
+                        <img src="../images/Project 6/3.png" alt="Feature cards — Inclusive Accessibility, Data-Driven Design, Scalable Systems">
+                        <div class="cs-compare-card-body">
+                            <div class="cs-compare-label">Principle cards</div>
+                            <p class="cs-deliverable-desc">Three core principles (Inclusive Accessibility, Data-Driven Design, Scalable Systems) positioned before the portfolio grid — frames <em>how</em> I teach before showing <em>what</em> I taught.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── MINI CASE STUDY ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Feature drilled end-to-end</div>
+                <h2 class="cs-h2">Mini Case Study: The Multi-Format Viewer</h2>
+
+                <p class="cs-p">
+                    The hardest problem in this project wasn't layout or animation — it was making four completely different file formats open legibly in a browser, without requiring the visitor to do anything beyond clicking.
+                </p>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Requirements</h3>
+                <ul class="cs-problem-list cs-finding-list">
+                    <li>Open any artifact <strong>in the browser</strong> — no download prompt, no "open with" dialog.</li>
+                    <li>Preserve the <strong>native reading experience</strong> of each format: code in notebooks, slides in presentations, pages in PDFs.</li>
+                    <li>Keep the <strong>same modal shell</strong> across all formats so the UI stays predictable.</li>
+                    <li>Remain <strong>keyboard-navigable</strong> and focusable within the overlay per WCAG 2.1 AA.</li>
+                </ul>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">First Exploration — Problems Found</h3>
+                <ul class="cs-problem-list">
+                    <li><strong>PowerPoint:</strong> Native browser has no PPT support. First attempt (Office Online embed) required Microsoft account. <strong>Rejected: auth friction defeats the no-account constraint.</strong></li>
+                    <li><strong>Jupyter Notebooks:</strong> Raw <code>.ipynb</code> files render as JSON in the browser. Direct <code>iframe</code> to GitHub fails on CORS. <strong>Solution: nbviewer URL pattern as iframe src.</strong></li>
+                    <li><strong>PDF:</strong> Embedded <code>&lt;iframe&gt;</code> or <code>&lt;embed&gt;</code> works natively but has inconsistent mobile behavior. Added fallback link for mobile browsers that block PDF embeds.</li>
+                    <li><strong>Modal focus trap:</strong> Early version allowed Tab to escape the overlay into the background page — a WCAG 2.1 failure (SC 2.1.2).</li>
+                </ul>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Iteration — What Changed</h3>
+                <ul class="cs-problem-list cs-finding-list">
+                    <li><strong>PowerPoint → pptxjs:</strong> Replaced the Office Online approach with pptxjs, which parses <code>.pptx</code> client-side and renders slides as DOM elements — no server, no auth, fully offline-capable.</li>
+                    <li><strong>Focus trap implementation:</strong> Added a JavaScript focus-trap loop inside the modal that cycles Tab through all focusable elements within the overlay and blocks escape to the background.</li>
+                    <li><strong>PDF fallback:</strong> Added a "Download PDF" link that appears below the embed on narrow viewports where iframe rendering is suppressed.</li>
+                    <li><strong>GSAP + prefers-reduced-motion:</strong> All scroll animations wrapped in a media query check — users with reduced motion get instant, non-animated section reveals instead.</li>
+                </ul>
+
+                <!-- Accessibility strip -->
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Accessibility Implementation</h3>
+
+                <div class="cs-a11y-strip">
+                    <div class="cs-a11y-item">
+                        <span class="cs-a11y-icon">⌨️</span>
+                        <div class="cs-a11y-text">
+                            <span class="cs-a11y-label">Keyboard nav</span>
+                            <span class="cs-a11y-desc">Full Tab order through all interactive elements; focus trap in modals; Esc closes overlay</span>
+                        </div>
+                    </div>
+                    <div class="cs-a11y-item">
+                        <span class="cs-a11y-icon">🏷️</span>
+                        <div class="cs-a11y-text">
+                            <span class="cs-a11y-label">ARIA labels</span>
+                            <span class="cs-a11y-desc">Descriptive <code>aria-label</code> on icon-only buttons; <code>role="dialog"</code> and <code>aria-modal</code> on overlays</span>
+                        </div>
+                    </div>
+                    <div class="cs-a11y-item">
+                        <span class="cs-a11y-icon">🎨</span>
+                        <div class="cs-a11y-text">
+                            <span class="cs-a11y-label">Contrast</span>
+                            <span class="cs-a11y-desc">All text/background pairs validated at 4.5:1 minimum (WCAG AA); focus rings visible at 3:1 against adjacent colors</span>
+                        </div>
+                    </div>
+                    <div class="cs-a11y-item">
+                        <span class="cs-a11y-icon">✋</span>
+                        <div class="cs-a11y-text">
+                            <span class="cs-a11y-label">Reduced motion</span>
+                            <span class="cs-a11y-desc">GSAP animations disabled via <code>prefers-reduced-motion: reduce</code> media query — instant reveals replace scroll animations</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Design Decisions Table</h3>
+                <div class="cs-table-wrap">
+                    <table class="cs-table">
+                        <thead>
+                            <tr>
+                                <th>Challenge</th>
+                                <th>First attempt</th>
+                                <th>Problem</th>
+                                <th>Solution shipped</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PowerPoint rendering</td>
+                                <td>Office Online embed iframe</td>
+                                <td>Required Microsoft account — breaks no-auth constraint</td>
+                                <td>pptxjs client-side parser — renders slides as DOM, no server</td>
+                            </tr>
+                            <tr>
+                                <td>Jupyter notebooks</td>
+                                <td>Direct GitHub file iframe</td>
+                                <td>CORS blocks raw GitHub file iframes</td>
+                                <td>nbviewer URL pattern as iframe src — renders notebooks publicly</td>
+                            </tr>
+                            <tr>
+                                <td>PDF mobile fallback</td>
+                                <td>iframe embed only</td>
+                                <td>iOS Safari suppresses PDF iframes on narrow viewport</td>
+                                <td>Fallback download link rendered below embed on mobile breakpoints</td>
+                            </tr>
+                            <tr>
+                                <td>Modal focus management</td>
+                                <td>Standard modal open/close</td>
+                                <td>Tab escaped overlay into background — WCAG SC 2.1.2 failure</td>
+                                <td>JavaScript focus-trap loop cycles Tab within overlay only</td>
+                            </tr>
+                            <tr>
+                                <td>Scroll animation + accessibility</td>
+                                <td>GSAP animations always active</td>
+                                <td>Animated scrolling harmful for vestibular disorders</td>
+                                <td>All GSAP animations gated by prefers-reduced-motion media query</td>
+                            </tr>
+                            <tr>
+                                <td>Category filtering</td>
+                                <td>Page reload per filter</td>
+                                <td>Full reload disorienting; lost scroll position</td>
+                                <td>Client-side JS filter — hides/shows cards instantly without navigation</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── HI-FI GALLERY ── -->
+        <section class="cs-section">
+            <div class="cs-container--wide">
+                <div class="cs-container" style="padding: 0;">
+                    <div class="cs-overline">All sections</div>
+                    <h2 class="cs-h2">Site Gallery</h2>
+                    <p class="cs-p">Full page coverage — from hero to footer. Subject areas include Python, Data Science, Physical Education, Learning Methodology, and Professional Development.</p>
+                </div>
+
+                <div class="cs-gallery">
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 6/1.png', 'Homepage — hero section with mission statement and role tags')">
+                        <img src="../images/Project 6/1.png" alt="Homepage hero">
+                        <div class="cs-gallery-caption">Homepage — hero &amp; mission</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 6/2.png', 'About section — brief intro with quote card')">
+                        <img src="../images/Project 6/2.png" alt="About section">
+                        <div class="cs-gallery-caption">About — intro &amp; quote</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 6/3.png', 'About — principle cards: Inclusive Accessibility, Data-Driven Design, Scalable Systems')">
+                        <img src="../images/Project 6/3.png" alt="About feature cards">
+                        <div class="cs-gallery-caption">About — teaching principles</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 6/4.png', 'Portfolio section — artifact grid with category filter active')">
+                        <img src="../images/Project 6/4.png" alt="Portfolio section with filters">
+                        <div class="cs-gallery-caption">Portfolio — filterable grid</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 6/5.png', 'Portfolio — Python programming projects grid')">
+                        <img src="../images/Project 6/5.png" alt="Python projects">
+                        <div class="cs-gallery-caption">Portfolio — Python projects</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 6/6.png', 'Portfolio — Physical Education curriculum projects')">
+                        <img src="../images/Project 6/6.png" alt="Physical Education curriculum">
+                        <div class="cs-gallery-caption">Portfolio — PE curriculum</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 6/7.png', 'Portfolio — Learning Methodology and Professional Development artifacts')">
+                        <img src="../images/Project 6/7.png" alt="Learning methodology artifacts">
+                        <div class="cs-gallery-caption">Portfolio — learning methodology</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 6/8.png', 'Skills section — Technical Skills and Competencies grid')">
+                        <img src="../images/Project 6/8.png" alt="Technical skills grid">
+                        <div class="cs-gallery-caption">Skills — technical competencies</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 6/9.png', 'Skills — LMS Platforms, Design Tools, and Productivity Skills')">
+                        <img src="../images/Project 6/9.png" alt="LMS and tools skills">
+                        <div class="cs-gallery-caption">Skills — LMS &amp; tools</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 6/10.png', 'Footer — contact information and navigation')">
+                        <img src="../images/Project 6/10.png" alt="Footer section">
+                        <div class="cs-gallery-caption">Footer — contact &amp; nav</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── DESIGN SYSTEM ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Component library</div>
+                <h2 class="cs-h2">Design System</h2>
+
+                <p class="cs-p">
+                    Every section follows the same structural pattern: entrance animation (or instant reveal), consistent card anatomy, and shared interactive behaviors (hover, focus, click). This lets the design scale to any number of artifacts without creating new patterns.
+                </p>
+
+                <div class="cs-system-tiers">
+                    <div class="cs-tier">
+                        <span class="cs-tier-label">Atoms</span>
+                        <div class="cs-tier-examples">
+                            <span class="cs-tier-tag">Category badge</span>
+                            <span class="cs-tier-tag">Format tag (PDF, PPT, notebook)</span>
+                            <span class="cs-tier-tag">Focus ring</span>
+                            <span class="cs-tier-tag">Icon button</span>
+                            <span class="cs-tier-tag">Section label</span>
+                            <span class="cs-tier-tag">Divider</span>
+                        </div>
+                    </div>
+                    <div class="cs-tier">
+                        <span class="cs-tier-label">Molecules</span>
+                        <div class="cs-tier-examples">
+                            <span class="cs-tier-tag">Artifact card (badge + title + description + tag)</span>
+                            <span class="cs-tier-tag">Filter chip row</span>
+                            <span class="cs-tier-tag">Skill item</span>
+                            <span class="cs-tier-tag">Principle card</span>
+                            <span class="cs-tier-tag">Quote block</span>
+                        </div>
+                    </div>
+                    <div class="cs-tier">
+                        <span class="cs-tier-label">Organisms / Templates</span>
+                        <div class="cs-tier-examples">
+                            <span class="cs-tier-tag">Artifact viewer modal (shared shell, format-specific content)</span>
+                            <span class="cs-tier-tag">Portfolio grid (filterable)</span>
+                            <span class="cs-tier-tag">Skills grid (two-column)</span>
+                            <span class="cs-tier-tag">Hero section</span>
+                            <span class="cs-tier-tag">Email modal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="cs-p" style="margin-top: var(--space-6);">
+                    <strong>Reuse principle:</strong> The artifact viewer modal is the only complex component. Every format (notebook, PPT, PDF, curriculum) loads into the same modal shell — only the inner rendering strategy changes. Adding a new format means adding one render branch, not a new component.
+                </p>
+            </div>
+        </section>
+
+        <!-- ── OUTCOME ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Result</div>
+                <h2 class="cs-h2">Outcome</h2>
+
+                <p class="cs-p">
+                    A <strong>live, accessible, zero-dependency teaching portfolio</strong> that presents diverse educational materials in one unified browser experience. The site demonstrates both teaching breadth (five subject areas, multiple artifact types) and front-end capability (multi-format rendering, GSAP animation, WCAG compliance, vanilla JavaScript architecture).
+                </p>
+                <p class="cs-p">
+                    Because it runs as a pure static site on GitHub Pages, there are no hosting costs, no maintenance overhead, and no dependencies to update — it will remain accessible and functional indefinitely.
+                </p>
+
+                <details class="cs-details">
+                    <summary>What I'd do next</summary>
+                    <div class="cs-details-body">
+                        <ul class="cs-problem-list cs-finding-list">
+                            <li><strong>Search across artifacts</strong> — full-text search through titles and descriptions for visitors who know what they're looking for.</li>
+                            <li><strong>Print-optimized view</strong> — a clean, paginated print stylesheet for reviewers who want a paper copy.</li>
+                            <li><strong>Automated a11y testing</strong> — axe-core or Lighthouse CI in the GitHub Actions pipeline to catch regressions when content is updated.</li>
+                            <li><strong>More artifact types</strong> — video recordings of live lessons, student work samples (anonymized), and rubric documents.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <div class="cs-links">
+                    <a href="https://khunt247.github.io/Teaching-Portfolio/" target="_blank" rel="noopener noreferrer" class="cs-link-btn cs-link-btn--primary">View Live Site</a>
+                    <a href="../index.html#projects" class="cs-link-btn cs-link-btn--secondary">← All Projects</a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Lightbox -->
+    <div class="cs-lightbox" id="csLightbox" onclick="closeLightbox()">
+        <button class="cs-lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img src="" alt="" id="csLightboxImg">
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-text">© 2026 Katie Hunt | All Rights Reserved</div>
+        </div>
+    </footer>
+
+    <script src="../script.js" defer></script>
+    <script src="./case-studies.js" defer></script>
+    <script>
+        function openLightbox(src, alt) {
+            const lb = document.getElementById('csLightbox');
+            const img = document.getElementById('csLightboxImg');
+            img.src = src;
+            img.alt = alt || '';
+            lb.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('csLightbox').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+</html>

@@ -42,12 +42,12 @@
             <li><a href="about.html" class="about-btn">About</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#projects">Projects</a></li>
-            <li><a href="#playground">Interactive Game</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-right">
-            <div class="theme-toggle" id="themeToggle">
-                <span class="theme-icon">🌙</span>
+            <div class="theme-toggle" id="themeToggle" role="button" tabindex="0" aria-label="Switch to light mode">
+                <svg class="theme-icon theme-icon--moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/></svg>
+                <svg class="theme-icon theme-icon--sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg>
             </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <span></span>
@@ -303,7 +303,13 @@
                     
                     <div class="project-gallery" data-project="project3"></div>
                     
-                    <button class="expand-details-btn">View Details</button>
+                    <div class="project-buttons">
+                        <button class="expand-details-btn">View Details</button>
+                        <a href="case-studies/codevault.html" class="view-portfolio-btn">
+                            <span class="btn-text">Case Study</span>
+                            <span class="btn-arrow">→</span>
+                        </a>
+                    </div>
                     
                     <div class="project-details-expanded">
                         <div class="detail-section">
@@ -342,7 +348,13 @@
                     
                     <div class="project-gallery" data-project="project8"></div>
                     
-                    <button class="expand-details-btn">View Details</button>
+                    <div class="project-buttons">
+                        <button class="expand-details-btn">View Details</button>
+                        <a href="case-studies/digital-trading-playbook.html" class="view-portfolio-btn">
+                            <span class="btn-text">Case Study</span>
+                            <span class="btn-arrow">→</span>
+                        </a>
+                    </div>
                     
                     <div class="project-details-expanded">
                         <div class="detail-section">
@@ -373,6 +385,99 @@
                         <span class="tech-tag">Custom Hooks</span>
                         <span class="tech-tag">localStorage</span>
                         <span class="tech-tag">Responsive Design</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="project-card card-3d-advanced particle-zone">
+                <div class="project-content">
+                    <h3>PromptVault - AI Prompt Library Manager</h3>
+                    <p>Organize and track AI prompts with advanced search, usage analytics, and intelligent categorization.</p>
+                    
+                    <div class="project-gallery" data-project="project7"></div>
+                    
+                    <div class="project-buttons">
+                        <button class="expand-details-btn">View Details</button>
+                        <a href="case-studies/promptvault.html" class="view-portfolio-btn">
+                            <span class="btn-text">Case Study</span>
+                            <span class="btn-arrow">→</span>
+                        </a>
+                    </div>
+                    
+                    <div class="project-details-expanded">
+                        <div class="detail-section">
+                            <h4>Problem Solved</h4>
+                            <p>Organizes and manages AI prompts in one centralized library. Eliminates the frustration of recreating effective prompts by providing searchable categories, usage tracking, and insights into which prompts work best.</p>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Key Features</h4>
+                            <ul class="arrow-list">
+                                <li>➤ Multi-page routing (Library, Favorites, AI Insights, Settings)</li>
+                                <li>➤ Dynamic category management</li>
+                                <li>➤ AI Insights and Analytics dashboard</li>
+                                <li>➤ Search with suggestions and filtering</li>
+                                <li>➤ Data export/import functionality</li>
+                                <li>➤ KPI dashboard with usage stats</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-tags">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">Vanilla JavaScript</span>
+                        <span class="tech-tag">localStorage API</span>
+                        <span class="tech-tag">SVG Icons</span>
+                        <span class="tech-tag">Responsive Design</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="project-card card-3d-advanced particle-zone">
+                <div class="project-content">
+                    <h3>Teaching Portfolio - Multi-Format Artifact Viewer</h3>
+                    <p>My teaching portfolio showcasing Jupyter notebooks, PowerPoints, PDFs, and curriculum documents in a unified, accessible interface.</p>
+                    
+                    <div class="project-gallery" data-project="project6"></div>
+                    
+                    <!-- Button Container for Horizontal Layout -->
+                    <div class="project-buttons">
+                        <button class="expand-details-btn">View Details</button>
+                        <a href="case-studies/teaching-portfolio.html" class="view-portfolio-btn">
+                            <span class="btn-text">Case Study</span>
+                            <span class="btn-arrow">→</span>
+                        </a>
+                        <a href="https://khunt247.github.io/Teaching-Portfolio/" target="_blank" rel="noopener noreferrer" class="view-portfolio-btn">
+                            <span class="btn-text">View Portfolio</span>
+                            <span class="btn-arrow">→</span>
+                        </a>
+                    </div>
+                    
+                    <div class="project-details-expanded">
+                        <div class="detail-section">
+                            <h4>Problem Solved</h4>
+                            <p>Showcases diverse educational materials (notebooks, presentations, PDFs) in one accessible platform. Eliminates the need for multiple apps or downloads by rendering all content directly in the browser with full accessibility support.</p>
+                        </div>
+                        <div class="detail-section">
+                            <h4>Key Features</h4>
+                            <ul class="arrow-list">
+                                <li>➤ Multi-format viewer (PDFs, PowerPoints, Jupyter notebooks)</li>
+                                <li>➤ Interactive project filtering by category</li>
+                                <li>➤ GSAP scroll-triggered animations</li>
+                                <li>➤ Email modal with click-to-copy</li>
+                                <li>➤ WCAG-compliant accessibility</li>
+                                <li>➤ Responsive mobile design</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-tags">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">Vanilla JavaScript</span>
+                        <span class="tech-tag">GSAP</span>
+                        <span class="tech-tag">pptxjs</span>
+                        <span class="tech-tag">Accessibility</span>
                     </div>
                 </div>
             </article>
@@ -417,44 +522,6 @@
 
             <article class="project-card card-3d-advanced particle-zone">
                 <div class="project-content">
-                    <h3>PromptVault - AI Prompt Library Manager</h3>
-                    <p>Organize and track AI prompts with advanced search, usage analytics, and intelligent categorization.</p>
-                    
-                    <div class="project-gallery" data-project="project7"></div>
-                    
-                    <button class="expand-details-btn">View Details</button>
-                    
-                    <div class="project-details-expanded">
-                        <div class="detail-section">
-                            <h4>Problem Solved</h4>
-                            <p>Organizes and manages AI prompts in one centralized library. Eliminates the frustration of recreating effective prompts by providing searchable categories, usage tracking, and insights into which prompts work best.</p>
-                        </div>
-                        <div class="detail-section">
-                            <h4>Key Features</h4>
-                            <ul class="arrow-list">
-                                <li>➤ Multi-page routing (Library, Favorites, AI Insights, Settings)</li>
-                                <li>➤ Dynamic category management</li>
-                                <li>➤ AI Insights and Analytics dashboard</li>
-                                <li>➤ Search with suggestions and filtering</li>
-                                <li>➤ Data export/import functionality</li>
-                                <li>➤ KPI dashboard with usage stats</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="tech-tags">
-                        <span class="tech-tag">HTML5</span>
-                        <span class="tech-tag">CSS3</span>
-                        <span class="tech-tag">Vanilla JavaScript</span>
-                        <span class="tech-tag">localStorage API</span>
-                        <span class="tech-tag">SVG Icons</span>
-                        <span class="tech-tag">Responsive Design</span>
-                    </div>
-                </div>
-            </article>
-
-            <article class="project-card card-3d-advanced particle-zone">
-                <div class="project-content">
                     <h3>PassVault - Secure Password Management Application</h3>
                     <p>Secure local password manager with categories, instant search, and multiple themes—no server required.</p>
                     
@@ -486,51 +553,6 @@
                         <span class="tech-tag">localStorage API</span>
                         <span class="tech-tag">CSS Grid</span>
                         <span class="tech-tag">Responsive Design</span>
-                    </div>
-                </div>
-            </article>
-
-            <article class="project-card card-3d-advanced particle-zone">
-                <div class="project-content">
-                    <h3>Teaching Portfolio - Multi-Format Artifact Viewer</h3>
-                    <p>My teaching portfolio showcasing Jupyter notebooks, PowerPoints, PDFs, and curriculum documents in a unified, accessible interface.</p>
-                    
-                    <div class="project-gallery" data-project="project6"></div>
-                    
-                    <!-- Button Container for Horizontal Layout -->
-                    <div class="project-buttons">
-                        <button class="expand-details-btn">View Details</button>
-                        <a href="https://khunt247.github.io/Teaching-Portfolio/" target="_blank" rel="noopener noreferrer" class="view-portfolio-btn">
-                            <span class="btn-text">View Portfolio</span>
-                            <span class="btn-arrow">→</span>
-                        </a>
-                    </div>
-                    
-                    <div class="project-details-expanded">
-                        <div class="detail-section">
-                            <h4>Problem Solved</h4>
-                            <p>Showcases diverse educational materials (notebooks, presentations, PDFs) in one accessible platform. Eliminates the need for multiple apps or downloads by rendering all content directly in the browser with full accessibility support.</p>
-                        </div>
-                        <div class="detail-section">
-                            <h4>Key Features</h4>
-                            <ul class="arrow-list">
-                                <li>➤ Multi-format viewer (PDFs, PowerPoints, Jupyter notebooks)</li>
-                                <li>➤ Interactive project filtering by category</li>
-                                <li>➤ GSAP scroll-triggered animations</li>
-                                <li>➤ Email modal with click-to-copy</li>
-                                <li>➤ WCAG-compliant accessibility</li>
-                                <li>➤ Responsive mobile design</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="tech-tags">
-                        <span class="tech-tag">HTML5</span>
-                        <span class="tech-tag">CSS3</span>
-                        <span class="tech-tag">Vanilla JavaScript</span>
-                        <span class="tech-tag">GSAP</span>
-                        <span class="tech-tag">pptxjs</span>
-                        <span class="tech-tag">Accessibility</span>
                     </div>
                 </div>
             </article>

@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeVault — Case Study | Katie Hunt</title>
+    <link rel="icon" href="../images/HPE pyramid.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/HPE pyramid.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="./case-studies.css">
+    <style>
+        /* ── Case Study Layout ── */
+        .cs-page {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+
+        .cs-container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+
+        .cs-container--wide {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+
+        /* ── Hero ── */
+        .cs-hero {
+            padding: var(--space-16) 0 var(--space-12);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-back {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-8);
+            transition: opacity var(--transition-fast);
+        }
+
+        .cs-back:hover { opacity: 0.75; }
+
+        .cs-tag {
+            display: inline-block;
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            margin-bottom: var(--space-4);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-title {
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            font-weight: var(--font-weight-extrabold);
+            color: var(--text-primary);
+            line-height: var(--line-height-tight);
+            margin-bottom: var(--space-6);
+        }
+
+        .cs-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+            padding-top: var(--space-6);
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-meta-item { display: flex; flex-direction: column; gap: 2px; }
+        .cs-meta-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .cs-meta-value {
+            font-size: var(--font-size-sm);
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* ── Sections ── */
+        .cs-section {
+            padding: var(--space-16) 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-section:last-of-type { border-bottom: none; }
+
+        .cs-section--full {
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+
+        .cs-h2 {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-8);
+        }
+
+        .cs-h3 {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+        }
+
+        .cs-h4 {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--accent-primary);
+            margin-bottom: var(--space-3);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.04em;
+        }
+
+        .cs-p {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-relaxed);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-5);
+        }
+
+        .cs-p:last-child { margin-bottom: 0; }
+
+        .cs-p strong { color: var(--text-primary); font-weight: var(--font-weight-semibold); }
+
+        /* ── Deliverables row ── */
+        .cs-deliverables {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+
+        .cs-deliverable-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+            transition: border-color var(--transition-normal);
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        .cs-deliverable-card:hover { border-color: var(--accent-primary); }
+
+        .cs-deliverable-card .cs-h4 {
+            margin-bottom: var(--space-3);
+            font-size: var(--font-size-lg);
+        }
+
+        .cs-deliverable-desc {
+            font-size: var(--font-size-base);
+            color: var(--text-secondary);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ── Process row ── */
+        .cs-process {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: var(--space-5);
+            margin-top: var(--space-8);
+        }
+
+        .cs-process-step {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            padding: var(--space-6);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border-left: 3px solid var(--accent-primary);
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        .cs-step-num {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.1em;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-step-label {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+        }
+
+        .cs-step-desc {
+            font-size: var(--font-size-sm);
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ── Full-width image ── */
+        .cs-img {
+            width: 100%;
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(255,255,255,0.08);
+            display: block;
+            background: var(--bg-secondary);
+        }
+
+        .cs-img-caption {
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: var(--space-3);
+            font-style: italic;
+        }
+
+        .cs-img-wrap {
+            margin: var(--space-10) 0;
+        }
+
+        /* ── Two-col comparison ── */
+        .cs-compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-5);
+            margin: var(--space-8) 0;
+        }
+
+        @media (max-width: 600px) {
+            .cs-compare { grid-template-columns: 1fr; }
+        }
+
+        .cs-compare-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+        }
+
+        .cs-compare-card img {
+            width: 100%;
+            display: block;
+        }
+
+        .cs-compare-card-body { padding: var(--space-5); }
+
+        .cs-compare-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: var(--space-2);
+        }
+
+        .cs-compare-chosen { border-color: var(--accent-primary); }
+
+        .cs-compare-chosen .cs-compare-label { color: var(--accent-primary); }
+
+        /* ── Problem / finding bullets ── */
+        .cs-problem-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            margin: var(--space-5) 0;
+        }
+
+        .cs-problem-list li {
+            display: flex;
+            gap: var(--space-3);
+            align-items: flex-start;
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            line-height: var(--line-height-relaxed);
+        }
+
+        .cs-problem-list li::before {
+            content: '→';
+            color: var(--accent-tertiary);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: var(--font-weight-bold);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .cs-finding-list li::before { color: var(--accent-primary); }
+
+        /* ── Table ── */
+        .cs-table-wrap {
+            overflow-x: auto;
+            margin: var(--space-6) 0;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .cs-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: var(--font-size-sm);
+        }
+
+        .cs-table th {
+            text-align: left;
+            padding: var(--space-3) var(--space-5);
+            background: var(--bg-secondary);
+            color: var(--text-muted);
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-xs);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-table td {
+            padding: var(--space-3) var(--space-5);
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .cs-table tr:last-child td { border-bottom: none; }
+
+        .cs-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+        .cs-table td:first-child { color: var(--text-primary); font-weight: var(--font-weight-medium); }
+
+        /* ── Gallery grid ── */
+        .cs-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-5);
+            margin-top: var(--space-8);
+        }
+
+        .cs-gallery-item {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: border-color var(--transition-normal), transform var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .cs-gallery-item:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .cs-gallery-item img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 16/10;
+        }
+
+        .cs-gallery-caption {
+            padding: var(--space-3) var(--space-4);
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ── Design system tiers ── */
+        .cs-system-tiers {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            margin: var(--space-8) 0;
+        }
+
+        .cs-tier {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-5);
+            padding: var(--space-5);
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-tier-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+            min-width: 110px;
+            margin-top: 2px;
+        }
+
+        .cs-tier-examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+        }
+
+        .cs-tier-tag {
+            font-size: var(--font-size-xs);
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            background: var(--bg-glass);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* ── Tech stack tags ── */
+        .cs-tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+            margin-top: var(--space-4);
+        }
+
+        /* ── Details / collapsible ── */
+        .cs-details {
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-top: var(--space-8);
+        }
+
+        .cs-details summary {
+            padding: var(--space-5) var(--space-6);
+            cursor: pointer;
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            user-select: none;
+        }
+
+        .cs-details summary::before {
+            content: '▶';
+            font-size: 0.6em;
+            color: var(--accent-primary);
+            transition: transform var(--transition-fast);
+        }
+
+        .cs-details[open] summary::before { transform: rotate(90deg); }
+
+        .cs-details-body {
+            padding: var(--space-6);
+            background: var(--bg-primary);
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-details-body .cs-p { font-size: var(--font-size-sm); }
+
+        /* ── Outcome links ── */
+        .cs-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+            margin-top: var(--space-8);
+        }
+
+        .cs-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            text-decoration: none;
+            transition: all var(--transition-normal);
+        }
+
+        .cs-link-btn--primary {
+            background: var(--accent-primary);
+            color: var(--text-inverse);
+        }
+
+        .cs-link-btn--primary:hover {
+            background: var(--accent-primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .cs-link-btn--secondary {
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--text-secondary);
+            background: var(--bg-glass);
+        }
+
+        .cs-link-btn--secondary:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        /* ── Section subtitle ── */
+        .cs-overline {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: var(--space-3);
+        }
+
+        /* ── Lightbox modal ── */
+        .cs-lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 9000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-6);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-normal);
+        }
+
+        .cs-lightbox.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .cs-lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: var(--radius-xl);
+            object-fit: contain;
+        }
+
+        .cs-lightbox-close {
+            position: absolute;
+            top: var(--space-6);
+            right: var(--space-6);
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background var(--transition-fast);
+        }
+
+        .cs-lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .cs-meta { gap: var(--space-4); }
+            .cs-gallery { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <nav id="navbar">
+        <div class="nav-left">
+            <div class="logo" onclick="window.location.href='../index.html'">
+                <img src="../images/HPE pyramid.png" alt="HPE Logo" class="logo-image">
+                <div class="logo-text">
+                    <span class="logo-letter">K</span><span class="logo-letter">a</span><span class="logo-letter">t</span><span class="logo-letter">i</span><span class="logo-letter">e</span><span class="logo-space"> </span><span class="logo-letter">H</span><span class="logo-letter">u</span><span class="logo-letter">n</span><span class="logo-letter">t</span>
+                </div>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html" class="about-btn">Portfolio</a></li>
+            <li><a href="../index.html#skills">Skills</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="theme-toggle" id="themeToggle" role="button" tabindex="0" aria-label="Switch to light mode">
+                <svg class="theme-icon theme-icon--moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/></svg>
+                <svg class="theme-icon theme-icon--sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="cs-page">
+
+        <!-- ── HERO ── -->
+        <section class="cs-hero">
+            <div class="cs-container">
+                <a href="../index.html#projects" class="cs-back">← Back to Projects</a>
+
+                <div class="cs-tag">Case Study</div>
+                <h1 class="cs-title">CodeVault — Secure Code Repository Management System</h1>
+
+                <p class="cs-p">
+                    I designed and built <strong>CodeVault</strong>, a local-first desktop and web-style application for developers who want a single, private vault for code snippets, project files, a repo-style file browser, encrypted credentials (API keys and passwords), notes, uploads, and global search — without sending vault contents to a third-party cloud.
+                </p>
+
+                <div class="cs-meta">
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Role</span>
+                        <span class="cs-meta-value">Product Designer &amp; Front-End Engineer</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Scope</span>
+                        <span class="cs-meta-value">12 primary surfaces · React SPA · Electron desktop</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Stack</span>
+                        <span class="cs-meta-value">React 18 · IndexedDB · Web Crypto API · Electron</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Output</span>
+                        <span class="cs-meta-value">Shipped v1 · Windows portable build</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── OVERVIEW HERO IMAGE ── -->
+        <div class="cs-container--wide" style="padding-top: var(--space-12); padding-bottom: var(--space-8);">
+            <img
+                src="../images/Project 3/Dashboard.png"
+                alt="CodeVault Dashboard — vault entry point overview"
+                class="cs-img"
+                style="border-radius: var(--radius-2xl);"
+            >
+            <p class="cs-img-caption">Dashboard — the central entry point: vault areas, quick-launch tiles, and status at a glance.</p>
+        </div>
+
+        <!-- ── DELIVERABLES ── -->
+        <section class="cs-section">
+            <div class="cs-container--wide">
+                <div class="cs-overline">What was shipped</div>
+                <h2 class="cs-h2">Deliverables</h2>
+
+                <div class="cs-deliverables">
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Product &amp; IA</div>
+                        <p class="cs-deliverable-desc">Single-vault model with a consistent app shell: dashboard entry, sidebar navigation, and global search entry points. Clear separation between "build" surfaces (snippets, projects, code repo) and "secrets" surfaces (API keys, passwords).</p>
+                    </div>
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Interaction &amp; UI</div>
+                        <p class="cs-deliverable-desc">Lock screen and session lifecycle; dashboard overview; dense-but-readable developer tool layouts for lists, trees, and editors; settings and backup flows with explicit confirmations for sensitive actions.</p>
+                    </div>
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Engineering</div>
+                        <p class="cs-deliverable-desc">React 18 + React Router (HashRouter for packaged builds); IndexedDB storage layer; Electron main process with single-instance lock and hardened IPC sender checks; optional LibreOffice-backed document conversion.</p>
+                    </div>
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Security UX</div>
+                        <p class="cs-deliverable-desc">No vault content visible without a valid session. Auto-lock and quick-lock affordances. Client-side encryption for protected categories via Web Crypto API (AES-GCM, PBKDF2 key derivation).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── DESIGN PROCESS ── -->
+        <section class="cs-section cs-section--full">
+                <div class="cs-overline">How I worked</div>
+                <h2 class="cs-h2">Design Process</h2>
+
+                <div class="cs-process">
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">01</span>
+                        <span class="cs-step-label">Frame requirements</span>
+                        <span class="cs-step-desc">Define the vault model — what stays local, what must be encrypted, what ships in v1.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">02</span>
+                        <span class="cs-step-label">Map IA &amp; flows</span>
+                        <span class="cs-step-desc">Lock → dashboard → feature areas; global search; backup and restore paths.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">03</span>
+                        <span class="cs-step-label">Look &amp; feel</span>
+                        <span class="cs-step-desc">Calibrated for a developer tool: information density, contrast, and scanning — not marketing polish.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">04</span>
+                        <span class="cs-step-label">Build in React</span>
+                        <span class="cs-step-desc">Route structure, protected routes, lists/trees/viewers, and settings surface.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">05</span>
+                        <span class="cs-step-label">Storage &amp; crypto</span>
+                        <span class="cs-step-desc">IndexedDB helpers, encrypted buckets, session manager, and migration hooks.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">06</span>
+                        <span class="cs-step-label">Harden &amp; ship</span>
+                        <span class="cs-step-desc">Auto-lock, Electron constraints, IPC boundaries, build targets — then ship the desktop artifact.</span>
+                    </div>
+                </div>
+        </section>
+
+        <!-- ── FOUNDATION ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Starting point</div>
+                <h2 class="cs-h2">Foundation &amp; Constraints</h2>
+
+                <p class="cs-p">
+                    I started from a blank product definition: unify snippets, files, notes, and secrets in <strong>one local app</strong>, with no backend dependency for the core vault. The tech baseline was browser storage and React, later extended with Electron for a single-window desktop experience.
+                </p>
+                <p class="cs-p">
+                    I had <strong>full control</strong> over navigation model, feature grouping, visual system, storage schema, encryption approach, and Electron packaging strategy. The binding constraints were the local-only trust model (device compromise is explicitly out of scope for the v1 threat model) and shipping without a design team.
+                </p>
+
+                <div class="cs-img-wrap">
+                    <img
+                        src="../images/Project 3/Lock Screen.png"
+                        alt="CodeVault Lock Screen — single-task focus"
+                        class="cs-img"
+                    >
+                    <p class="cs-img-caption">Lock Screen — the first and only surface visible before authentication. Single-task, minimal chrome.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── LOOK & FEEL ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Visual direction</div>
+                <h2 class="cs-h2">Establishing Look &amp; Feel</h2>
+
+                <p class="cs-p">
+                    <strong>Brand intent: "Calm vault, sharp tool."</strong> The app should feel trustworthy and quiet on lock and secrets screens, and efficient wherever developers work (lists, search, file tree). No playful illustration overload — readability and hierarchy come first.
+                </p>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-8);">Chosen direction: "Dense Neutral"</h3>
+                <p class="cs-p">
+                    High density for catalogs (snippets, projects, search results). Neutral chrome so content — code, keys, filenames — stays the hero. Explicit states for lock, loading, empty, and destructive backup actions.
+                </p>
+
+                <div class="cs-compare">
+                    <div class="cs-compare-card">
+                        <img src="../images/Project 3/Snippets Folder.png" alt="Snippets folder — hierarchical list view">
+                        <div class="cs-compare-card-body">
+                            <div class="cs-compare-label">Option explored</div>
+                            <p class="cs-deliverable-desc">Wider cards with more breathing room between items. Friendlier first impression, but slower to scan during repeat-use workflows.</p>
+                        </div>
+                    </div>
+                    <div class="cs-compare-card cs-compare-chosen">
+                        <img src="../images/Project 3/Code Snippet.png" alt="Code snippet editor — dense neutral layout">
+                        <div class="cs-compare-card-body">
+                            <div class="cs-compare-label">Chosen: Dense Neutral</div>
+                            <p class="cs-deliverable-desc">Tighter layouts with strong section headers. Steeper first impression, <strong>faster repeat use</strong> for daily snippet management and search — which are the primary tasks.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="cs-p">
+                    <strong>Why chosen:</strong> Snippets, search, and repo navigation are repeat tasks performed quickly. Optimizing for scanning and muscle memory beat onboarding comfort for the target user (developers storing and retrieving their own material).
+                </p>
+            </div>
+        </section>
+
+        <!-- ── MINI CASE STUDY ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Feature drilled end-to-end</div>
+                <h2 class="cs-h2">Mini Case Study: Vault Unlock → Session → Protected Content</h2>
+
+                <p class="cs-p">
+                    The session lifecycle was the highest-stakes design and engineering problem: get it wrong and vault content leaks, or the friction makes the app unusable. Here's how I worked through it.
+                </p>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Requirements</h3>
+                <ul class="cs-problem-list cs-finding-list">
+                    <li>After launch, <strong>no vault content</strong> (snippets, secrets, repo, notes) is reachable without authentication.</li>
+                    <li>Session must <strong>expire on idle</strong> (auto-lock) and be refreshable on activity.</li>
+                    <li>Navigation must <strong>fail closed</strong>: an invalid session always routes to lock — no content flash, no stale UI.</li>
+                </ul>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Initial Exploration &amp; Problems Found</h3>
+                <p class="cs-p">
+                    Treating the lock screen as "just another route" introduced a class of problems that only surfaced under real use:
+                </p>
+                <ul class="cs-problem-list">
+                    <li><strong>Content flash:</strong> If session state updates asynchronously, a protected route could render briefly before the redirect fires.</li>
+                    <li><strong>Forgotten sessions:</strong> Users staying unlocked all day created a false sense of security with no ambient awareness that the vault was open.</li>
+                    <li><strong>Slow lock:</strong> Power users needed a way to lock without digging through settings menus — especially when leaving their desk.</li>
+                </ul>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Design Iteration</h3>
+                <p class="cs-p">
+                    Each problem drove a specific design and engineering decision:
+                </p>
+                <ul class="cs-problem-list cs-finding-list">
+                    <li>Wrapped sensitive routes in a <strong>protected route pattern</strong> that checks session validity before render, not after mount — eliminating the content flash entirely.</li>
+                    <li>Added an <strong>app-wide auto-lock hook</strong> that resets on navigation activity and fires after a configurable idle threshold (set in Settings).</li>
+                    <li>Built a <strong>quick-lock shortcut</strong> accessible from any screen so locking is a two-keystroke action, not a menu dig.</li>
+                    <li>Session checks on route entry <strong>clear session state and replace history</strong> to <code>/lock</code> so the back button cannot re-expose prior views.</li>
+                </ul>
+
+                <div class="cs-compare" style="margin-top: var(--space-10);">
+                    <div class="cs-img-wrap" style="margin: 0;">
+                        <img src="../images/Project 3/Lock Screen.png" alt="Final lock screen design" class="cs-img">
+                        <p class="cs-img-caption">Final lock screen — single task, no distractions.</p>
+                    </div>
+                    <div class="cs-img-wrap" style="margin: 0;">
+                        <img src="../images/Project 3/Dashboard.png" alt="Dashboard after unlock" class="cs-img">
+                        <p class="cs-img-caption">Dashboard loads immediately after valid authentication.</p>
+                    </div>
+                </div>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Design Rationale &amp; Validation</h3>
+                <p class="cs-p">
+                    Rather than formal multi-participant testing, I evaluated the flow using a structured heuristic pass against three tasks: cold-start unlock, navigation to a secrets surface, and quick-lock from an active session. Findings shaped the final decisions above.
+                </p>
+
+                <div class="cs-table-wrap">
+                    <table class="cs-table">
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Problem identified</th>
+                                <th>Fix applied</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cold-start unlock</td>
+                                <td>Password field label ambiguous on first visit</td>
+                                <td>Clarified label + error copy; added placeholder hint</td>
+                            </tr>
+                            <tr>
+                                <td>Navigate to secrets</td>
+                                <td>No visual confirmation user is in a protected area</td>
+                                <td>Added lock icon badge to secrets nav items</td>
+                            </tr>
+                            <tr>
+                                <td>Quick-lock</td>
+                                <td>Shortcut undiscoverable; locking took 4+ clicks</td>
+                                <td>Built quick-lock shortcut; surfaced it in Settings tooltip</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Settings — Configuration of the Session</h3>
+                <p class="cs-p">
+                    All session behavior (idle timeout, auto-lock threshold, backup schedule) is controlled from a dedicated Settings surface with no hidden state. Destructive actions (lock now, reset vault) use an explicit confirmation step.
+                </p>
+
+                <div class="cs-gallery" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); margin-top: var(--space-6);">
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 3/Settings 1.png', 'Settings — General &amp; Theme')">
+                        <img src="../images/Project 3/Settings 1.png" alt="Settings panel 1">
+                        <div class="cs-gallery-caption">General &amp; Theme</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 3/Settings 2.png', 'Settings — Session &amp; Auto-lock')">
+                        <img src="../images/Project 3/Settings 2.png" alt="Settings panel 2">
+                        <div class="cs-gallery-caption">Session &amp; Auto-lock</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 3/Settings 3.png', 'Settings — Backup &amp; Restore')">
+                        <img src="../images/Project 3/Settings 3.png" alt="Settings panel 3">
+                        <div class="cs-gallery-caption">Backup &amp; Restore</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 3/Settings 4.png', 'Settings — Advanced')">
+                        <img src="../images/Project 3/Settings 4.png" alt="Settings panel 4">
+                        <div class="cs-gallery-caption">Advanced</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── HI-FI GALLERY ── -->
+        <section class="cs-section">
+            <div class="cs-container--wide">
+                <div class="cs-container" style="padding: 0;">
+                    <div class="cs-overline">All screens</div>
+                    <h2 class="cs-h2">High-Fidelity Gallery</h2>
+                    <p class="cs-p">All screens use synthetic data only. Dark mode is the default; light mode available via theme toggle in-app.</p>
+                </div>
+
+                <div class="cs-gallery">
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 3/Lock Screen.png', 'Lock Screen — single task, minimal chrome')">
+                        <img src="../images/Project 3/Lock Screen.png" alt="Lock Screen">
+                        <div class="cs-gallery-caption">Lock Screen</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 3/Dashboard.png', 'Dashboard — vault entry and status')">
+                        <img src="../images/Project 3/Dashboard.png" alt="Dashboard">
+                        <div class="cs-gallery-caption">Dashboard</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 3/Code Snippet.png', 'Code Snippet editor — language detection, syntax view')">
+                        <img src="../images/Project 3/Code Snippet.png" alt="Code Snippet">
+                        <div class="cs-gallery-caption">Code Snippet Editor</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 3/Snippets Folder.png', 'Snippets folder — hierarchical list, language badges')">
+                        <img src="../images/Project 3/Snippets Folder.png" alt="Snippets Folder">
+                        <div class="cs-gallery-caption">Snippets — Folder View</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 3/Code Repo.png', 'Code Repo — file tree + viewer split')">
+                        <img src="../images/Project 3/Code Repo.png" alt="Code Repo">
+                        <div class="cs-gallery-caption">Code Repo — File Tree</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 3/Settings 1.png', 'Settings — theme and general preferences')">
+                        <img src="../images/Project 3/Settings 1.png" alt="Settings">
+                        <div class="cs-gallery-caption">Settings</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── DESIGN SYSTEM ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Component library</div>
+                <h2 class="cs-h2">Design System</h2>
+
+                <p class="cs-p">
+                    While building screens I simultaneously built out the component library in an atomic structure, so each new surface could compose from existing parts rather than inventing new ones.
+                </p>
+
+                <div class="cs-system-tiers">
+                    <div class="cs-tier">
+                        <span class="cs-tier-label">Atoms</span>
+                        <div class="cs-tier-examples">
+                            <span class="cs-tier-tag tech-tag">Buttons</span>
+                            <span class="cs-tier-tag tech-tag">Inputs</span>
+                            <span class="cs-tier-tag tech-tag">Toggles</span>
+                            <span class="cs-tier-tag tech-tag">Language badges</span>
+                            <span class="cs-tier-tag tech-tag">Status dots</span>
+                            <span class="cs-tier-tag tech-tag">Icons</span>
+                        </div>
+                    </div>
+                    <div class="cs-tier">
+                        <span class="cs-tier-label">Molecules</span>
+                        <div class="cs-tier-examples">
+                            <span class="cs-tier-tag tech-tag">Sidebar nav item</span>
+                            <span class="cs-tier-tag tech-tag">Stat/summary card</span>
+                            <span class="cs-tier-tag tech-tag">List row (title + meta + actions)</span>
+                            <span class="cs-tier-tag tech-tag">Empty state block</span>
+                            <span class="cs-tier-tag tech-tag">Masked field row</span>
+                        </div>
+                    </div>
+                    <div class="cs-tier">
+                        <span class="cs-tier-label">Organisms</span>
+                        <div class="cs-tier-examples">
+                            <span class="cs-tier-tag tech-tag">App shell (sidebar + top bar + content)</span>
+                            <span class="cs-tier-tag tech-tag">File tree + viewer split</span>
+                            <span class="cs-tier-tag tech-tag">Settings sections</span>
+                            <span class="cs-tier-tag tech-tag">Search overlay</span>
+                        </div>
+                    </div>
+                    <div class="cs-tier">
+                        <span class="cs-tier-label">Templates</span>
+                        <div class="cs-tier-examples">
+                            <span class="cs-tier-tag tech-tag">Dashboard</span>
+                            <span class="cs-tier-tag tech-tag">List + detail layouts</span>
+                            <span class="cs-tier-tag tech-tag">Secrets forms (masked)</span>
+                            <span class="cs-tier-tag tech-tag">Settings page</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="cs-p" style="margin-top: var(--space-6);">
+                    Theme and density are centralized via CSS variables, making dark/light switching a single attribute toggle — the same pattern used on this portfolio.
+                </p>
+            </div>
+        </section>
+
+        <!-- ── OUTCOME ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Result</div>
+                <h2 class="cs-h2">Outcome</h2>
+
+                <p class="cs-p">
+                    CodeVault shipped as a <strong>complete v1</strong>: a single portable Electron app that runs offline, keeps all vault data on-device in IndexedDB, and enforces client-side encryption for secrets categories. The hardest integration wins were aligning session management, encryption, IndexedDB durability, and Electron packaging into one coherent, testable product.
+                </p>
+                <p class="cs-p">
+                    The project demonstrates the full design-to-delivery arc: product thinking (what belongs in a local vault), UX decisions (session lifecycle, information architecture), visual design (developer tool density and hierarchy), and front-end engineering (React, crypto, Electron).
+                </p>
+
+                <div class="cs-links">
+                    <a href="../index.html#projects" class="cs-link-btn cs-link-btn--secondary">← All Projects</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── TECHNICAL APPENDIX ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <details class="cs-details">
+                    <summary>Technical Appendix — for design-engineer readers</summary>
+                    <div class="cs-details-body">
+                        <h3 class="cs-h3">Cryptography</h3>
+                        <p class="cs-p">
+                            Web Crypto API throughout: <strong>AES-GCM</strong> (256-bit keys) for encryption; <strong>PBKDF2</strong> for key derivation (100,000 iterations, SHA-256); per-encryption 96-bit GCM nonce (IV) so the same key never reuses a nonce.
+                        </p>
+                        <h3 class="cs-h3">Storage</h3>
+                        <p class="cs-p">
+                            IndexedDB for all vault records, with structured schemas per category. Settings and scheduler state written separately. Migration hooks handle schema evolution.
+                        </p>
+                        <h3 class="cs-h3">Desktop packaging</h3>
+                        <p class="cs-p">
+                            Electron single-instance lock prevents duplicate vault windows. IPC channels are guarded by trusted-sender URL checks so renderer cannot call privileged main-process APIs from injected content. Optional LibreOffice path enables office-to-PDF conversion in packaged builds.
+                        </p>
+                        <h3 class="cs-h3">Routing</h3>
+                        <p class="cs-p">
+                            HashRouter instead of BrowserRouter for compatibility with both file:// (Electron) and HTTP contexts. Protected routes check session state synchronously before render; invalid session replaces history to <code>/lock</code> so Back cannot re-enter protected views.
+                        </p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Lightbox -->
+    <div class="cs-lightbox" id="csLightbox" onclick="closeLightbox()">
+        <button class="cs-lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img src="" alt="" id="csLightboxImg">
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-text">© 2026 Katie Hunt | All Rights Reserved</div>
+        </div>
+    </footer>
+
+    <script src="../script.js" defer></script>
+    <script src="./case-studies.js" defer></script>
+    <script>
+        function openLightbox(src, alt) {
+            const lb = document.getElementById('csLightbox');
+            const img = document.getElementById('csLightboxImg');
+            img.src = src;
+            img.alt = alt || '';
+            lb.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('csLightbox').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+</html>
