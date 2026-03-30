@@ -783,6 +783,14 @@ function initTechTagTooltips() {
         // Tap/click helper: show briefly
         el.addEventListener('click', () => showTooltip(el, tooltipText, { autoHide: true }));
     });
+
+    const galleryHint = 'Click to view image';
+    document.querySelectorAll('#projects .gallery-item').forEach((el) => {
+        el.addEventListener('mouseenter', () => showTooltip(el, galleryHint));
+        el.addEventListener('mouseleave', hideTooltip);
+        el.addEventListener('focus', () => showTooltip(el, galleryHint));
+        el.addEventListener('blur', hideTooltip);
+    });
 }
 
 // ========== EMAIL MODAL ==========
@@ -1207,7 +1215,7 @@ document.head.appendChild(style);
 // GitHub Activity Grid - "I CAN BUILD ANYTHING" encoded
 const activityGrid = document.getElementById('activityGrid');
 if (activityGrid) {
-    // Pixel font patterns (3 columns wide, 7 rows tall)
+    // Pixel font patterns (7 rows tall; glyph width is pattern[0].length — mostly 3; N is 4 with right stem one col left of typical 5-wide)
     // 1 = active cell (level-4 for brightest), 0 = inactive
     const pixelFont = {
         'I': [
@@ -1238,13 +1246,13 @@ if (activityGrid) {
             [1,0,1]
         ],
         'N': [
-            [1,0,1],
-            [1,1,1],
-            [1,1,1],
-            [1,0,1],
-            [1,0,1],
-            [1,0,1],
-            [1,0,1]
+            [1, 0, 0, 1],
+            [1, 1, 0, 1],
+            [1, 0, 1, 1],
+            [1, 0, 0, 1],
+            [1, 0, 0, 1],
+            [1, 0, 0, 1],
+            [1, 0, 0, 1]
         ],
         'B': [
             [1,1,0],
@@ -1319,23 +1327,25 @@ if (activityGrid) {
             [0,1,1]
         ],
         ' ': [
-            [0,0,0],
-            [0,0,0],
-            [0,0,0],
-            [0,0,0],
-            [0,0,0],
-            [0,0,0],
-            [0,0,0]
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0]
         ]
     };
+
+    const glyphWidth = (char) => (char === ' ' ? 2 : pixelFont[char][0].length + 1);
 
     // Message to encode
     const message = "I CAN BUILD ANYTHING";
     
-    // Calculate message width
+    // Glyph columns + 1 gap after each letter; spaces are 2 cols
     let messageWidth = 0;
-    for (let char of message) {
-        messageWidth += char === ' ' ? 2 : 4; // 3 cols for letter + 1 spacing, or 2 for space
+    for (const char of message) {
+        messageWidth += glyphWidth(char);
     }
     
     // Add gap between message repetitions for visual separation
@@ -1355,13 +1365,13 @@ if (activityGrid) {
         let currentCol = repeat * messageWithGap;
         
         // Render each character
-        for (let char of message) {
+        for (const char of message) {
             const pattern = pixelFont[char];
             if (!pattern) continue;
             
-            // Draw the character pattern
+            const w = pattern[0].length;
             for (let row = 0; row < gridHeight; row++) {
-                for (let col = 0; col < 3; col++) {
+                for (let col = 0; col < w; col++) {
                     const cellIndex = row * gridWidth + currentCol + col;
                     if (cellIndex < totalCells && pattern[row][col] === 1) {
                         grid[cellIndex] = 4; // Use level 4 for maximum brightness
@@ -1369,8 +1379,7 @@ if (activityGrid) {
                 }
             }
             
-            // Move to next character position (3 cols for char + 1 col spacing)
-            currentCol += char === ' ' ? 2 : 4;
+            currentCol += glyphWidth(char);
         }
     }
     
@@ -1625,7 +1634,6 @@ function renderProjectGalleries() {
             item.setAttribute('aria-haspopup', 'dialog');
             item.setAttribute('aria-controls', 'screenshotModal');
             item.setAttribute('tabindex', '0');
-            item.setAttribute('title', 'Click to view image');
             item.setAttribute('aria-label', 'Click to view image');
 
             const img = document.createElement('img');
@@ -1866,7 +1874,7 @@ const projectScreenshots = {
             'Settings Page - Appearance Theme Selection, Risk Models, and Take Profit Models Management',
             'Settings Page - Data & Export Options, Security Settings with PIN Change and Recovery Phrase',
             'Keyboard Shortcuts Modal - Navigation, Search, and Play Editor Keyboard Shortcuts Reference',
-            'Reset PIN Modal - Recovery Phrase Entry Interface for PIN Reset Functionality'
+            'Recovery Phrase Modal - Secret Phrase Generated for Regaining Access When PIN Is Lost'
         ],
         currentIndex: 0
     }

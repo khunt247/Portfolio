@@ -95,6 +95,14 @@
 
     /* ── 4. Subtle 3-D tilt on deliverable cards ─────────────── */
     function setupCardTilt() {
+        // Keep smaller/touch layouts steady and readable.
+        if (
+            window.matchMedia('(max-width: 1024px)').matches ||
+            window.matchMedia('(pointer: coarse)').matches
+        ) {
+            return;
+        }
+
         const cards = document.querySelectorAll('.cs-deliverable-card');
         const STRENGTH = 6; /* max degrees */
 

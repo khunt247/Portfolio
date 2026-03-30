@@ -890,3 +890,76 @@ body.cs-js .cs-reveal--left.cs-visible {
     #cs-gallery-cursor { display: none; }
     .cs-read-time-icon::after { animation: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   Responsive — stack dense rows early so cards stay readable
+   Inline case-study styles set flex: 1 1 0 on cards, so these
+   shared overrides use !important to restore full-width layout.
+═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+    .cs-deliverables,
+    .cs-process {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .cs-deliverable-card,
+    .cs-process-step {
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .cs-deliverable-card {
+        overflow: visible !important;
+    }
+
+    .cs-gallery,
+    .cs-format-grid,
+    .cs-heuristic-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .cs-tier {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-3);
+    }
+
+    .cs-tier-label {
+        min-width: 0 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .cs-title {
+        font-size: clamp(2rem, 8vw, 2.5rem);
+    }
+
+    .cs-h2 {
+        font-size: var(--font-size-xl);
+    }
+
+    .cs-meta {
+        gap: var(--space-4);
+    }
+
+    .cs-page {
+        padding-top: 60px !important;
+    }
+
+    .cs-section {
+        padding: var(--space-10) 0;
+    }
+
+    .cs-details summary {
+        padding: var(--space-4) !important;
+    }
+
+    #cs-scroll-counter {
+        bottom: var(--space-5);
+        right: var(--space-5);
+        font-size: 0.65rem;
+    }
+}

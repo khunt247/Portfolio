@@ -435,6 +435,58 @@ body[data-theme="dark"] {
         inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
+/* Light theme: navy outlines for email modal only */
+[data-theme="light"] .email-modal-header h3 {
+    border: 1px solid #1e3a8a;
+    border-radius: 12px;
+    padding: var(--space-3) var(--space-4);
+    -webkit-text-fill-color: unset;
+    background: none;
+    color: #1e3a8a;
+}
+
+[data-theme="light"] .email-modal .email-display {
+    border-color: #1e3a8a;
+}
+
+[data-theme="light"] .email-modal .email-display:hover {
+    border-color: #1e3a8a;
+    box-shadow: 0 4px 20px rgba(30, 58, 138, 0.2);
+}
+
+[data-theme="light"] .email-modal .copy-email-btn {
+    border: 1px solid #172554;
+}
+
+/* Dark theme: email modal — navy panel, solid cyan copy button */
+[data-theme="dark"] .email-modal .email-modal-content {
+    background: linear-gradient(135deg,
+        rgba(15, 23, 42, 0.97) 0%,
+        rgba(23, 37, 84, 0.95) 50%,
+        rgba(15, 23, 42, 0.97) 100%);
+    border: 1px solid rgba(0, 212, 255, 0.28);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 8px 28px rgba(0, 212, 255, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .email-modal .copy-email-btn {
+    background: var(--accent-primary);
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 212, 255, 0.35);
+}
+
+[data-theme="dark"] .email-modal .copy-email-btn:hover {
+    background: var(--accent-primary-hover);
+    box-shadow: 0 8px 30px rgba(0, 212, 255, 0.45);
+}
+
+[data-theme="dark"] .email-modal .copy-email-btn:active {
+    background: var(--accent-primary-hover);
+    box-shadow: 0 4px 20px rgba(0, 212, 255, 0.35);
+}
+
 /* Light Theme Tech Tags Enhancement */
 [data-theme="light"] .tech-tag {
     background: linear-gradient(135deg,
@@ -1792,7 +1844,7 @@ body.menu-open {
 .activity-cell.level-3 { background: rgba(0, 212, 255, 0.7); }
 .activity-cell.level-4 { 
     background: rgba(0, 212, 255, 1); 
-    box-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+    box-shadow: 0 0 4px rgba(0, 212, 255, 0.35);
 }
 
 /* Architecture Thinking Showcase */
@@ -3278,6 +3330,19 @@ body[data-theme="dark"] .architecture-brain-text {
     border-top: 1px solid rgba(0, 212, 255, 0.35);
 }
 
+[data-theme="light"] .tech-tooltip {
+    color: var(--text-primary);
+    background: var(--bg-card);
+    border: 1px solid rgba(30, 58, 138, 0.35);
+    box-shadow: var(--shadow-lg);
+}
+
+[data-theme="light"] .tech-tooltip::after {
+    background: var(--bg-card);
+    border-left: 1px solid rgba(30, 58, 138, 0.35);
+    border-top: 1px solid rgba(30, 58, 138, 0.35);
+}
+
 /* Optional: make it obvious tags are explainable */
 .tech-tag {
     cursor: help;
@@ -4092,6 +4157,8 @@ body[data-theme="dark"] .architecture-brain-text {
 .email-modal-header {
     text-align: center;
     margin-bottom: var(--space-6);
+    /* Clear .email-modal-close (absolute top/right); keeps bordered h3 from running under × */
+    padding-right: calc(var(--space-4) + 32px + var(--space-2));
 }
 
 .email-modal-header h3 {
@@ -4152,8 +4219,8 @@ body[data-theme="dark"] .architecture-brain-text {
 }
 
 .copy-email-btn {
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-    border: none;
+    background: linear-gradient(135deg, #1e3a8a 0%, #172554 100%);
+    border: 1px solid #172554;
     border-radius: 12px;
     color: white;
     font-size: var(--font-size-base);
@@ -4166,7 +4233,7 @@ body[data-theme="dark"] .architecture-brain-text {
     gap: var(--space-2);
     position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 4px 20px rgba(30, 58, 138, 0.35);
 }
 
 .copy-email-btn::before {
@@ -4189,12 +4256,13 @@ body[data-theme="dark"] .architecture-brain-text {
 
 .copy-email-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 212, 255, 0.4);
+    background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
+    box-shadow: 0 8px 30px rgba(30, 58, 138, 0.45);
 }
 
 .copy-email-btn:active {
     transform: translateY(0);
-    box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 4px 20px rgba(30, 58, 138, 0.35);
 }
 
 .copy-success {
