@@ -2167,6 +2167,10 @@ window.certificates = [
     {
         title: "AI-Powered Development with Cursor Workshop",
         file: "certifications/AI-Powered Development with Cursor Workshop.pdf"
+    },
+    {
+        title: "Algorithmic Trading — Course Completion",
+        file: "certifications/Course_Completion_Certificate_Katie_Hunt_Algorithmic_Trading.pdf"
     }
 ];
 
@@ -2361,6 +2365,36 @@ function initParallax() {
     });
 }
 
+// About page: assign reveal classes before scroll-reveal observer runs
+function initAboutRevealTargets() {
+    document.querySelectorAll('.certifications-grid .cert-card').forEach((el) => {
+        el.classList.add('reveal-up');
+    });
+    document.querySelectorAll('.experience-section .experience-item').forEach((el) => {
+        el.classList.add('reveal-up');
+    });
+    document.querySelectorAll('.education-section .education-item').forEach((el) => {
+        el.classList.add('reveal-up');
+    });
+}
+
+function initAboutTimelineLines() {
+    document.querySelectorAll('.timeline-animate').forEach((timeline) => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+        );
+        observer.observe(timeline);
+    });
+}
+
 // Enhanced Scroll Reveal with Stagger
 function initEnhancedScrollReveal() {
     const revealElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-scale');
@@ -2409,7 +2443,7 @@ function enhanceProjectCardAnimations() {
 
 // Magnetic Hover Effect
 function initMagneticEffect() {
-    const magneticElements = document.querySelectorAll('.magnetic, .btn, .contact-social-link');
+    const magneticElements = document.querySelectorAll('.magnetic, .btn, .contact-social-link, .cert-link');
     
     magneticElements.forEach(element => {
         element.addEventListener('mousemove', (e) => {
@@ -2550,6 +2584,8 @@ function enhanceNavbarScroll() {
 document.addEventListener('DOMContentLoaded', () => {
     initPageLoader();
     initParallax();
+    initAboutRevealTargets();
+    initAboutTimelineLines();
     initEnhancedScrollReveal();
     enhanceProjectCardAnimations();
     initMagneticEffect();

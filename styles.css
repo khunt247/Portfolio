@@ -5204,6 +5204,104 @@ footer {
     transform: scale(1);
 }
 
+/* ── About page: scroll motion (hero, titles, grid stagger, timelines) ── */
+.about-hero-image.reveal-left .hero-photo {
+    clip-path: inset(0 100% 0 0 round var(--radius-2xl));
+}
+
+.about-hero-image.reveal-left.revealed .hero-photo {
+    clip-path: inset(0 0 0 0 round var(--radius-2xl));
+}
+
+.about-hero-text.reveal-right .about-summary {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+        opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.2s,
+        transform 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.2s;
+}
+
+.about-hero-text.reveal-right.revealed .about-summary {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.about-container > .section-title.about-section-title {
+    position: relative;
+}
+
+.about-container > .section-title.about-section-title::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 3px;
+    margin-top: var(--space-3);
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 2px;
+    transition: width 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.about-container > .section-title.about-section-title.revealed::after {
+    width: 4.5rem;
+}
+
+[data-theme="light"] .about-container > .section-title.about-section-title::after {
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-primary-hover));
+}
+
+.certifications-grid .cert-card.reveal-up:nth-child(1) { transition-delay: 0.03s; }
+.certifications-grid .cert-card.reveal-up:nth-child(2) { transition-delay: 0.06s; }
+.certifications-grid .cert-card.reveal-up:nth-child(3) { transition-delay: 0.09s; }
+.certifications-grid .cert-card.reveal-up:nth-child(4) { transition-delay: 0.12s; }
+.certifications-grid .cert-card.reveal-up:nth-child(5) { transition-delay: 0.15s; }
+.certifications-grid .cert-card.reveal-up:nth-child(6) { transition-delay: 0.18s; }
+.certifications-grid .cert-card.reveal-up:nth-child(7) { transition-delay: 0.21s; }
+.certifications-grid .cert-card.reveal-up:nth-child(8) { transition-delay: 0.24s; }
+.certifications-grid .cert-card.reveal-up:nth-child(9) { transition-delay: 0.27s; }
+.certifications-grid .cert-card.reveal-up:nth-child(10) { transition-delay: 0.3s; }
+.certifications-grid .cert-card.reveal-up:nth-child(11) { transition-delay: 0.33s; }
+.certifications-grid .cert-card.reveal-up:nth-child(12) { transition-delay: 0.36s; }
+.certifications-grid .cert-card.reveal-up:nth-child(13) { transition-delay: 0.39s; }
+.certifications-grid .cert-card.reveal-up:nth-child(14) { transition-delay: 0.42s; }
+.certifications-grid .cert-card.reveal-up:nth-child(15) { transition-delay: 0.45s; }
+.certifications-grid .cert-card.reveal-up:nth-child(16) { transition-delay: 0.48s; }
+.certifications-grid .cert-card.reveal-up:nth-child(17) { transition-delay: 0.51s; }
+.certifications-grid .cert-card.reveal-up:nth-child(18) { transition-delay: 0.54s; }
+.certifications-grid .cert-card.reveal-up:nth-child(19) { transition-delay: 0.57s; }
+.certifications-grid .cert-card.reveal-up:nth-child(20) { transition-delay: 0.6s; }
+
+.experience-section .experience-item.reveal-up:nth-child(1) { transition-delay: 0.05s; }
+.experience-section .experience-item.reveal-up:nth-child(2) { transition-delay: 0.12s; }
+.experience-section .experience-item.reveal-up:nth-child(3) { transition-delay: 0.19s; }
+
+.education-section .education-item.reveal-up:nth-child(1) { transition-delay: 0.05s; }
+.education-section .education-item.reveal-up:nth-child(2) { transition-delay: 0.12s; }
+.education-section .education-item.reveal-up:nth-child(3) { transition-delay: 0.19s; }
+
+.about-contact .contact-description.reveal-up {
+    transition-delay: 0.08s;
+}
+
+.about-contact .contact-buttons.reveal-up {
+    transition-delay: 0.16s;
+}
+
+.experience-timeline.timeline-animate::before,
+.education-timeline.timeline-animate::before {
+    transform: scaleY(0);
+    transform-origin: top center;
+    transition: transform 1.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.experience-timeline.timeline-animate.is-visible::before,
+.education-timeline.timeline-animate.is-visible::before {
+    transform: scaleY(1);
+}
+
+.cert-card.reveal-up.revealed:hover {
+    transform: translateY(-8px) rotateX(5deg) scale(1.02);
+}
+
 /* Enhanced Particle System Visual */
 #particleCanvas {
     position: fixed;
@@ -5290,6 +5388,15 @@ html {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+    }
+
+    .about-hero-image.reveal-left .hero-photo {
+        clip-path: inset(0 0 0 0 round var(--radius-2xl)) !important;
+    }
+
+    .experience-timeline.timeline-animate::before,
+    .education-timeline.timeline-animate::before {
+        transform: scaleY(1) !important;
     }
 }
 
