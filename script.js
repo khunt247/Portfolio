@@ -14,33 +14,12 @@ function loadGameStats() {
     if (saved) {
         gameStats = { ...gameStats, ...JSON.parse(saved) };
     }
-    updateStatsDisplay();
 }
 
 // Save stats to localStorage
 function saveGameStats() {
     localStorage.setItem('jumpGameStats', JSON.stringify(gameStats));
 }
-
-// Update statistics display
-function updateStatsDisplay() {
-    const elements = {
-        highScoreDisplay: gameStats.highScore,
-        levelsCompleted: gameStats.levelsCompleted,
-        gamesPlayed: gameStats.gamesPlayed,
-        currentStreak: gameStats.currentStreak
-    };
-    
-    Object.entries(elements).forEach(([id, value]) => {
-        const element = document.getElementById(id);
-        if (element) {
-            element.textContent = value;
-        }
-    });
-    
-}
-
-
 
 // Initialize all interactive features
 function initGameShowcase() {
@@ -204,7 +183,6 @@ function resetGame() {
     gameStats.gamesPlayed++;
     gameStats.currentStreak++;
     saveGameStats();
-    updateStatsDisplay();
 }
 
 // Check level completion
@@ -249,7 +227,6 @@ function advanceLevel() {
         // Track level completion
         gameStats.levelsCompleted = Math.max(gameStats.levelsCompleted, currentLevel - 1);
         saveGameStats();
-        updateStatsDisplay();
 
         // Reset player position and physics for new level
         player.x = 200;
@@ -276,7 +253,6 @@ function advanceLevel() {
         gameState = 'gameComplete';
         gameStats.levelsCompleted = Math.max(gameStats.levelsCompleted, currentLevel);
         saveGameStats();
-        updateStatsDisplay();
     }
 }
 
@@ -386,7 +362,6 @@ function update() {
         }
         gameStats.currentStreak = 0;
         saveGameStats();
-        updateStatsDisplay();
     }
 
     // Generate new platforms only if we haven't reached the limit

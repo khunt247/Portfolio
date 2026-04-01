@@ -713,66 +713,39 @@
         <p class="section-subtitle">A fully playable platformer game built with vanilla JavaScript and Canvas API</p>
 
         <div class="playground-container">
-            <!-- Game Canvas Section -->
             <div class="game-showcase">
+                <aside class="game-instructions-panel" aria-label="How to play this game">
+                    <div class="game-instructions-panel__glow" aria-hidden="true"></div>
+                    <div class="game-instructions-panel__inner">
+                        <header class="game-instructions-panel__head">
+                            <h3 class="game-instructions-panel__title">How to play</h3>
+                        </header>
+                        <ul class="game-instructions-panel__list">
+                            <li class="game-instructions-panel__item">
+                                <span class="game-instructions-panel__keys" aria-hidden="true">
+                                    <kbd class="game-instructions-panel__kbd">←</kbd>
+                                    <kbd class="game-instructions-panel__kbd">→</kbd>
+                                </span>
+                                <span class="game-instructions-panel__label">Move across platforms</span>
+                            </li>
+                            <li class="game-instructions-panel__item">
+                                <kbd class="game-instructions-panel__kbd game-instructions-panel__kbd--wide">Space</kbd>
+                                <span class="game-instructions-panel__label">Jump</span>
+                            </li>
+                            <li class="game-instructions-panel__item">
+                                <kbd class="game-instructions-panel__kbd">R</kbd>
+                                <span class="game-instructions-panel__label">Restart run</span>
+                            </li>
+                            <li class="game-instructions-panel__item game-instructions-panel__item--goal">
+                                <span class="game-instructions-panel__goal-tag">Objective</span>
+                                <span class="game-instructions-panel__label">Climb to the top — clear every level</span>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
                 <div class="game-canvas-wrapper">
                     <canvas id="gameCanvas" width="400" height="600"></canvas>
                     <div class="canvas-glow"></div>
-                </div>
-            </div>
-
-            <!-- Game Info Section -->
-            <div class="game-info-grid">
-                <!-- Game Instructions -->
-                <div class="info-card instructions-card">
-                    <div class="card-header">
-                        <h3>How to Play</h3>
-                        <div class="card-icon">❓</div>
-                    </div>
-                    <div class="instructions-content">
-                        <div class="instruction-item">
-                            <span class="instruction-key">← →</span>
-                            <span class="instruction-desc">Move left/right</span>
-                        </div>
-                        <div class="instruction-item">
-                            <span class="instruction-key">Space</span>
-                            <span class="instruction-desc">Jump</span>
-                        </div>
-                        <div class="instruction-item">
-                            <span class="instruction-key">R</span>
-                            <span class="instruction-desc">Restart game</span>
-                        </div>
-                        <div class="instruction-item">
-                            <span class="instruction-key">Goal</span>
-                            <span class="instruction-desc">Reach higher levels!</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Game Statistics -->
-                <div class="info-card stats-card">
-                    <div class="card-header">
-                        <h3>Game Statistics</h3>
-                        <div class="card-icon">📊</div>
-                    </div>
-                    <div class="stats-content">
-                        <div class="stat-item">
-                            <span class="stat-label">High Score</span>
-                            <span class="stat-value" id="highScoreDisplay">0</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Levels Completed</span>
-                            <span class="stat-value" id="levelsCompleted">0</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Games Played</span>
-                            <span class="stat-value" id="gamesPlayed">0</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Current Streak</span>
-                            <span class="stat-value" id="currentStreak">0</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
