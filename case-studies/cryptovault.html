@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoVault — Case Study | Katie Hunt</title>
+    <link rel="icon" href="../images/HPE pyramid.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/HPE pyramid.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="./case-studies.css">
+    <style>
+        /* ── Case Study Layout ── */
+        .cs-page {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+
+        .cs-container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+
+        .cs-container--wide {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+
+        /* ── Hero ── */
+        .cs-hero {
+            padding: var(--space-16) 0 var(--space-12);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-back {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-8);
+            transition: opacity var(--transition-fast);
+        }
+
+        .cs-back:hover { opacity: 0.75; }
+
+        .cs-tag {
+            display: inline-block;
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            margin-bottom: var(--space-4);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-title {
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            font-weight: var(--font-weight-extrabold);
+            color: var(--text-primary);
+            line-height: var(--line-height-tight);
+            margin-bottom: var(--space-6);
+        }
+
+        .cs-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+            padding-top: var(--space-6);
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-meta-item { display: flex; flex-direction: column; gap: 2px; }
+        .cs-meta-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .cs-meta-value {
+            font-size: var(--font-size-sm);
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* ── Sections ── */
+        .cs-section {
+            padding: var(--space-16) 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-section:last-of-type { border-bottom: none; }
+
+        .cs-section--full {
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+
+        .cs-h2 {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-8);
+        }
+
+        .cs-h3 {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+        }
+
+        .cs-h4 {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--accent-primary);
+            margin-bottom: var(--space-3);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.04em;
+        }
+
+        .cs-p {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-relaxed);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-5);
+        }
+
+        .cs-p:last-child { margin-bottom: 0; }
+
+        .cs-p strong { color: var(--text-primary); font-weight: var(--font-weight-semibold); }
+
+        /* ── Deliverables row ── */
+        .cs-deliverables {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+
+        .cs-deliverable-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+            transition: border-color var(--transition-normal);
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        .cs-deliverable-card:hover { border-color: var(--accent-primary); }
+
+        .cs-deliverable-card .cs-h4 {
+            margin-bottom: var(--space-3);
+            font-size: var(--font-size-lg);
+        }
+
+        .cs-deliverable-desc {
+            font-size: var(--font-size-base);
+            color: var(--text-secondary);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ── Process row ── */
+        .cs-process {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: var(--space-5);
+            margin-top: var(--space-8);
+        }
+
+        .cs-process-step {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            padding: var(--space-6);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border-left: 3px solid var(--accent-primary);
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        .cs-step-num {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.1em;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-step-label {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+        }
+
+        .cs-step-desc {
+            font-size: var(--font-size-sm);
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ── Full-width image ── */
+        .cs-img {
+            width: 100%;
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(255,255,255,0.08);
+            display: block;
+            background: var(--bg-secondary);
+        }
+
+        .cs-img-caption {
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: var(--space-3);
+            font-style: italic;
+        }
+
+        .cs-img-wrap {
+            margin: var(--space-10) 0;
+        }
+
+        /* ── Two-col comparison ── */
+        .cs-compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-5);
+            margin: var(--space-8) 0;
+        }
+
+        @media (max-width: 600px) {
+            .cs-compare { grid-template-columns: 1fr; }
+        }
+
+        .cs-compare-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+        }
+
+        .cs-compare-card img {
+            width: 100%;
+            display: block;
+        }
+
+        .cs-compare-card-body { padding: var(--space-5); }
+
+        .cs-compare-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: var(--space-2);
+        }
+
+        .cs-compare-chosen { border-color: var(--accent-primary); }
+
+        .cs-compare-chosen .cs-compare-label { color: var(--accent-primary); }
+
+        /* ── Problem / finding bullets ── */
+        .cs-problem-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            margin: var(--space-5) 0;
+        }
+
+        .cs-problem-list li {
+            display: flex;
+            gap: var(--space-3);
+            align-items: flex-start;
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            line-height: var(--line-height-relaxed);
+        }
+
+        .cs-problem-list li::before {
+            content: '→';
+            color: var(--accent-tertiary);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: var(--font-weight-bold);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .cs-finding-list li::before { color: var(--accent-primary); }
+
+        /* ── Table ── */
+        .cs-table-wrap {
+            overflow-x: auto;
+            margin: var(--space-6) 0;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .cs-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: var(--font-size-sm);
+        }
+
+        .cs-table th {
+            text-align: left;
+            padding: var(--space-3) var(--space-5);
+            background: var(--bg-secondary);
+            color: var(--text-muted);
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-xs);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-table td {
+            padding: var(--space-3) var(--space-5);
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .cs-table tr:last-child td { border-bottom: none; }
+
+        .cs-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+        .cs-table td:first-child { color: var(--text-primary); font-weight: var(--font-weight-medium); }
+
+        /* ── Gallery grid ── */
+        .cs-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-5);
+            margin-top: var(--space-8);
+        }
+
+        .cs-gallery-item {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: border-color var(--transition-normal), transform var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .cs-gallery-item:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .cs-gallery-item img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 16/10;
+        }
+
+        .cs-gallery-caption {
+            padding: var(--space-3) var(--space-4);
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ── Design system tiers ── */
+        .cs-system-tiers {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            margin: var(--space-8) 0;
+        }
+
+        .cs-tier {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-5);
+            padding: var(--space-5);
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-tier-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+            min-width: 110px;
+            margin-top: 2px;
+        }
+
+        .cs-tier-examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+        }
+
+        .cs-tier-tag {
+            font-size: var(--font-size-xs);
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            background: var(--bg-glass);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* ── Tech stack tags ── */
+        .cs-tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+            margin-top: var(--space-4);
+        }
+
+        /* ── Details / collapsible ── */
+        .cs-details {
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-top: var(--space-8);
+        }
+
+        .cs-details summary {
+            padding: var(--space-5) var(--space-6);
+            cursor: pointer;
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            user-select: none;
+        }
+
+        .cs-details summary::before {
+            content: '▶';
+            font-size: 0.6em;
+            color: var(--accent-primary);
+            transition: transform var(--transition-fast);
+        }
+
+        .cs-details[open] summary::before { transform: rotate(90deg); }
+
+        .cs-details-body {
+            padding: var(--space-6);
+            background: var(--bg-primary);
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-details-body .cs-p { font-size: var(--font-size-sm); }
+
+        /* ── Outcome links ── */
+        .cs-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+            margin-top: var(--space-8);
+        }
+
+        .cs-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            text-decoration: none;
+            transition: all var(--transition-normal);
+        }
+
+        .cs-link-btn--primary {
+            background: var(--accent-primary);
+            color: var(--text-inverse);
+        }
+
+        .cs-link-btn--primary:hover {
+            background: var(--accent-primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .cs-link-btn--secondary {
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--text-secondary);
+            background: var(--bg-glass);
+        }
+
+        .cs-link-btn--secondary:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        /* ── Section subtitle ── */
+        .cs-overline {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: var(--space-3);
+        }
+
+        /* ── Lightbox modal ── */
+        .cs-lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 9000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-6);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-normal);
+        }
+
+        .cs-lightbox.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .cs-lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: var(--radius-xl);
+            object-fit: contain;
+        }
+
+        .cs-lightbox-close {
+            position: absolute;
+            top: var(--space-6);
+            right: var(--space-6);
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background var(--transition-fast);
+        }
+
+        .cs-lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .cs-meta { gap: var(--space-4); }
+            .cs-gallery { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <nav id="navbar">
+        <div class="nav-left">
+            <div class="logo" onclick="window.location.href='../index.html'">
+                <img src="../images/HPE pyramid.png" alt="HPE Logo" class="logo-image">
+                <div class="logo-text">
+                    <span class="logo-letter">K</span><span class="logo-letter">a</span><span class="logo-letter">t</span><span class="logo-letter">i</span><span class="logo-letter">e</span><span class="logo-space"> </span><span class="logo-letter">H</span><span class="logo-letter">u</span><span class="logo-letter">n</span><span class="logo-letter">t</span>
+                </div>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html" class="about-btn">Portfolio</a></li>
+            <li><a href="../index.html#skills">Skills</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="theme-toggle" id="themeToggle" role="button" tabindex="0" aria-label="Switch to light mode">
+                <svg class="theme-icon theme-icon--moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/></svg>
+                <svg class="theme-icon theme-icon--sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="cs-page">
+
+        <!-- ── HERO ── -->
+        <section class="cs-hero">
+            <div class="cs-container">
+                <a href="../index.html#projects" class="cs-back">← Back to Projects</a>
+
+                <div class="cs-tag">Case Study</div>
+                <h1 class="cs-title">CryptoVault — Crypto Wallet</h1>
+
+                <p class="cs-p">
+                    I designed and built <strong>CryptoVault</strong> end to end—from product concept and UX through UI craft and front-end implementation. The result is a high-fidelity crypto wallet spanning dashboard, portfolio, history, security, and preferences, with realistic core flows (send, buy, receive, swap, and export-style journeys) while staying a self-contained front-end: no blockchain backend required for the presentation build.
+                </p>
+
+                <div class="cs-meta">
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Role</span>
+                        <span class="cs-meta-value">Product Designer &amp; Front-End Engineer</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Scope</span>
+                        <span class="cs-meta-value">Lock → core wallet IA · multi-route settings · static/CRA-ready</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Stack</span>
+                        <span class="cs-meta-value">React 19 · Create React App · JavaScript (ES6) · CSS3</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Output</span>
+                        <span class="cs-meta-value">Portfolio + documentation-ready static build · Playwright-ready screenshots</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── OVERVIEW HERO IMAGE ── -->
+        <div class="cs-container--wide" style="padding-top: var(--space-12); padding-bottom: var(--space-8);">
+            <div class="cs-compare" style="margin-top: 0;">
+                <div class="cs-compare-card">
+                    <img
+                        src="../images/Project 9/2 - dashboard.png"
+                        alt="CryptoVault dashboard — dark theme"
+                    >
+                    <div class="cs-compare-card-body">
+                        <div class="cs-compare-label">Dark theme</div>
+                        <p class="cs-deliverable-desc">Balances, quick actions, and primary entry into send, receive, and portfolio workflows.</p>
+                    </div>
+                </div>
+                <div class="cs-compare-card">
+                    <img
+                        src="../images/Project 9/2 - dashboard LT.png"
+                        alt="CryptoVault dashboard — light theme"
+                    >
+                    <div class="cs-compare-card-body">
+                        <div class="cs-compare-label">Light theme</div>
+                        <p class="cs-deliverable-desc">Same layout and tokens on light surfaces for daytime use and accessibility preferences.</p>
+                    </div>
+                </div>
+            </div>
+            <p class="cs-img-caption" style="margin-top: var(--space-5);">Dashboard — dark and light variants; light screens live alongside dark ones with an <span lang="en"> LT.png</span> suffix (spacing matches your export names).</p>
+        </div>
+
+        <!-- ── DELIVERABLES ── -->
+        <section class="cs-section">
+            <div class="cs-container--wide">
+                <div class="cs-overline">What was shipped</div>
+                <h2 class="cs-h2">Deliverables</h2>
+
+                <div class="cs-deliverables">
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Product &amp; IA</div>
+                        <p class="cs-deliverable-desc">Wallet-native information architecture: lock gate, dashboard home, portfolio and position context, history, a dedicated security area, and a deep settings system—mirroring how production wallets separate money movement from configuration.</p>
+                    </div>
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Interaction &amp; UI</div>
+                        <p class="cs-deliverable-desc">High-fidelity flows for send, buy, receive, swap, and export-style actions; legible transaction and holdings patterns; settings grouped by mental model (appearance, privacy, notifications, network, data).</p>
+                    </div>
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Engineering</div>
+                        <p class="cs-deliverable-desc">React 19 with a Create React App–style setup; client-side preference persistence via localStorage; structured to ship as a static build for portfolio and docs or run inside a standard React app shell.</p>
+                    </div>
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Presentation fidelity</div>
+                        <p class="cs-deliverable-desc">Synthetic data throughout; believable hierarchy and density for screenshots, walkthroughs, and case-study narrative—including repeatable capture with Playwright-driven screen passes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── DESIGN PROCESS ── -->
+        <section class="cs-section cs-section--full">
+                <div class="cs-overline">How I worked</div>
+                <h2 class="cs-h2">Design Process</h2>
+
+                <div class="cs-process">
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">01</span>
+                        <span class="cs-step-label">Frame the wallet</span>
+                        <span class="cs-step-desc">Decide which surfaces prove craft—dashboard, portfolio, history, security, preferences—and which flows must feel “real” without a chain.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">02</span>
+                        <span class="cs-step-label">Map IA &amp; flows</span>
+                        <span class="cs-step-desc">Lock → home; money movement vs. configuration; drill-down from portfolio to position context.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">03</span>
+                        <span class="cs-step-label">Look &amp; feel</span>
+                        <span class="cs-step-desc">Calibrate for financial trust: clear numerics, restrained chrome, explicit states for lock and empty.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">04</span>
+                        <span class="cs-step-label">Build in React</span>
+                        <span class="cs-step-desc">Route map, shared layout, modal and sheet patterns for send/swap, and scalable settings sections.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">05</span>
+                        <span class="cs-step-label">Local persistence</span>
+                        <span class="cs-step-desc">Preferences and toggles persist in localStorage so demos behave consistently across sessions.</span>
+                    </div>
+                    <div class="cs-process-step">
+                        <span class="cs-step-num">06</span>
+                        <span class="cs-step-label">Polish for narrative</span>
+                        <span class="cs-step-desc">Freeze v1 scope, validate with heuristics, capture screens for portfolio and written case study.</span>
+                    </div>
+                </div>
+        </section>
+
+        <!-- ── FOUNDATION ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Starting point</div>
+                <h2 class="cs-h2">Foundation &amp; Constraints</h2>
+
+                <p class="cs-p">
+                    I started from a portfolio goal: demonstrate <strong>end-to-end ownership</strong>—strategy, flows, UI, and build—for a product category users judge harshly (crypto wallets). The build intentionally avoids blockchain integration so the work stays focused on clarity, IA, and execution quality.
+                </p>
+                <p class="cs-p">
+                    Binding constraints: synthetic data only, no live custody story, and a static-friendly front-end. Within that box, the design still had to feel like a <strong>credible wallet</strong>: lock-before-access, obvious primary actions, and settings that scale without turning into an undifferentiated list.
+                </p>
+
+                <div class="cs-compare" style="margin: var(--space-10) 0;">
+                    <div class="cs-compare-card">
+                        <img
+                            src="../images/Project 9/1 -lock screen.png"
+                            alt="CryptoVault lock screen — dark theme"
+                            class="cs-img"
+                            style="border-radius: 0; border: none;"
+                        >
+                        <div class="cs-compare-card-body">
+                            <div class="cs-compare-label">Dark theme</div>
+                            <p class="cs-deliverable-desc">Single task with minimal chrome before any balances appear.</p>
+                        </div>
+                    </div>
+                    <div class="cs-compare-card">
+                        <img
+                            src="../images/Project 9/1 -lock screen  LT.png"
+                            alt="CryptoVault lock screen — light theme"
+                            class="cs-img"
+                            style="border-radius: 0; border: none;"
+                        >
+                        <div class="cs-compare-card-body">
+                            <div class="cs-compare-label">Light theme</div>
+                            <p class="cs-deliverable-desc">Same gate pattern on a light canvas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── LOOK & FEEL ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Visual direction</div>
+                <h2 class="cs-h2">Establishing Look &amp; Feel</h2>
+
+                <p class="cs-p">
+                    <strong>Brand intent: "Composed custody."</strong> The wallet should feel calm on the lock screen, confident on the dashboard, and precise in portfolio and history—without cartoon gradients or noisy chart chrome competing with balances and actions.
+                </p>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-8);">Chosen direction: "Overview first, drill-down on demand"</h3>
+                <p class="cs-p">
+                    Portfolio stays scannable at a glance; position-level surfaces add detail only when the user implies intent. Neutral structure so numerics and key actions stay the hero.
+                </p>
+
+                <div class="cs-compare">
+                    <div class="cs-compare-card">
+                        <img src="../images/Project 9/3 - portfolio.png" alt="Portfolio — holdings overview">
+                        <div class="cs-compare-card-body">
+                            <div class="cs-compare-label">Overview layer</div>
+                            <p class="cs-deliverable-desc">Aggregate holdings and allocation-style reads—fast orientation before any single-asset drill-in.</p>
+                        </div>
+                    </div>
+                    <div class="cs-compare-card cs-compare-chosen">
+                        <img src="../images/Project 9/3 - position.png" alt="Position — single-asset context">
+                        <div class="cs-compare-card-body">
+                            <div class="cs-compare-label">Chosen: drill-down</div>
+                            <p class="cs-deliverable-desc">Position view adds tighter context for one asset—supporting decisions without cluttering the top-level portfolio.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="cs-p">
+                    <strong>Why chosen:</strong> Wallet users oscillate between "where am I overall?" and "what about this asset?"—two frequencies that deserve two layers instead of one noisy screen.
+                </p>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Light theme — portfolio &amp; position</h3>
+                <p class="cs-p">
+                    Light mode preserves the same overview vs. drill-down relationship; only the surface palette changes.
+                </p>
+                <div class="cs-compare">
+                    <div class="cs-compare-card">
+                        <img src="../images/Project 9/3 - portfolio  LT.png" alt="Portfolio — holdings overview, light theme">
+                        <div class="cs-compare-card-body">
+                            <div class="cs-compare-label">Light · Overview</div>
+                            <p class="cs-deliverable-desc">Holdings overview with the same scannable hierarchy as dark mode.</p>
+                        </div>
+                    </div>
+                    <div class="cs-compare-card">
+                        <img src="../images/Project 9/3 - position  LT.png" alt="Position — single asset, light theme">
+                        <div class="cs-compare-card-body">
+                            <div class="cs-compare-label">Light · Drill-down</div>
+                            <p class="cs-deliverable-desc">Position detail without extra chrome—still one layer deeper.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── MINI CASE STUDY ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Feature drilled end-to-end</div>
+                <h2 class="cs-h2">Mini Case Study: Lock → Dashboard → Trustworthy First Run</h2>
+
+                <p class="cs-p">
+                    For a wallet—even missing a custodial backend—the <strong>first minute</strong> sets expectations. If lock feels flimsy or the dashboard feels like a marketing mock, the whole piece fails. This flow is where IA, motion burden, and copy matter most.
+                </p>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Requirements</h3>
+                <ul class="cs-problem-list cs-finding-list">
+                    <li><strong>No balances before intent:</strong> The lock screen must read as a gate, not a splash.</li>
+                    <li><strong>Immediate orientation after entry:</strong> Dashboard must answer "what can I do?" without hunting.</li>
+                    <li><strong>Consistent mental model:</strong> Primary actions (send/receive/swap/buy) stay parallel across routes—no duplicate patterns renamed per screen.</li>
+                </ul>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Initial exploration &amp; problems found</h3>
+                <p class="cs-p">
+                    Early iterations borrowed from generic app shells—too much chrome before unlock, and the dashboard tried to show everything at once.
+                </p>
+                <ul class="cs-problem-list">
+                    <li><strong>Prestige overload:</strong> Decorative panels competed with actionable summaries.</li>
+                    <li><strong>Weak hierarchy:</strong> Send and receive weren’t visually peers with the same affordance weight.</li>
+                    <li><strong>Settings creep:</strong> Advanced toggles surfaced too early, obscuring core tasks.</li>
+                </ul>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Design iteration</h3>
+                <p class="cs-p">
+                    Each issue mapped to a concrete adjustment in layout, routing, or component reuse:
+                </p>
+                <ul class="cs-problem-list cs-finding-list">
+                    <li>Reduced lock screen to a <strong>single primary control</strong> plus recovery copy—no secondary navigation.</li>
+                    <li>Structured the dashboard around <strong>summary + action row + secondary modules</strong> so scanning follows a Z-pattern.</li>
+                    <li>Pushed long-tail configuration into <strong>grouped settings</strong> (appearance, privacy, network, data) with parallel section templates.</li>
+                </ul>
+
+                <div class="cs-compare" style="margin-top: var(--space-10);">
+                    <div class="cs-img-wrap" style="margin: 0;">
+                        <img src="../images/Project 9/1 -lock screen.png" alt="Lock screen — minimal gate" class="cs-img">
+                        <p class="cs-img-caption">Lock screen — single task, no competing navigation.</p>
+                    </div>
+                    <div class="cs-img-wrap" style="margin: 0;">
+                        <img src="../images/Project 9/2 - dashboard.png" alt="Dashboard after unlock" class="cs-img">
+                        <p class="cs-img-caption">Dashboard — orientation and primary actions immediately after access.</p>
+                    </div>
+                </div>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Same first run, light theme</h3>
+                <div class="cs-compare" style="margin-top: var(--space-6);">
+                    <div class="cs-img-wrap" style="margin: 0;">
+                        <img src="../images/Project 9/1 -lock screen  LT.png" alt="Lock screen — light theme" class="cs-img">
+                        <p class="cs-img-caption">Lock screen (light) — same gate, light canvas.</p>
+                    </div>
+                    <div class="cs-img-wrap" style="margin: 0;">
+                        <img src="../images/Project 9/2 - dashboard LT.png" alt="Dashboard after unlock — light theme" class="cs-img">
+                        <p class="cs-img-caption">Dashboard (light) — same action row and orientation.</p>
+                    </div>
+                </div>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Heuristic check</h3>
+                <p class="cs-p">
+                    I walked three tasks cold: unlock, send (modal/sheet entry), and adjust appearance settings. Friction points were adjusted in copy density, button grouping, and default scroll anchors—not net-new components.
+                </p>
+
+                <div class="cs-table-wrap">
+                    <table class="cs-table">
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Problem identified</th>
+                                <th>Fix applied</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cold-start unlock</td>
+                                <td>Helper text competed with the primary field</td>
+                                <td>Shortened secondary copy; tightened vertical rhythm</td>
+                            </tr>
+                            <tr>
+                                <td>Send flow</td>
+                                <td>Primary CTA didn’t read as the same family as dashboard actions</td>
+                                <td>Reused button tokens and spacing scale from home row</td>
+                            </tr>
+                            <tr>
+                                <td>Appearance settings</td>
+                                <td>Preview didn’t reflect state changes quickly enough in the narrative demo</td>
+                                <td>Hooked theme tokens to persisted preference state for instant feedback</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-10);">Settings depth</h3>
+                <p class="cs-p">
+                    Deep settings prove production intent: users expect fine-grained control for privacy, network, notifications, and data export—without losing the wallet’s calm visual system.
+                </p>
+
+                <div class="cs-gallery" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); margin-top: var(--space-6);">
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (appearance).png', 'Settings — Appearance')">
+                        <img src="../images/Project 9/6 - settings (appearance).png" alt="Settings — Appearance">
+                        <div class="cs-gallery-caption">Appearance</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (appearance)  LT.png', 'Settings — Appearance (light)')">
+                        <img src="../images/Project 9/6 - settings (appearance)  LT.png" alt="Settings — Appearance, light theme">
+                        <div class="cs-gallery-caption">Appearance (light)</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (data &amp; export).png', 'Settings — Data &amp; export')">
+                        <img src="../images/Project 9/6 - settings (data &amp; export).png" alt="Settings — Data and export">
+                        <div class="cs-gallery-caption">Data &amp; export</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (data &amp; export)  LT.png', 'Settings — Data &amp; export (light)')">
+                        <img src="../images/Project 9/6 - settings (data &amp; export)  LT.png" alt="Settings — Data and export, light theme">
+                        <div class="cs-gallery-caption">Data &amp; export (light)</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (general).png', 'Settings — General')">
+                        <img src="../images/Project 9/6 - settings (general).png" alt="Settings — General">
+                        <div class="cs-gallery-caption">General</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (general) LT.png', 'Settings — General (light)')">
+                        <img src="../images/Project 9/6 - settings (general) LT.png" alt="Settings — General, light theme">
+                        <div class="cs-gallery-caption">General (light)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── HI-FI GALLERY ── -->
+        <section class="cs-section">
+            <div class="cs-container--wide">
+                <div class="cs-container" style="padding: 0;">
+                    <div class="cs-overline">All screens</div>
+                    <h2 class="cs-h2">High-Fidelity Gallery</h2>
+                    <p class="cs-p">All screens use synthetic data only. Dark theme in the first grid; light theme in the second (same folder; light files use an LT.png suffix on each screen).</p>
+                </div>
+
+                <div class="cs-gallery">
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/1 -lock screen.png', 'Lock screen — secure entry')">
+                        <img src="../images/Project 9/1 -lock screen.png" alt="Lock screen">
+                        <div class="cs-gallery-caption">Lock screen</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/2 - dashboard.png', 'Dashboard — overview and actions')">
+                        <img src="../images/Project 9/2 - dashboard.png" alt="Dashboard">
+                        <div class="cs-gallery-caption">Dashboard</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/3 - portfolio.png', 'Portfolio — holdings')">
+                        <img src="../images/Project 9/3 - portfolio.png" alt="Portfolio">
+                        <div class="cs-gallery-caption">Portfolio</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/3 - position.png', 'Position — asset detail')">
+                        <img src="../images/Project 9/3 - position.png" alt="Position">
+                        <div class="cs-gallery-caption">Position</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/4 - history.png', 'History — activity')">
+                        <img src="../images/Project 9/4 - history.png" alt="History">
+                        <div class="cs-gallery-caption">History</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/5 - security.png', 'Security — safeguards')">
+                        <img src="../images/Project 9/5 - security.png" alt="Security">
+                        <div class="cs-gallery-caption">Security</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (appearance).png', 'Settings — Appearance')">
+                        <img src="../images/Project 9/6 - settings (appearance).png" alt="Settings Appearance">
+                        <div class="cs-gallery-caption">Settings — Appearance</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (data &amp; export).png', 'Settings — Data &amp; export')">
+                        <img src="../images/Project 9/6 - settings (data &amp; export).png" alt="Settings Data and export">
+                        <div class="cs-gallery-caption">Settings — Data &amp; export</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (general).png', 'Settings — General')">
+                        <img src="../images/Project 9/6 - settings (general).png" alt="Settings General">
+                        <div class="cs-gallery-caption">Settings — General</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (network).png', 'Settings — Network')">
+                        <img src="../images/Project 9/6 - settings (network).png" alt="Settings Network">
+                        <div class="cs-gallery-caption">Settings — Network</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (notifications).png', 'Settings — Notifications')">
+                        <img src="../images/Project 9/6 - settings (notifications).png" alt="Settings Notifications">
+                        <div class="cs-gallery-caption">Settings — Notifications</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (privacy).png', 'Settings — Privacy')">
+                        <img src="../images/Project 9/6 - settings (privacy).png" alt="Settings Privacy">
+                        <div class="cs-gallery-caption">Settings — Privacy</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (security).png', 'Settings — Security')">
+                        <img src="../images/Project 9/6 - settings (security).png" alt="Settings Security">
+                        <div class="cs-gallery-caption">Settings — Security</div>
+                    </div>
+                </div>
+
+                <h3 class="cs-h3" style="margin-top: var(--space-12);">Light theme</h3>
+                <div class="cs-gallery">
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/1 -lock screen  LT.png', 'Lock screen — secure entry (light)')">
+                        <img src="../images/Project 9/1 -lock screen  LT.png" alt="Lock screen, light theme">
+                        <div class="cs-gallery-caption">Lock screen (light)</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/2 - dashboard LT.png', 'Dashboard — overview (light)')">
+                        <img src="../images/Project 9/2 - dashboard LT.png" alt="Dashboard, light theme">
+                        <div class="cs-gallery-caption">Dashboard (light)</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/3 - portfolio  LT.png', 'Portfolio — holdings (light)')">
+                        <img src="../images/Project 9/3 - portfolio  LT.png" alt="Portfolio, light theme">
+                        <div class="cs-gallery-caption">Portfolio (light)</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/3 - position  LT.png', 'Position — asset detail (light)')">
+                        <img src="../images/Project 9/3 - position  LT.png" alt="Position, light theme">
+                        <div class="cs-gallery-caption">Position (light)</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/4 - history  LT.png', 'History — activity (light)')">
+                        <img src="../images/Project 9/4 - history  LT.png" alt="History, light theme">
+                        <div class="cs-gallery-caption">History (light)</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/5 - security  LT.png', 'Security — safeguards (light)')">
+                        <img src="../images/Project 9/5 - security  LT.png" alt="Security, light theme">
+                        <div class="cs-gallery-caption">Security (light)</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (appearance)  LT.png', 'Settings — Appearance (light)')">
+                        <img src="../images/Project 9/6 - settings (appearance)  LT.png" alt="Settings Appearance, light theme">
+                        <div class="cs-gallery-caption">Settings — Appearance (light)</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (data &amp; export)  LT.png', 'Settings — Data &amp; export (light)')">
+                        <img src="../images/Project 9/6 - settings (data &amp; export)  LT.png" alt="Settings Data and export, light theme">
+                        <div class="cs-gallery-caption">Settings — Data &amp; export (light)</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (general) LT.png', 'Settings — General (light)')">
+                        <img src="../images/Project 9/6 - settings (general) LT.png" alt="Settings General, light theme">
+                        <div class="cs-gallery-caption">Settings — General (light)</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (network)  LT.png', 'Settings — Network (light)')">
+                        <img src="../images/Project 9/6 - settings (network)  LT.png" alt="Settings Network, light theme">
+                        <div class="cs-gallery-caption">Settings — Network (light)</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (notifications)  LT.png', 'Settings — Notifications (light)')">
+                        <img src="../images/Project 9/6 - settings (notifications)  LT.png" alt="Settings Notifications, light theme">
+                        <div class="cs-gallery-caption">Settings — Notifications (light)</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (privacy)  LT.png', 'Settings — Privacy (light)')">
+                        <img src="../images/Project 9/6 - settings (privacy)  LT.png" alt="Settings Privacy, light theme">
+                        <div class="cs-gallery-caption">Settings — Privacy (light)</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 9/6 - settings (security)  LT.png', 'Settings — Security (light)')">
+                        <img src="../images/Project 9/6 - settings (security)  LT.png" alt="Settings Security, light theme">
+                        <div class="cs-gallery-caption">Settings — Security (light)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── DESIGN SYSTEM ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Component library</div>
+                <h2 class="cs-h2">Design System</h2>
+
+                <p class="cs-p">
+                    While building screens I simultaneously built out the component library in an atomic structure, so each new surface could compose from existing parts rather than inventing new ones.
+                </p>
+
+                <div class="cs-system-tiers">
+                    <div class="cs-tier">
+                        <span class="cs-tier-label">Atoms</span>
+                        <div class="cs-tier-examples">
+                            <span class="cs-tier-tag tech-tag">Primary/secondary buttons</span>
+                            <span class="cs-tier-tag tech-tag">Numeric inputs</span>
+                            <span class="cs-tier-tag tech-tag">Toggles &amp; segmented controls</span>
+                            <span class="cs-tier-tag tech-tag">Asset badges</span>
+                            <span class="cs-tier-tag tech-tag">Trend/delta pills</span>
+                            <span class="cs-tier-tag tech-tag">Icons</span>
+                        </div>
+                    </div>
+                    <div class="cs-tier">
+                        <span class="cs-tier-label">Molecules</span>
+                        <div class="cs-tier-examples">
+                            <span class="cs-tier-tag tech-tag">Balance summary header</span>
+                            <span class="cs-tier-tag tech-tag">Action row chip</span>
+                            <span class="cs-tier-tag tech-tag">Transaction list row</span>
+                            <span class="cs-tier-tag tech-tag">Holding card</span>
+                            <span class="cs-tier-tag tech-tag">Settings row w/ chevron</span>
+                        </div>
+                    </div>
+                    <div class="cs-tier">
+                        <span class="cs-tier-label">Organisms</span>
+                        <div class="cs-tier-examples">
+                            <span class="cs-tier-tag tech-tag">Wallet shell (nav + content)</span>
+                            <span class="cs-tier-tag tech-tag">Portfolio table / chart module</span>
+                            <span class="cs-tier-tag tech-tag">Send / receive sheets</span>
+                            <span class="cs-tier-tag tech-tag">Security checklist panel</span>
+                        </div>
+                    </div>
+                    <div class="cs-tier">
+                        <span class="cs-tier-label">Templates</span>
+                        <div class="cs-tier-examples">
+                            <span class="cs-tier-tag tech-tag">Dashboard</span>
+                            <span class="cs-tier-tag tech-tag">Asset drill-down</span>
+                            <span class="cs-tier-tag tech-tag">History &amp; filters</span>
+                            <span class="cs-tier-tag tech-tag">Settings hub + section</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="cs-p" style="margin-top: var(--space-6);">
+                    Theme and density are centralized via CSS variables, making dark/light switching a single attribute toggle — the same pattern used on this portfolio.
+                </p>
+            </div>
+        </section>
+
+        <!-- ── OUTCOME ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Result</div>
+                <h2 class="cs-h2">Outcome</h2>
+
+                <p class="cs-p">
+                    CryptoVault is a <strong>portfolio-grade wallet experience</strong>: coherent IA, believable flows, and a full settings matrix—without claiming custodial or on-chain behavior. The hardest integration win was keeping presentation fidelity aligned with a realistic product narrative while staying within static, front-end-only constraints.
+                </p>
+                <p class="cs-p">
+                    The piece demonstrates design-to-build ownership for a skeptical category: product framing, UX for money movement, visual system discipline, and React implementation (including tests and documentation-oriented capture).
+                </p>
+
+                <div class="cs-links">
+                    <a href="../index.html#projects" class="cs-link-btn cs-link-btn--secondary">← All Projects</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── TECHNICAL APPENDIX ── -->
+        <section class="cs-section">
+            <div class="cs-container">
+                <details class="cs-details">
+                    <summary>Technical Appendix — for design-engineer readers</summary>
+                    <div class="cs-details-body">
+                        <h3 class="cs-h3">Scope &amp; data</h3>
+                        <p class="cs-p">
+                            Demonstration build with <strong>synthetic balances and transactions</strong>. No wallet keys, chain RPC, or custody logic—by design—so the artifact stays safe to host and iterate as a portfolio piece.
+                        </p>
+                        <h3 class="cs-h3">Persistence</h3>
+                        <p class="cs-p">
+                            User-facing preferences (appearance, toggles, and similar settings) persist via <strong>localStorage</strong> so revisits match the documented state used for screenshots and walkthroughs.
+                        </p>
+                        <h3 class="cs-h3">Stack &amp; testing</h3>
+                        <p class="cs-p">
+                            <strong>React 19</strong> on a Create React App–style toolchain; component tests with <strong>Testing Library</strong> and <strong>Jest</strong> where they add confidence for interactive flows and regression safety.
+                        </p>
+                        <h3 class="cs-h3">Distribution</h3>
+                        <p class="cs-p">
+                            Structured for a <strong>static production build</strong> suitable for GitHub Pages–style hosting and for embedding in case-study media; Playwright can drive repeatable screen capture for docs.
+                        </p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Lightbox -->
+    <div class="cs-lightbox" id="csLightbox" onclick="closeLightbox()">
+        <button class="cs-lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img src="" alt="" id="csLightboxImg">
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-text">© 2026 Katie Hunt | All Rights Reserved</div>
+        </div>
+    </footer>
+
+    <script src="../script.js" defer></script>
+    <script src="./case-studies.js" defer></script>
+    <script>
+        function openLightbox(src, alt) {
+            const lb = document.getElementById('csLightbox');
+            const img = document.getElementById('csLightboxImg');
+            img.src = src;
+            img.alt = alt || '';
+            lb.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('csLightbox').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+</html>
