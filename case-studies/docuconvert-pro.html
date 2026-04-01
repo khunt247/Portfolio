@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocuConvert Pro — Case Study | Katie Hunt</title>
+    <link rel="icon" href="../images/HPE pyramid.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/HPE pyramid.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="./case-studies.css">
+    <style>
+        /* ── Case Study Layout ── */
+        .cs-page {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+
+        .cs-container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+
+        .cs-container--wide {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+
+        /* ── Hero ── */
+        .cs-hero {
+            padding: var(--space-16) 0 var(--space-12);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-back {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-8);
+            transition: opacity var(--transition-fast);
+        }
+
+        .cs-back:hover { opacity: 0.75; }
+
+        .cs-tag {
+            display: inline-block;
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            margin-bottom: var(--space-4);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-title {
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            font-weight: var(--font-weight-extrabold);
+            color: var(--text-primary);
+            line-height: var(--line-height-tight);
+            margin-bottom: var(--space-4);
+        }
+
+        .cs-subtitle-accent {
+            margin-top: calc(-1 * var(--space-2));
+            margin-bottom: var(--space-6);
+            font-size: var(--font-size-lg);
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .cs-hero-image-band {
+            padding-top: var(--space-12);
+            padding-bottom: var(--space-8);
+        }
+
+        .cs-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+            padding-top: var(--space-6);
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-meta-item { display: flex; flex-direction: column; gap: 2px; }
+
+        .cs-meta-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .cs-meta-value {
+            font-size: var(--font-size-sm);
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* ── Sections ── */
+        .cs-section {
+            padding: var(--space-16) 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-section:last-of-type { border-bottom: none; }
+
+        .cs-section--full {
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+
+        .cs-h2 {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-8);
+        }
+
+        .cs-h3 {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+        }
+
+        .cs-h4 {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--accent-primary);
+            margin-bottom: var(--space-3);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.04em;
+        }
+
+        .cs-p {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-relaxed);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-5);
+        }
+
+        .cs-p:last-child { margin-bottom: 0; }
+        .cs-p strong { color: var(--text-primary); font-weight: var(--font-weight-semibold); }
+
+        /* ── Deliverables row ── */
+        .cs-deliverables {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+
+        .cs-deliverable-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+            transition: border-color var(--transition-normal);
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        .cs-deliverable-card:hover { border-color: var(--accent-primary); }
+        .cs-deliverable-card .cs-h4 {
+            margin-bottom: var(--space-3);
+            font-size: var(--font-size-lg);
+        }
+
+        .cs-deliverable-desc {
+            font-size: var(--font-size-base);
+            color: var(--text-secondary);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ── Process row ── */
+        .cs-process {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: var(--space-5);
+            margin-top: var(--space-8);
+        }
+
+        .cs-process-step {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            padding: var(--space-6);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border-left: 3px solid var(--accent-primary);
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        .cs-step-num {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.1em;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-step-label {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+        }
+
+        .cs-step-desc {
+            font-size: var(--font-size-sm);
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ── Images ── */
+        .cs-img {
+            width: 100%;
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(255,255,255,0.08);
+            display: block;
+            background: var(--bg-secondary);
+        }
+
+        .cs-img-caption {
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: var(--space-3);
+            font-style: italic;
+        }
+
+        .cs-img-wrap { margin: var(--space-10) 0; }
+
+        /* ── Two-col comparison ── */
+        .cs-compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-5);
+            margin: var(--space-8) 0;
+        }
+
+        @media (max-width: 600px) {
+            .cs-compare { grid-template-columns: 1fr; }
+        }
+
+        .cs-compare-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+        }
+
+        .cs-compare-card img { width: 100%; display: block; }
+        .cs-compare-card-body { padding: var(--space-5); }
+
+        .cs-compare-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: var(--space-2);
+        }
+
+        .cs-compare-chosen { border-color: var(--accent-primary); }
+        .cs-compare-chosen .cs-compare-label { color: var(--accent-primary); }
+
+        /* ── Bullet lists ── */
+        .cs-problem-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            margin: var(--space-5) 0;
+        }
+
+        .cs-problem-list li {
+            display: flex;
+            gap: var(--space-3);
+            align-items: flex-start;
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            line-height: var(--line-height-relaxed);
+        }
+
+        .cs-problem-list li::before {
+            content: '→';
+            color: var(--accent-tertiary);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: var(--font-weight-bold);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .cs-finding-list li::before { color: var(--accent-primary); }
+
+        /* ── Table ── */
+        .cs-table-wrap {
+            overflow-x: auto;
+            margin: var(--space-6) 0;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .cs-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: var(--font-size-sm);
+        }
+
+        .cs-table th {
+            text-align: left;
+            padding: var(--space-3) var(--space-5);
+            background: var(--bg-secondary);
+            color: var(--text-muted);
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-xs);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cs-table td {
+            padding: var(--space-3) var(--space-5);
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            vertical-align: top;
+        }
+
+        .cs-table tr:last-child td { border-bottom: none; }
+        .cs-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .cs-table td:first-child { color: var(--text-primary); font-weight: var(--font-weight-medium); }
+
+        /* ── Gallery ── */
+        .cs-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-5);
+            margin-top: var(--space-8);
+        }
+
+        .cs-gallery-item {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: border-color var(--transition-normal), transform var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .cs-gallery-item:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .cs-gallery-item img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 16/10;
+        }
+
+        .cs-gallery-caption {
+            padding: var(--space-3) var(--space-4);
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ── Design system tiers ── */
+        .cs-system-tiers {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            margin: var(--space-8) 0;
+        }
+
+        .cs-tier {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-5);
+            padding: var(--space-5);
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-tier-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+            min-width: 110px;
+            margin-top: 2px;
+        }
+
+        .cs-tier-examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+        }
+
+        .cs-tier-tag {
+            font-size: var(--font-size-xs);
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            background: var(--bg-glass);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* ── Heuristic callout box ── */
+        .cs-heuristic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-4);
+            margin: var(--space-6) 0;
+        }
+
+        .cs-heuristic-card {
+            padding: var(--space-5);
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: var(--radius-lg);
+            border-left: 3px solid var(--accent-secondary);
+        }
+
+        .cs-heuristic-num {
+            font-size: var(--font-size-xs);
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-secondary);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-2);
+        }
+
+        .cs-heuristic-label {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+
+        .cs-heuristic-desc {
+            font-size: var(--font-size-xs);
+            color: var(--text-secondary);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ── Details / collapsible ── */
+        .cs-details {
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-top: var(--space-8);
+        }
+
+        .cs-details summary {
+            padding: var(--space-5) var(--space-6);
+            cursor: pointer;
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            user-select: none;
+        }
+
+        .cs-details summary::before {
+            content: '▶';
+            font-size: 0.6em;
+            color: var(--accent-primary);
+            transition: transform var(--transition-fast);
+        }
+
+        .cs-details[open] summary::before { transform: rotate(90deg); }
+
+        .cs-details-body {
+            padding: var(--space-6);
+            background: var(--bg-primary);
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cs-details-body .cs-p { font-size: var(--font-size-sm); }
+
+        /* ── Outcome links ── */
+        .cs-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+            margin-top: var(--space-8);
+        }
+
+        .cs-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            text-decoration: none;
+            transition: all var(--transition-normal);
+        }
+
+        .cs-link-btn--primary {
+            background: var(--accent-primary);
+            color: var(--text-inverse);
+        }
+
+        .cs-link-btn--primary:hover {
+            background: var(--accent-primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .cs-link-btn--secondary {
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--text-secondary);
+            background: var(--bg-glass);
+        }
+
+        .cs-link-btn--secondary:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        /* ── Overline ── */
+        .cs-overline {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: var(--space-3);
+        }
+
+        /* ── Lightbox ── */
+        .cs-lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 9000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-6);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-normal);
+        }
+
+        .cs-lightbox.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .cs-lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: var(--radius-xl);
+            object-fit: contain;
+        }
+
+        .cs-lightbox-close {
+            position: absolute;
+            top: var(--space-6);
+            right: var(--space-6);
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background var(--transition-fast);
+        }
+
+        .cs-lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+        .cs-video-demo {
+            width: 100%;
+            max-height: 70vh;
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(255,255,255,0.08);
+            background: var(--bg-secondary);
+            display: block;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .cs-deliverables, .cs-process { flex-wrap: wrap; }
+            .cs-deliverable-card, .cs-process-step { flex: 1 1 100%; min-width: unset; }
+        }
+        @media (max-width: 768px) {
+            .cs-meta { gap: var(--space-4); }
+            .cs-gallery { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <nav id="navbar">
+        <div class="nav-left">
+            <div class="logo" onclick="window.location.href='../index.html'">
+                <img src="../images/HPE pyramid.png" alt="HPE Logo" class="logo-image">
+                <div class="logo-text">
+                    <span class="logo-letter">K</span><span class="logo-letter">a</span><span class="logo-letter">t</span><span class="logo-letter">i</span><span class="logo-letter">e</span><span class="logo-space"> </span><span class="logo-letter">H</span><span class="logo-letter">u</span><span class="logo-letter">n</span><span class="logo-letter">t</span>
+                </div>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html" class="about-btn">Portfolio</a></li>
+            <li><a href="../index.html#skills">Skills</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="theme-toggle" id="themeToggle" role="button" tabindex="0" aria-label="Switch to light mode">
+                <svg class="theme-icon theme-icon--moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/></svg>
+                <svg class="theme-icon theme-icon--sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="cs-page">
+
+        <!-- ── HERO ── -->
+        <section class="cs-hero">
+            <div class="cs-container">
+                <a href="../index.html#projects" class="cs-back">← Back to Projects</a>
+
+                <div class="cs-tag">Case Study</div>
+                <h1 class="cs-title">DocuConvert Pro</h1>
+                <p class="cs-subtitle-accent">Local-first PDF ↔ DOCX conversion</p>
+
+                <p class="cs-p">
+                    I owned <strong>DocuConvert Pro</strong> end to end: product concept, dual-mode architecture, React UI, browser-side conversion, a localhost conversion bridge, and an Electron wrapper with a portable Windows build. The app targets people who need <strong>PDF ↔ Word</strong> without uploading sensitive files to the cloud—offering quick in-browser conversion and an optional high-fidelity path through Word (COM) or LibreOffice on the same machine.
+                </p>
+                <p class="cs-p">
+                    High-fidelity mode uses a <strong>loopback HTTP API</strong> only—no remote API—so files stay local while layout stays closer to the source than typical pure-browser pipelines.
+                </p>
+
+                <div class="cs-meta">
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Role</span>
+                        <span class="cs-meta-value">Product design, front end, bridge API, Electron packaging</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Platform</span>
+                        <span class="cs-meta-value">Windows · Portable .exe · Localhost bridge</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Stack</span>
+                        <span class="cs-meta-value">React 19 · Vite 8 · Tailwind 4 · Electron 34 · Node</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Output</span>
+                        <span class="cs-meta-value">Shipped desktop artifact + documented bridge API</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="cs-container--wide cs-hero-image-band">
+            <img
+                src="../images/Project 10/file upload screen.png"
+                alt="DocuConvert Pro — file upload and mode selection"
+                class="cs-img"
+                style="border-radius: var(--radius-2xl);"
+            >
+            <p class="cs-img-caption">File upload — choose input, direction, and browser vs. high-fidelity mode.</p>
+        </div>
+
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Problem &amp; approach</div>
+                <h2 class="cs-h2">Why local-first conversion</h2>
+                <p class="cs-p">
+                    Cloud converters add <strong>privacy and compliance risk</strong>. In-browser tools are fast but can <strong>lose complex layout</strong>. Relying only on an Office UI is hard to automate from a simple product surface.
+                </p>
+                <p class="cs-p">
+                    DocuConvert Pro combines two paths: <strong>browser mode</strong> (Mammoth, jsPDF, PDF.js, docx via CDN) for text-heavy turnaround, and <strong>bridge mode</strong>—a small Node server on localhost that shells out to Word or LibreOffice for truer fidelity, with payload limits and engine preference in the API contract.
+                </p>
+                <div class="cs-img-wrap">
+                    <img
+                        src="../images/Project 10/completion screen or result screen.png"
+                        alt="DocuConvert Pro — conversion complete with download"
+                        class="cs-img"
+                    >
+                    <p class="cs-img-caption">Completion — result ready with a clear download step.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cs-section">
+            <div class="cs-container--wide">
+                <div class="cs-overline">Stack</div>
+                <h2 class="cs-h2">Technologies</h2>
+                <div class="cs-table-wrap">
+                    <table class="cs-table">
+                        <thead>
+                            <tr><th>Layer</th><th>Stack</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>UI</td><td>React 19, Vite 8, Tailwind CSS 4 (<code>@tailwindcss/vite</code>), Lucide React</td></tr>
+                            <tr><td>Language</td><td>JavaScript (<code>.jsx</code>), JSDoc-style notes — not TypeScript in this repo</td></tr>
+                            <tr><td>Desktop</td><td>Electron 34, electron-builder (Windows portable x64)</td></tr>
+                            <tr><td>Local API</td><td>Node <code>http</code> server (<code>bridge/server.mjs</code>), <code>child_process</code> for PowerShell and <code>soffice</code></td></tr>
+                            <tr><td>Automation</td><td>PowerShell (<code>word-convert.ps1</code>, optional repair script)</td></tr>
+                            <tr><td>Browser conversion</td><td>Mammoth, jsPDF, PDF.js, docx (UMD from CDN)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="cs-section">
+            <div class="cs-container--wide">
+                <div class="cs-overline">What was shipped</div>
+                <h2 class="cs-h2">Deliverables</h2>
+                <div class="cs-deliverables">
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Product &amp; architecture</div>
+                        <p class="cs-deliverable-desc">Dual-mode conversion (client-side vs. local Office engines) with a clear privacy story: loopback bridge, no upload on the high-fidelity path.</p>
+                    </div>
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Frontend &amp; bridge</div>
+                        <p class="cs-deliverable-desc">React UI with file pickers, mode selection, bridge health and capability checks, download flow, and dynamic loading of CDN libraries for browser mode. Local HTTP API with <code>GET /capabilities</code>, <code>POST /convert</code>, limits, and engine orchestration.</p>
+                    </div>
+                    <div class="cs-deliverable-card">
+                        <div class="cs-h4">Desktop &amp; docs</div>
+                        <p class="cs-deliverable-desc">Electron spawns the bridge as a child process; electron-builder produces a portable Windows artifact. README covers setup, API, env vars, and troubleshooting.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cs-section cs-section--full">
+            <div class="cs-overline">How I built it</div>
+            <h2 class="cs-h2">Process</h2>
+            <div class="cs-process">
+                <div class="cs-process-step">
+                    <span class="cs-step-num">01</span>
+                    <span class="cs-step-label">Define modes</span>
+                    <span class="cs-step-desc">Separate fast browser conversion from faithful local engines and document when each wins.</span>
+                </div>
+                <div class="cs-process-step">
+                    <span class="cs-step-num">02</span>
+                    <span class="cs-step-label">Ship UI shell</span>
+                    <span class="cs-step-desc">Vite + React + Tailwind v4 for mode selection, status, and downloads.</span>
+                </div>
+                <div class="cs-process-step">
+                    <span class="cs-step-num">03</span>
+                    <span class="cs-step-label">Browser pipeline</span>
+                    <span class="cs-step-desc">Wire Mammoth, PDF.js, jsPDF, and docx with lazy CDN loading.</span>
+                </div>
+                <div class="cs-process-step">
+                    <span class="cs-step-num">04</span>
+                    <span class="cs-step-label">Bridge API</span>
+                    <span class="cs-step-desc">Implement capabilities, conversion, and engine preference on localhost only.</span>
+                </div>
+                <div class="cs-process-step">
+                    <span class="cs-step-num">05</span>
+                    <span class="cs-step-label">Electron</span>
+                    <span class="cs-step-desc">Package UI + auto-started bridge; portable build for non-developers.</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="cs-section">
+            <div class="cs-container--wide">
+                <div class="cs-container" style="padding: 0;">
+                    <div class="cs-overline">Screens &amp; demo</div>
+                    <h2 class="cs-h2">Gallery</h2>
+                    <p class="cs-p">Representative UI only; demo video walks the full flow.</p>
+                </div>
+                <div class="cs-gallery">
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 10/file upload screen.png', 'File upload and mode selection')">
+                        <img src="../images/Project 10/file upload screen.png" alt="File upload screen">
+                        <div class="cs-gallery-caption">File upload</div>
+                    </div>
+                    <div class="cs-gallery-item" onclick="openLightbox('../images/Project 10/completion screen or result screen.png', 'Conversion complete')">
+                        <img src="../images/Project 10/completion screen or result screen.png" alt="Completion screen">
+                        <div class="cs-gallery-caption">Result / completion</div>
+                    </div>
+                </div>
+                <div class="cs-container" style="padding-top: var(--space-10);">
+                    <h3 class="cs-h3">Demo video</h3>
+                    <p class="cs-p">Screen recording walkthrough of the full flow. Raw MP4s over 100&nbsp;MB cannot live in this GitHub repo; host on YouTube, Vimeo, or cloud storage and paste your public URL in <code>docuconvert-pro.html</code> (or swap in an embed iframe).</p>
+                    <p class="cs-p"><a class="cs-link-btn cs-link-btn--secondary" href="#" rel="noopener noreferrer">Watch demo — replace with hosted link</a></p>
+                    <p class="cs-img-caption">For local preview only, place the file at <code>images/Project 10/DocuConverter Pro demo (video).mp4</code> (ignored by git).</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cs-section">
+            <div class="cs-container">
+                <div class="cs-overline">Contribution</div>
+                <h2 class="cs-h2">Ownership</h2>
+                <ul class="cs-problem-list cs-finding-list">
+                    <li><strong>Product &amp; architecture</strong> — Dual-mode flow with an explicit privacy story.</li>
+                    <li><strong>Frontend</strong> — React UI, Tailwind v4, bridge health, lazy CDN libraries.</li>
+                    <li><strong>Browser pipeline</strong> — PDF ↔ DOCX logic in the client.</li>
+                    <li><strong>Backend bridge</strong> — Local HTTP API, limits, Word COM vs. LibreOffice.</li>
+                    <li><strong>Desktop</strong> — Electron integration and portable Windows artifact.</li>
+                    <li><strong>Documentation</strong> — README for setup, API, env vars, troubleshooting.</li>
+                </ul>
+                <div class="cs-links">
+                    <a href="../index.html#projects" class="cs-link-btn cs-link-btn--secondary">← All Projects</a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Lightbox -->
+    <div class="cs-lightbox" id="csLightbox" onclick="closeLightbox()">
+        <button class="cs-lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img src="" alt="" id="csLightboxImg">
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-text">© 2026 Katie Hunt | All Rights Reserved</div>
+        </div>
+    </footer>
+
+    <script src="../script.js" defer></script>
+    <script src="./case-studies.js" defer></script>
+    <script>
+        function openLightbox(src, alt) {
+            const lb = document.getElementById('csLightbox');
+            const img = document.getElementById('csLightboxImg');
+            img.src = src;
+            img.alt = alt || '';
+            lb.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('csLightbox').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+</html>

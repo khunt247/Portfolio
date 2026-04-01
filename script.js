@@ -1936,6 +1936,20 @@ const projectScreenshots = {
             'Settings — Security — light theme'
         ],
         currentIndex: 0
+    },
+    project10: {
+        /** PNGs first for card thumbnails; demo video available in modal via "+N more". */
+        images: [
+            'images/Project 10/file upload screen.png',
+            'images/Project 10/completion screen or result screen.png',
+            'images/Project 10/DocuConverter Pro demo (video).mp4'
+        ],
+        captions: [
+            'File upload — choose input and conversion mode',
+            'Completion — result ready with download flow',
+            'Product demo — walkthrough of DocuConvert Pro'
+        ],
+        currentIndex: 0
     }
 };
 

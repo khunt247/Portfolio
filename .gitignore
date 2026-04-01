@@ -1,4 +1,6 @@
 
+# Local demo video exceeds GitHub 100 MB limit — keep on disk, do not commit
+images/Project 10/DocuConverter Pro demo (video).mp4
 
 #Ignore cursor AI rules
 .cursor/rules/codacy.mdc
