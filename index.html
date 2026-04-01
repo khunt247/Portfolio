@@ -298,8 +298,8 @@
         <div class="projects-grid">
             <article class="project-card card-3d-advanced particle-zone">
                 <div class="project-content">
-                    <h3>DocuConvert Pro — Local-first PDF ↔ DOCX conversion</h3>
-                    <p>Dual-mode converter for sensitive documents: fast in-browser DOCX ↔ PDF for text-heavy work, plus an optional localhost bridge to Word (COM) or LibreOffice for higher fidelity—packaged as a portable Windows Electron app with no cloud upload on the high-fidelity path.</p>
+                    <h3>DocuConvert Pro: PDF ↔ DOCX Converter</h3>
+                    <p>Document converter tool with two modes (DOCX ↔ PDF): quick in-browser conversion for text-heavy files, or higher fidelity. Web and desktop application; files stay off the cloud on the fidelity path.</p>
 
                     <div class="project-gallery" data-project="project10"></div>
 
@@ -314,15 +314,15 @@
                     <div class="project-details-expanded">
                         <div class="detail-section">
                             <h4>Problem Solved</h4>
-                            <p>People often need PDF ↔ Word conversion without uploading files to the cloud, especially for sensitive or internal documents. Cloud converters add privacy and compliance risk; in-browser tools are fast but can lose complex layout; Office-only workflows are awkward to automate. DocuConvert Pro keeps conversion local on Windows with a clear privacy story.</p>
+                            <p>People need PDF ↔ Word conversion without uploading files to the cloud, especially for sensitive or internal documents. Cloud converters add privacy, safety risk and compliance risk; in-browser tools are fast but can lose complex layout. Office-only workflows are awkward to automate. DocuConvert Pro keeps conversion local on the computer with privacy intact.</p>
                         </div>
                         <div class="detail-section">
                             <h4>Key Features</h4>
                             <ul class="arrow-list">
-                                <li>➤ Browser mode: DOCX ↔ PDF via Mammoth, jsPDF, PDF.js, and docx (CDN)</li>
-                                <li>➤ High-fidelity mode: loopback Node bridge (<code>/capabilities</code>, <code>/convert</code>) to Word or LibreOffice</li>
-                                <li>➤ Electron desktop app starts the bridge; portable Windows x64 <code>.exe</code> via electron-builder</li>
-                                <li>➤ No remote API in the high-fidelity path—files stay on the machine</li>
+                                <li>➤ Convert Word Docs to PDF</li>
+                                <li>➤ Convert PDF to Word Docs</li>
+                                <li>➤ High-fidelity conversions</li>
+                                <li>➤ Personal web and desktop application solution</li>
                             </ul>
                         </div>
                     </div>
@@ -400,7 +400,7 @@
                     <div class="project-details-expanded">
                         <div class="detail-section">
                             <h4>Problem Solved</h4>
-                            <p>Bridges the gap between polished presentation and believable product behavior. Owning the work end to end—strategy, flows, visual system, and build—delivers an experience that behaves like a real wallet—core screens and flows—without requiring blockchain or backend work.</p>
+                            <p>Building the wallet end-to-end removes reliance on third-party custody and gives full control over security, data, and feature design. It delivers a realistic, self-contained wallet experience where users can buy, send, and receive crypto directly inside the app rooted in trust, autonomy, and customizable flows, all without requiring external services.</p>
                         </div>
                         <div class="detail-section">
                             <h4>Key Features</h4>
@@ -408,8 +408,8 @@
                                 <li>➤ Full wallet experience across Dashboard, Portfolio, History, Security, and Settings</li>
                                 <li>➤ Interactive send, buy, receive, swap, and export-style flows</li>
                                 <li>➤ Client-side persistence for user preferences and settings via localStorage</li>
-                                <li>➤ Structured to run as a standalone static build and inside a React app (CRA-style setup)</li>
-                                <li>➤ Polished UI for documentation and portfolio presentation (including Playwright-driven screenshots)</li>
+                                <li>➤ Structured to run as a standalone static build and inside a React app</li>
+                                <li>➤ Polished UI for documentation and portfolio presentation</li>
                             </ul>
                         </div>
                     </div>
@@ -600,7 +600,7 @@
             <article class="project-card card-3d-advanced particle-zone">
                 <div class="project-content">
                     <h3>PassVault: Secure Password Management Application</h3>
-                    <p>Secure local password manager with categories, instant search, and multiple themes—no server required.</p>
+                    <p>Secure local password manager with categories, instant search, and multiple themes. No server required.</p>
                     
                     <div class="project-gallery" data-project="project5"></div>
                     
@@ -828,7 +828,7 @@
             <button class="screenshot-nav screenshot-nav-prev" id="screenshotNavPrev">‹</button>
             <button class="screenshot-nav screenshot-nav-next" id="screenshotNavNext">›</button>
             <img src="" alt="Project Screenshot" id="modalImage" style="display: none;">
-            <video id="modalVideo" controls style="display: none;">
+            <video id="modalVideo" controls playsinline preload="metadata" style="display: none;">
                 Your browser does not support the video tag.
             </video>
             <div class="screenshot-caption" id="modalCaption"></div>
