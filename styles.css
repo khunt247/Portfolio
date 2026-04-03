@@ -5696,3 +5696,73 @@ html {
     perspective: 1000px;
 }
 
+/* ========== Site preloader splash ========== */
+html.preloader-active,
+html.preloader-active body {
+    overflow: hidden;
+}
+
+.site-preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-primary);
+    opacity: 1;
+}
+
+.site-preloader__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-6, 1.5rem);
+    padding: var(--space-8, 2rem);
+    text-align: center;
+}
+
+.site-preloader__pyramid {
+    width: clamp(5rem, 18vw, 7.5rem);
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.site-preloader__name {
+    margin: 0;
+    display: inline-flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.4em;
+    font-family: Inter, system-ui, sans-serif;
+    font-size: var(--font-size-3xl);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--accent-primary);
+    line-height: 1.2;
+}
+
+.site-preloader__name-part {
+    display: inline-block;
+}
+
+.site-preloader__line {
+    width: min(12rem, 70vw);
+    height: 2px;
+    border-radius: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--accent-primary),
+        transparent
+    );
+    transform-origin: 50% 50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-preloader__pyramid {
+        animation: none;
+    }
+}
+

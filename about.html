@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="sitePreloader" class="site-preloader" aria-busy="true" aria-live="polite">
+        <div class="site-preloader__inner">
+            <img src="images/HPE pyramid.png" alt="" class="site-preloader__pyramid" width="160" height="160" decoding="async" fetchpriority="high">
+            <p class="site-preloader__name">
+                <span class="site-preloader__name-part">Katie</span><span class="site-preloader__name-part">Hunt</span>
+            </p>
+            <div class="site-preloader__line" aria-hidden="true"></div>
+        </div>
+    </div>
     <canvas id="particleCanvas"></canvas>
     <div class="modal-backdrop" id="modalBackdrop"></div>
 
@@ -276,6 +285,8 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer crossorigin="anonymous"></script>
+    <script src="preloader.js" defer></script>
     <script src="script.js" defer></script>
 </body>
 </html>
